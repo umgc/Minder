@@ -25,8 +25,13 @@ class ReminderApp extends StatelessWidget {
 }
 
 class CaregiverReminderCreationScreen extends StatelessWidget {
+   final TextEditingController hourController = TextEditingController();
+  final TextEditingController minuteController = TextEditingController();
+
+  CaregiverReminderCreationScreen({super.key});
   @override
   Widget build(BuildContext context) {
+    
     return Column(
       children: [
         Container(
@@ -38,7 +43,7 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
           ),
           child: Stack(
             children: [
-              Positioned(
+              const Positioned(
                 left: 90,
                 top: 31.50,
                 child: Text(
@@ -67,7 +72,7 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
              
               //Choose a reminder Name
 
-              Positioned(
+              const Positioned.fill(
                 left: 108,
                 top: 166.50,
                 child: Text(
@@ -144,11 +149,11 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
          borderRadius: BorderRadius.circular(22.5),
          border: Border.all(color: Colors.grey.withOpacity(0.5), width: 1.0),
       ),
-      child: Row(
+      child: const Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 8, top: 13.50),
+            padding: EdgeInsets.only(left: 8, top: 13.50),
             child: Text(
               'Date',
               style: TextStyle(
@@ -161,7 +166,7 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0),
             child: Icon(
               Icons.calendar_today,
               color: Colors.grey,
@@ -174,41 +179,62 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
   ),
 ),
 
-            // Time
+             
+        // Time
         Positioned(
-  left: 20.50,
-  top: 330.50,
-  child: Container(
-    width: 334,
-    height: 45,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(22.5),
-      border: Border.all(color: Colors.grey.withOpacity(0.5), width: 1.0),
-    ),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 8, top: 13.50),
-          child: Text(
-            'Time',
-            style: TextStyle(
-              color: Color(0xFF272727),
-              fontSize: 14,
-              fontFamily: 'Montserrat',
-              fontWeight: FontWeight.w400,
-              height: 0,
+          left: 20.50,
+          top: 330.50,
+          child: Container(
+            width: 334,
+            height: 45,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(22.5),
+              border: Border.all(color: Colors.grey.withOpacity(0.5), width: 1.0),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(left: 8, top: 13.50),
+                  child: Text(
+                    'Time',
+                    style: TextStyle(
+                      color: Color.fromRGBO(39, 39, 39, 0.89),
+                      fontSize: 14,
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.w400,
+                      height: 0,
+                    ),
+                  ),
+                ),
+                // Dropdown for Hour
+                Container(
+                  width: 50, // Adjust the width as needed
+                  child: TextFormField(
+                    controller: hourController,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'HH',
+                    ),
+                  ),
+                ),
+                // Dropdown for Minute
+                Container(
+                  width: 50, // Adjust the width as needed
+                  child: TextFormField(
+                    controller: minuteController,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'MM',
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
-         
-      ],
-    ),
-  ),
-),
-
-
-
            // Upload a video Analysis 
               Positioned(
                 left: 176,
@@ -221,17 +247,17 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
                     width: 24,
                     height: 24,
                     clipBehavior: Clip.antiAlias,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Colors.green, // Add your desired color
                     ),
-                    child: Icon(
+                    child: const Icon(
                       Icons.upload_outlined,
                       color: Colors.white,
                     ),
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 104,
                 top: 580,
                 child: Text(
@@ -260,10 +286,10 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
                     height: 54,
                     clipBehavior: Clip.antiAlias,
                     decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 88, 132, 168), // Add your desired color
+                      color: const Color.fromARGB(255, 88, 132, 168), // Add your desired color
                        borderRadius: BorderRadius.circular(22.5),
                         ),
-                    child: Stack(
+                    child: const Stack(
                       children: [
                         Positioned(
                           left: 106,
@@ -287,7 +313,7 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
               ),
              
              
-              Positioned(
+              Positioned.fill(
                 left: 199,
                 top: 134,
                 child: GestureDetector(
