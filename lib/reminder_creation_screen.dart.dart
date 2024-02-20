@@ -25,10 +25,11 @@ class ReminderApp extends StatelessWidget {
 }
 
 class CaregiverReminderCreationScreen extends StatelessWidget {
+   final TextEditingController hourController = TextEditingController();
+  final TextEditingController minuteController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    int? selectedHour;
-    int? selectedMinute;
+    
     return Column(
       children: [
         Container(
@@ -176,71 +177,62 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
   ),
 ),
 
-             // Time
-Positioned(
-  left: 20.50,
-  top: 330.50,
-  child: Container(
-    width: 334,
-    height: 45,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(22.5),
-      border: Border.all(color: Colors.grey.withOpacity(0.5), width: 1.0),
-    ),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 8, top: 13.50),
-          child: Text(
-            'Time',
-            style: TextStyle(
-              color: Color(0xFF272727),
-              fontSize: 14,
-              fontFamily: 'Montserrat',
-              fontWeight: FontWeight.w400,
-              height: 0,
+             
+        // Time
+        Positioned(
+          left: 20.50,
+          top: 330.50,
+          child: Container(
+            width: 334,
+            height: 45,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(22.5),
+              border: Border.all(color: Colors.grey.withOpacity(0.5), width: 1.0),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 8, top: 13.50),
+                  child: Text(
+                    'Time',
+                    style: TextStyle(
+                      color: Color.fromRGBO(39, 39, 39, 0.89),
+                      fontSize: 14,
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.w400,
+                      height: 0,
+                    ),
+                  ),
+                ),
+                // Dropdown for Hour
+                Container(
+                  width: 50, // Adjust the width as needed
+                  child: TextFormField(
+                    controller: hourController,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'HH',
+                    ),
+                  ),
+                ),
+                // Dropdown for Minute
+                Container(
+                  width: 50, // Adjust the width as needed
+                  child: TextFormField(
+                    controller: minuteController,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'MM',
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
-        // Dropdown for Hour
-        DropdownButtonFormField<int>(
-          value: selectedHour,
-          onChanged: (int? value) {
-            // Handle hour selection
-            setState(() {
-              selectedHour = value;
-            });
-          },
-          items: List.generate(24, (index) {
-            return DropdownMenuItem<int>(
-              value: index,
-              child: Text('$index'),
-            );
-          }),
-        ),
-        // Dropdown for Minute
-        DropdownButtonFormField<int>(
-          value: selectedMinute,
-          onChanged: (int? value) {
-            // Handle minute selection
-            setState(() {
-              selectedMinute = value;
-            });
-          },
-          items: List.generate(60, (index) {
-            return DropdownMenuItem<int>(
-              value: index,
-              child: Text('$index'),
-            );
-          }),
-        ),
-      ],
-    ),
-  ),
-),
-
-
            // Upload a video Analysis 
               Positioned(
                 left: 176,
