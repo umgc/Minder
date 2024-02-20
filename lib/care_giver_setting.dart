@@ -1,175 +1,183 @@
 import 'package:flutter/material.dart';
+ void main() {
+  runApp(const ReminderApp());
+}
 
-class CaregiverSettingScreen extends StatelessWidget {
+class ReminderApp extends StatelessWidget {
+  const ReminderApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Settings'),
+    return MaterialApp(
+      theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: const Color.fromARGB(255, 18, 32, 47),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Profile Information',
-              style: TextStyle(
-                color: Color(0xFF030303),
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Montserrat',
-              ),
-            ),
-            SizedBox(height: 16),
-            ListTile(
-              title: Text('Name: John Doe'),
-              subtitle: Text('Email: john.doe@example.com'),
-              onTap: () {
-                // Add your logic for profile information
-              },
-            ),
-            Divider(),
-            Text(
-              'Settings',
-              style: TextStyle(
-                color: Color(0xFF030303),
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Montserrat',
-              ),
-            ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                // Add your logic for Edit Profile button
-              },
-              style: ElevatedButton.styleFrom(
-                primary: const Color.fromARGB(255, 152, 199, 238),
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-              ),
-              child: Text(
-                'Edit Profile',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontFamily: 'Montserrat',
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                // Add your logic for Reminders button
-              },
-              style: ElevatedButton.styleFrom(
-                primary: const Color.fromARGB(255, 152, 199, 238),
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-              ),
-              child: Text(
-                'Reminders',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontFamily: 'Montserrat',
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                // Add your logic for Guided Tour button
-              },
-              style: ElevatedButton.styleFrom(
-                primary: const Color.fromARGB(255, 152, 199, 238),
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-              ),
-              child: Text(
-                'Guided Tour',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontFamily: 'Montserrat',
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                // Add your logic for Support Center button
-              },
-              style: ElevatedButton.styleFrom(
-                primary: const Color.fromARGB(255, 152, 199, 238),
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-              ),
-              child: Text(
-                'Support Center',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontFamily: 'Montserrat',
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: Container(
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          border: Border(
-            top: BorderSide(color: Colors.black),
-          ),
-          color: const Color.fromARGB(255, 152, 199, 238),
-        ),
-        child: ElevatedButton(
-          onPressed: () {
-            // Add your logic for Sign Out button
-          },
-          style: ElevatedButton.styleFrom(
-            primary: Colors.white,
-            onPrimary: const Color.fromARGB(255, 152, 199, 238),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.0),
-              side: BorderSide(color: const Color.fromARGB(255, 152, 199, 238)),
-            ),
-          ),
-          child: Text(
-            'Sign Out',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontFamily: 'Montserrat',
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-        ),
+      home: Scaffold(
+        body: ListView(children: const [
+          CaregiverSettingScreen(),
+        ]),
       ),
     );
   }
 }
 
-void main() {
-  runApp(MaterialApp(
-    theme: ThemeData.light().copyWith(
-      scaffoldBackgroundColor: Colors.white,
-    ),
-    home: CaregiverSettingScreen(),
-  ));
+class CaregiverSettingScreen extends StatelessWidget {
+  const CaregiverSettingScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        // Handle tap on the screen (optional).
+      },
+  child: Column(
+        children: [
+          Container(
+            width: 375,
+            height: 667,
+            color: Colors.white, // Set the background color to white
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                 'Settings',
+                        style: TextStyle(
+                          color: Color(0xFF030303),
+                          fontSize: 38,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w700,
+                          height: 0,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Container(
+                  width: 250,
+                  child: const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  width: 250,
+                  height: 56,
+                  child: 
+                  
+                  ElevatedButton(
+                    onPressed: () {
+                      // Handle Agree button press
+                      print('Profile button pressed');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: Color.fromARGB(255, 234, 237, 240), // Change color as needed
+                    ),
+                    child: const Text(
+                      'Profile Information',
+                      
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 15,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w700,
+                        height: 0,
+                        
+                      ),
+                    ),
+                  ),
+                  
+                ),
+                const SizedBox(height: 20),
+                Container(
+                  width: 250,
+                  height: 56,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Handle Agree button press
+                      print('Guided TOur button pressed');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: Color.fromARGB(255, 241, 243, 245), // Change color as needed
+                    ),
+                
+                    child: const Text(
+                      'Guided Tour',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 15,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w700,
+                        height: 0,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Container(
+                  width: 250,
+                  height: 56,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Handle Agree button press
+                      print('Support Center button pressed');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: Color.fromARGB(255, 241, 243, 245), // Change color as needed
+                    ),
+                
+                    child: const Text(
+                      'Support Center',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 15,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w700,
+                        height: 0,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+               Container(
+                  width: 0,
+                  height: 300,
+                  child: const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                  ),
+                ),
+                Container(
+                  
+                  
+                  width: 250,
+                  height: 56,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Handle Disagree button press
+                      print('Sign Out button pressed');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary:  Color.fromARGB(255, 100, 139, 179),// Change color as needed
+                    ),
+                    child: const Text(
+                      'Sign Out',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w700,
+                        height: 0,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
+
+
+
+ 
+   

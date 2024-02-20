@@ -27,6 +27,8 @@ class ReminderApp extends StatelessWidget {
 class CaregiverReminderCreationScreen extends StatelessWidget {
    final TextEditingController hourController = TextEditingController();
   final TextEditingController minuteController = TextEditingController();
+
+  CaregiverReminderCreationScreen({super.key});
   @override
   Widget build(BuildContext context) {
     
@@ -192,8 +194,8 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 8, top: 13.50),
+                const Padding(
+                  padding: EdgeInsets.only(left: 8, top: 13.50),
                   child: Text(
                     'Time',
                     style: TextStyle(
@@ -211,7 +213,7 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
                   child: TextFormField(
                     controller: hourController,
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: InputBorder.none,
                       hintText: 'HH',
                     ),
@@ -223,7 +225,7 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
                   child: TextFormField(
                     controller: minuteController,
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: InputBorder.none,
                       hintText: 'MM',
                     ),
