@@ -27,6 +27,8 @@ class ReminderApp extends StatelessWidget {
 class CaregiverReminderCreationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    int? selectedHour;
+    int? selectedMinute;
     return Column(
       children: [
         Container(
@@ -38,7 +40,7 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
           ),
           child: Stack(
             children: [
-              Positioned(
+              const Positioned(
                 left: 90,
                 top: 31.50,
                 child: Text(
@@ -67,7 +69,7 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
              
               //Choose a reminder Name
 
-              Positioned(
+              const Positioned.fill(
                 left: 108,
                 top: 166.50,
                 child: Text(
@@ -144,11 +146,11 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
          borderRadius: BorderRadius.circular(22.5),
          border: Border.all(color: Colors.grey.withOpacity(0.5), width: 1.0),
       ),
-      child: Row(
+      child: const Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 8, top: 13.50),
+            padding: EdgeInsets.only(left: 8, top: 13.50),
             child: Text(
               'Date',
               style: TextStyle(
@@ -161,7 +163,7 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0),
             child: Icon(
               Icons.calendar_today,
               color: Colors.grey,
@@ -174,8 +176,8 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
   ),
 ),
 
-            // Time
-        Positioned(
+             // Time
+Positioned(
   left: 20.50,
   top: 330.50,
   child: Container(
@@ -201,12 +203,42 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
             ),
           ),
         ),
-         
+        // Dropdown for Hour
+        DropdownButtonFormField<int>(
+          value: selectedHour,
+          onChanged: (int? value) {
+            // Handle hour selection
+            setState(() {
+              selectedHour = value;
+            });
+          },
+          items: List.generate(24, (index) {
+            return DropdownMenuItem<int>(
+              value: index,
+              child: Text('$index'),
+            );
+          }),
+        ),
+        // Dropdown for Minute
+        DropdownButtonFormField<int>(
+          value: selectedMinute,
+          onChanged: (int? value) {
+            // Handle minute selection
+            setState(() {
+              selectedMinute = value;
+            });
+          },
+          items: List.generate(60, (index) {
+            return DropdownMenuItem<int>(
+              value: index,
+              child: Text('$index'),
+            );
+          }),
+        ),
       ],
     ),
   ),
 ),
-
 
 
            // Upload a video Analysis 
@@ -221,17 +253,17 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
                     width: 24,
                     height: 24,
                     clipBehavior: Clip.antiAlias,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Colors.green, // Add your desired color
                     ),
-                    child: Icon(
+                    child: const Icon(
                       Icons.upload_outlined,
                       color: Colors.white,
                     ),
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 104,
                 top: 580,
                 child: Text(
@@ -260,10 +292,10 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
                     height: 54,
                     clipBehavior: Clip.antiAlias,
                     decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 88, 132, 168), // Add your desired color
+                      color: const Color.fromARGB(255, 88, 132, 168), // Add your desired color
                        borderRadius: BorderRadius.circular(22.5),
                         ),
-                    child: Stack(
+                    child: const Stack(
                       children: [
                         Positioned(
                           left: 106,
@@ -287,7 +319,7 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
               ),
              
              
-              Positioned(
+              Positioned.fill(
                 left: 199,
                 top: 134,
                 child: GestureDetector(
