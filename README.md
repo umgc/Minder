@@ -1,6 +1,6 @@
-# minder_application
+# Minder
 
-A new Flutter project.
+
 
 ## Getting Started
 
