@@ -11,7 +11,6 @@ A memory support app for short-term memory loss individuals, using video recordi
 - [Development](#development)
 - [License](#license)
 
-## Getting Started
 # Getting Started
 
 Before you can run and use this Flutter app, make sure you have the following software and tools installed.
