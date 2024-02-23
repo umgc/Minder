@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
- void main() {
+
+void main() {
   runApp(const ReminderApp());
 }
 
@@ -30,7 +31,7 @@ class CaregiverSettingScreen extends StatelessWidget {
       onTap: () {
         // Handle tap on the screen (optional).
       },
-  child: Column(
+      child: Column(
         children: [
           Container(
             width: 375,
@@ -40,13 +41,13 @@ class CaregiverSettingScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                 'Settings',
-                        style: TextStyle(
-                          color: Color(0xFF030303),
-                          fontSize: 38,
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w700,
-                          height: 0,
+                  'Settings',
+                  style: TextStyle(
+                    color: Color(0xFF030303),
+                    fontSize: 38,
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w700,
+                    height: 0,
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -60,30 +61,26 @@ class CaregiverSettingScreen extends StatelessWidget {
                 Container(
                   width: 250,
                   height: 56,
-                  child: 
-                  
-                  ElevatedButton(
+                  child: ElevatedButton(
                     onPressed: () {
                       // Handle Agree button press
                       print('Profile button pressed');
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: Color.fromARGB(255, 234, 237, 240), // Change color as needed
+                      backgroundColor: Color.fromARGB(
+                          255, 234, 237, 240), // Change color as needed
                     ),
                     child: const Text(
                       'Profile Information',
-                      
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 15,
                         fontFamily: 'Montserrat',
                         fontWeight: FontWeight.w700,
                         height: 0,
-                        
                       ),
                     ),
                   ),
-                  
                 ),
                 const SizedBox(height: 20),
                 Container(
@@ -95,9 +92,9 @@ class CaregiverSettingScreen extends StatelessWidget {
                       print('Guided TOur button pressed');
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: Color.fromARGB(255, 241, 243, 245), // Change color as needed
+                      backgroundColor: Color.fromARGB(
+                          255, 241, 243, 245), // Change color as needed
                     ),
-                
                     child: const Text(
                       'Guided Tour',
                       style: TextStyle(
@@ -120,9 +117,9 @@ class CaregiverSettingScreen extends StatelessWidget {
                       print('Support Center button pressed');
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: Color.fromARGB(255, 241, 243, 245), // Change color as needed
+                      backgroundColor: Color.fromARGB(
+                          255, 241, 243, 245), // Change color as needed
                     ),
-                
                     child: const Text(
                       'Support Center',
                       style: TextStyle(
@@ -136,7 +133,7 @@ class CaregiverSettingScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-               Container(
+                Container(
                   width: 0,
                   height: 300,
                   child: const Column(
@@ -144,8 +141,6 @@ class CaregiverSettingScreen extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  
-                  
                   width: 250,
                   height: 56,
                   child: ElevatedButton(
@@ -154,7 +149,8 @@ class CaregiverSettingScreen extends StatelessWidget {
                       print('Sign Out button pressed');
                     },
                     style: ElevatedButton.styleFrom(
-                      primary:  Color.fromARGB(255, 100, 139, 179),// Change color as needed
+                      backgroundColor: Color.fromARGB(
+                          255, 100, 139, 179), // Change color as needed
                     ),
                     child: const Text(
                       'Sign Out',
@@ -176,8 +172,3 @@ class CaregiverSettingScreen extends StatelessWidget {
     );
   }
 }
-
-
-
- 
-   

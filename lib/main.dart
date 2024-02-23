@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:minder/conversation_notfound.dart';
+import 'package:minder/conversation_notfound.dart';
 
 import 'Caregiver_Conversation/conversationDetailsScreen.dart';
 import 'Caregiver_Conversation/conversationListScreen.dart';
@@ -18,14 +20,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: ConversationListScreen(),
+      home: conversation_notfound(),
       routes: {
-      //  '/Settings' : (context) => FigmaToCodeApp(),
-         '/Login': (context) => LoginPage(), // Add this line
+        //  '/Settings' : (context) => FigmaToCodeApp(),
+        '/Login': (context) => LoginPage(), // Add this line
         '/welcome': (context) => SplashScreen(), // Add this line
-         '/conversationDetailsScreen': (context) => conversationDetailsScreen(),
-          '/conversationListScreen': (context) => ConversationListScreen(),
-          '/caregiversignup': (context) => caregiversignup(),
+        '/conversationDetailsScreen': (context) => conversationDetailsScreen(),
+        '/conversationListScreen': (context) => conversation_notfound(),
+        '/caregiversignup': (context) => caregiversignup(),
       },
     );
   }
