@@ -69,6 +69,7 @@ flutter:
     - asset/images/img_vector.jpg.png
     - asset/images/guideTour.jpg
     - asset/images/support.jpg
+    - asset/images/x.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
