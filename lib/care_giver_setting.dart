@@ -187,15 +187,15 @@ class _Iphone8Plus1State extends State<Iphone8Plus1> {
                             },
                             child: Image.asset(
                               'asset/images/clock.jpg', // Change this with your asset
-                              width: 140,
-                              height: 140,
+                              width: 120,
+                              height: 120,
                             ),
                           ),
                         ),
                       if (remindersExpanded)
                         Positioned(
                           left: remindersExpanded ? 150 : 40,
-                          top: 250,
+                          top: 230,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -227,7 +227,7 @@ class _Iphone8Plus1State extends State<Iphone8Plus1> {
                         ),
                       Positioned(
                         left: 0,
-                        top: 280,
+                        top: 265,
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
@@ -261,7 +261,7 @@ class _Iphone8Plus1State extends State<Iphone8Plus1> {
                       if (guidedTourExpanded)
                         Positioned(
                           left: 15,
-                          top: 200,
+                          top: 220,
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
@@ -278,12 +278,13 @@ class _Iphone8Plus1State extends State<Iphone8Plus1> {
                       if (guidedTourExpanded)
                         Positioned(
                           left: guidedTourExpanded ? 150 : 40,
-                          top: 240,
+                          top: 300,
                           child: GuidedTourDetails(),
                         ),
                       Positioned(
                         left: 0,
                         top: 360,
+                        
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
@@ -318,6 +319,7 @@ class _Iphone8Plus1State extends State<Iphone8Plus1> {
                         Positioned(
                           left: 15,
                           top: 330,
+                          
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
@@ -343,62 +345,36 @@ class _Iphone8Plus1State extends State<Iphone8Plus1> {
                       Positioned(
                         left: 16,
                         top: 504,
-                        child: Container(
+                        child: Container
+                        (
                           width: 343,
                           height: 56,
-                          child: const Stack(
-                            children: [
-                              Positioned(
-                                left: 135.50,
-                                top: 17.50,
-                                child: Text(
-                                  'Sign Out',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16,
-                                    fontFamily: 'Montserrat',
-                                    fontWeight: FontWeight.w700,
-                                    height: 0,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                            
+                         child: ElevatedButton(
+                    onPressed: () {
+                      // Handle Disagree button press
+                      print('Sign OUt button pressed');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary:  const Color.fromARGB(255, 24, 65, 99),// Change color as needed
+                    ),
+                    child: const Text(
+                      'SIgn Out',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w700,
+                        height: 0,
                       ),
-                      Positioned(
-                        left: 316,
-                        top: 239,
-                        child: Container(
-                          width: 20,
-                          height: 20,
-                          clipBehavior: Clip.antiAlias,
-                          decoration: const BoxDecoration(),
-                          child: const Stack(children: []),
-                        ),
-                      ),
-                      Positioned(
-                        left: 316,
-                        top: 303,
-                        child: Container(
-                          width: 20,
-                          height: 20,
-                          clipBehavior: Clip.antiAlias,
-                          decoration: const BoxDecoration(),
-                          child: const Stack(children: []),
-                        ),
-                      ),
-                      Positioned(
-                        left: 316,
-                        top: 358,
-                        child: Container(
-                          width: 20,
-                          height: 20,
-                          clipBehavior: Clip.antiAlias,
-                          decoration: const BoxDecoration(),
-                          child: const Stack(children: []),
-                        ),
-                      ),
+                    ),
+                  ),
+                           
+                         
+                        )
+                        ,
+                      ),                  
+                                           
                     ],
                   ),
                 ),
