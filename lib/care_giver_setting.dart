@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
- void main() {
-  runApp(const ReminderApp());
+
+void main() {
+
+  runApp(const CaregiverSetting());
+
 }
 
-class ReminderApp extends StatelessWidget {
-  const ReminderApp({Key? key}) : super(key: key);
+class CaregiverSetting extends StatelessWidget {
+  const CaregiverSetting({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,151 +16,355 @@ class ReminderApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color.fromARGB(255, 18, 32, 47),
       ),
       home: Scaffold(
-        body: ListView(children: const [
-          CaregiverSettingScreen(),
+        body: ListView(children: [
+          Iphone8Plus1(),
         ]),
       ),
     );
   }
 }
 
-class CaregiverSettingScreen extends StatelessWidget {
-  const CaregiverSettingScreen({super.key});
+class Iphone8Plus1 extends StatefulWidget {
+  @override
+  _Iphone8Plus1State createState() => _Iphone8Plus1State();
+}
+
+class _Iphone8Plus1State extends State<Iphone8Plus1> {
+  bool profileInfoExpanded = false;
+  bool remindersExpanded = false;
+  bool guidedTourExpanded = false;
+  bool supportCenterExpanded = false;
+  bool editProfileDetailsVisible = false;
+  bool remindersDetailsVisible = false; // Added
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        // Handle tap on the screen (optional).
-      },
-  child: Column(
-        children: [
-          Container(
-            width: 375,
-            height: 667,
-            color: Colors.white, // Set the background color to white
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                 'Settings',
-                        style: TextStyle(
-                          color: Color(0xFF030303),
-                          fontSize: 38,
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w700,
-                          height: 0,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Container(
-                  width: 250,
-                  child: const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Container(
-                  width: 250,
-                  height: 56,
-                  child: 
-                  
-                  ElevatedButton(
-                    onPressed: () {
-                      // Handle Agree button press
-                      print('Profile button pressed');
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Color.fromARGB(255, 234, 237, 240), // Change color as needed
-                    ),
-                    child: const Text(
-                      'Profile Information',
-                      
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w700,
-                        height: 0,
+    return Column(
+      children: [
+        Container(
+          width: 414,
+          height: 736,
+          clipBehavior: Clip.antiAlias,
+          decoration: const BoxDecoration(color: Colors.white),
+          child: Stack(
+            children: [
+              Positioned(
+                left: 20,
+                top: 35,
+                child: Container(
+                  width: 375,
+                  height: 667,
+                  clipBehavior: Clip.antiAlias,
+                  decoration: const BoxDecoration(),
+                  child: Stack(
+                    children: [
+                      const Positioned(
+                        left: 16,
+                        top: 23.50,
+                        child: Text(
+                          'Settings',
+                          style: TextStyle(
+                            color: Color(0xFF030303),
+                            fontSize: 32,
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.w700,
+                            height: 0,
+                          ),
+                        ),
+                      ),
+                      if (profileInfoExpanded)
+                        Positioned(
+                          left: 40,
+                          top: 70,
+                          child: Image.asset(
+                            'asset/images/profile-grandmother.jpg',
+                            width: 100,
+                            height: 100,
+                          ),
+                        ),
+                      Positioned(
+                        left: profileInfoExpanded ? 150 : 40,
+                        top: 115,
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              profileInfoExpanded = !profileInfoExpanded;
+                              editProfileDetailsVisible = false;
+                              remindersExpanded = false;
+                              guidedTourExpanded = false;
+                              supportCenterExpanded = false;
+                            });
+                          },
+                          child: Text(
+                            'Profile Information',
+                            style: TextStyle(
+                              color: const Color(0xFF030303),
+                              fontSize: profileInfoExpanded ? 20 : 14,
+                              fontFamily: 'Montserrat',
+                              fontWeight: profileInfoExpanded
+                                  ? FontWeight.w400
+                                  : FontWeight.w700,
+                              height: 0,
+                            ),
+                          ),
+                        ),
+                      ),
+                      if (profileInfoExpanded)
+                        Positioned(
+                          left: 160,
+                          top: 150,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (!editProfileDetailsVisible)
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      editProfileDetailsVisible = true;
+                                    });
+                                  },
+                                  child: const Text(
+                                    'Edit Profile Details',
+                                    style: TextStyle(
+                                      color: Color(0xFF030303),
+                                      fontSize: 14,
+                                      fontFamily: 'Montserrat',
+                                      fontWeight: FontWeight.w400,
+                                      height: 0,
+                                    ),
+                                  ),
+                                ),
+                              if (editProfileDetailsVisible)
+                                Positioned(
+                                  left: profileInfoExpanded ? 150 : 40,
+                                  top: 180,
+                                  child: EditProfileDetails(),
+                                ),
+                              // Add other profile information details here
+                            ],
+                          ),
+                        ),
+                      Positioned(
+                        left: 0,
+                        top: 190,
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              remindersExpanded = !remindersExpanded;
+                              profileInfoExpanded = false;
+                              editProfileDetailsVisible = false;
+                              guidedTourExpanded = false;
+                              supportCenterExpanded = false;
+                            });
+                          },
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            margin: EdgeInsets.only(
+                              left: remindersExpanded ? 150 : 40,
+                            ),
+                            child: Text(
+                              'Reminders',
+                              style: TextStyle(
+                                color: const Color(0xFF030303),
+                                fontSize: remindersExpanded ? 20 : 14,
+                                fontFamily: 'Montserrat',
+                                fontWeight: remindersExpanded
+                                    ? FontWeight.w400
+                                    : FontWeight.w700,
+                                height: 0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      if (remindersExpanded)
+                        Positioned(
+                          left: 10,
+                          top: 150,
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                remindersDetailsVisible = !remindersDetailsVisible;
+                              });
+                            },
+                            child: Image.asset(
+                              'asset/images/clock.jpg', // Change this with your asset
+                              width: 120,
+                              height: 120,
+                            ),
+                          ),
+                        ),
+                      if (remindersExpanded)
+                        Positioned(
+                          left: remindersExpanded ? 150 : 40,
+                          top: 230,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    // Add your logic for Edit Reminder Details here
+                                  });
+                                },
+                                child: const Text(
+                                  'Edit Reminder Details',
+                                  style: TextStyle(
+                                    color: Color(0xFF030303),
+                                    fontSize: 14,
+                                    fontFamily: 'Montserrat',
+                                    fontWeight: FontWeight.w400,
+                                    height: 0,
+                                  ),
+                                ),
+                              ),
+                              if (remindersDetailsVisible)
+                                Positioned(
+                                  left: profileInfoExpanded ? 150 : 40,
+                                  top: 180,
+                                  child: RemindersDetails(),
+                                ),
+                            ],
+                          ),
+                        ),
+                      Positioned(
+                        left: 0,
+                        top: 265,
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              guidedTourExpanded = !guidedTourExpanded;
+                              profileInfoExpanded = false;
+                              editProfileDetailsVisible = false;
+                              remindersExpanded = false;
+                              supportCenterExpanded = false;
+                            });
+                          },
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            margin: EdgeInsets.only(
+                              left: guidedTourExpanded ? 150 : 40,
+                            ),
+                            child: Text(
+                              'Guided Tour',
+                              style: TextStyle(
+                                color: const Color(0xFF030303),
+                                fontSize: guidedTourExpanded ? 20 : 14,
+                                fontFamily: 'Montserrat',
+                                fontWeight: guidedTourExpanded
+                                    ? FontWeight.w400
+                                    : FontWeight.w700,
+                                height: 0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      if (guidedTourExpanded)
+                        Positioned(
+                          left: 15,
+                          top: 220,
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                // Add your logic for GuidedTourDetails here
+                              });
+                            },
+                            child: Image.asset(
+                              'asset/images/guideTour.jpg', // Change this with your asset
+                              width: 120,
+                              height: 120,
+                            ),
+                          ),
+                        ),
+                      if (guidedTourExpanded)
+                        Positioned(
+                          left: guidedTourExpanded ? 150 : 40,
+                          top: 300,
+                          child: GuidedTourDetails(),
+                        ),
+                      Positioned(
+                        left: 0,
+                        top: 360,
                         
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              supportCenterExpanded = !supportCenterExpanded;
+                              profileInfoExpanded = false;
+                              editProfileDetailsVisible = false;
+                              remindersExpanded = false;
+                              guidedTourExpanded = false;
+                            });
+                          },
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            margin: EdgeInsets.only(
+                              left: supportCenterExpanded ? 150 : 40,
+                            ),
+                            child: Text(
+                              'Support Center',
+                              style: TextStyle(
+                                color: const Color(0xFF030303),
+                                fontSize: supportCenterExpanded ? 20 : 14,
+                                fontFamily: 'Montserrat',
+                                fontWeight: supportCenterExpanded
+                                    ? FontWeight.w400
+                                    : FontWeight.w700,
+                                height: 0,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  
-                ),
-                const SizedBox(height: 20),
-                Container(
-                  width: 250,
-                  height: 56,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Handle Agree button press
-                      print('Guided TOur button pressed');
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Color.fromARGB(255, 241, 243, 245), // Change color as needed
-                    ),
-                
-                    child: const Text(
-                      'Guided Tour',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w700,
-                        height: 0,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Container(
-                  width: 250,
-                  height: 56,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Handle Agree button press
-                      print('Support Center button pressed');
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Color.fromARGB(255, 241, 243, 245), // Change color as needed
-                    ),
-                
-                    child: const Text(
-                      'Support Center',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w700,
-                        height: 0,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-               Container(
-                  width: 0,
-                  height: 300,
-                  child: const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                  ),
-                ),
-                Container(
-                  
-                  
-                  width: 250,
-                  height: 56,
-                  child: ElevatedButton(
+                      if (supportCenterExpanded)
+                        Positioned(
+                          left: 15,
+                          top: 330,
+                          
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                // Add your logic for SupportCenterDetails here
+                              });
+                            },
+                            child: Image.asset(
+                              'asset/images/support.jpg', // Change this with your asset
+                              width: 100,
+                              height: 100,
+                            ),
+                          ),
+                        ),
+                      if (supportCenterExpanded)
+                        Positioned(
+                          left: supportCenterExpanded ? 150 : 40,
+                          top: 400,
+                          child: SupportCenterDetails(),
+                        ),
+                      
+                      //Sign Out 
+                      
+                      Positioned(
+                        left: 16,
+                        top: 504,
+                        child: Container
+                        (
+                          width: 343,
+                          height: 56,
+                            
+                         child: ElevatedButton(
                     onPressed: () {
                       // Handle Disagree button press
-                      print('Sign Out button pressed');
+                      print('Sign OUt button pressed');
                     },
                     style: ElevatedButton.styleFrom(
-                      primary:  Color.fromARGB(255, 100, 139, 179),// Change color as needed
+
+                      backgroundColor: Color.fromARGB(
+                          255, 100, 139, 179), // Change color as needed
+
                     ),
                     child: const Text(
-                      'Sign Out',
+                      'SIgn Out',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
@@ -167,17 +374,106 @@ class CaregiverSettingScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                           
+                         
+                        )
+                        ,
+                      ),                  
+                                           
+                    ],
+                  ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
+    );
+  }
+}
+
+class EditProfileDetails extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      children: [
+        // Add your content for Edit Profile Details here
+        Text(
+          'Edit Profile Details Content',
+          style: TextStyle(
+            color: Color(0xFF030303),
+            fontSize: 16,
+            fontFamily: 'Montserrat',
+            fontWeight: FontWeight.w400,
+            height: 0,
+          ),
+        ),
+      ],
     );
   }
 }
 
 
+class RemindersDetails extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      children: [
+        // Add your content for RemindersDetails here
+        Text(
+          'Reminders Details Content',
+          style: TextStyle(
+            color: Color(0xFF030303),
+            fontSize: 16,
+            fontFamily: 'Montserrat',
+            fontWeight: FontWeight.w400,
+            height: 0,
+          ),
+        ),
+      ],
+    );
+  }
+}
 
- 
-   
+class GuidedTourDetails extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      children: [
+        // Add your content for GuidedTourDetails here
+        Text(
+          'Guided Tour Details Content',
+          style: TextStyle(
+            color: Color(0xFF030303),
+            fontSize: 16,
+            fontFamily: 'Montserrat',
+            fontWeight: FontWeight.w400,
+            height: 0,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class SupportCenterDetails extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      children: [
+        // Add your content for SupportCenterDetails here
+        Text(
+          'Support Center Details Content',
+          style: TextStyle(
+            color: Color(0xFF030303),
+            fontSize: 16,
+            fontFamily: 'Montserrat',
+            fontWeight: FontWeight.w400,
+            height: 0,
+          ),
+        ),
+      ],
+    );
+  }
+}
+

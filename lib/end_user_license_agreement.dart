@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
- 
 
 void main() {
   runApp(const ReminderApp());
@@ -211,7 +210,10 @@ class CaregiverEulaScreen extends StatelessWidget {
                       print('Agree button pressed');
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: const Color.fromARGB(255, 152, 199, 238), // Change color as needed
+
+                      backgroundColor: const Color.fromARGB(
+                          255, 152, 199, 238), // Change color as needed
+
                     ),
                     child: const Text(
                       'Agree',
@@ -235,7 +237,9 @@ class CaregiverEulaScreen extends StatelessWidget {
                       print('Disagree button pressed');
                     },
                     style: ElevatedButton.styleFrom(
-                      primary:  const Color.fromARGB(255, 24, 65, 99),// Change color as needed
+
+                      backgroundColor: const Color.fromARGB(
+                          255, 24, 65, 99), // Change color as needed
                     ),
                     child: const Text(
                       'Disagree',
