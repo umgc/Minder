@@ -98,7 +98,7 @@ class CaregiverSupportScreen1 extends StatelessWidget {
                       print('Chat button pressed');
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: Color.fromARGB(255, 90, 156, 209), // Change color as needed
+                       backgroundColor: Color.fromARGB(255, 90, 156, 209), // Change color as needed
                     ),
                     child: const Text(
                       'Chat',
