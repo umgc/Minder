@@ -26,11 +26,11 @@ class MobileFrame extends StatelessWidget {
         border: Border(
           left: BorderSide(
             color: Colors.black,
-            width: 450.0,
+            width: 1.0,
           ),
           right: BorderSide(
             color: Colors.black,
-            width: 450.0,
+            width: 1.0,
           ),
         ),
         borderRadius: BorderRadius.circular(12.0),
@@ -68,7 +68,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
             _formatDuration(Duration(seconds: secondsElapsed)),
             style: TextStyle(fontSize: 20.0),
           ),
-          SizedBox(height: 500.0),
+          SizedBox(height: 350.0),
           // Record/pause/stop buttons at the bottom
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
