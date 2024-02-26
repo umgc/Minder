@@ -29,7 +29,7 @@ class conversationDetailsScreen extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.delete),
             onPressed: () {
-              // Handle delete button press
+             showDeleteConfirmationDialog(context);
             },
           ),
         ],
@@ -79,7 +79,7 @@ class conversationDetailsScreen extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   elevation: 8,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(25),
                   ),
                   padding: EdgeInsets.all(16),
                   backgroundColor: Color.fromRGBO(47, 102, 127, 1),
@@ -124,6 +124,76 @@ class conversationDetailsScreen extends StatelessWidget {
         ),
       ),
     ),
+  );
+}
+ Future<void> showDeleteConfirmationDialog(BuildContext context) async {
+  return showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        backgroundColor: Colors.black,
+        content: SingleChildScrollView(
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color.fromRGBO(151, 228, 241, 1),
+                    ),
+                    child: Center(
+                      child: Text(
+                        '?',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 16),
+                  Flexible(
+                    child: Text(
+                      'Are you sure you want to remove this conversation permanently?',
+                      style: TextStyle(color: Colors.white, fontSize: 14),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              // Handle delete button press
+              Navigator.of(context).pop();
+              // Add your delete logic here
+            },
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.white,
+            ),
+            child: Text(
+              'OK',
+              style: TextStyle(color: Colors.black),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              // Handle cancel button press
+              Navigator.of(context).pop();
+            },
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.white,
+            ),
+            child: Text(
+              'Cancel',
+              style: TextStyle(color: Colors.black),
+            ),
+          ),
+        ],
+      );
+    },
   );
 }
 }

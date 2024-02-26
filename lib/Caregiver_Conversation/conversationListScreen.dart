@@ -65,7 +65,7 @@ class ConversationListScreen extends StatelessWidget {
               // Handle record button press
             },
             style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.all(25),
               backgroundColor: Color.fromRGBO(47, 102, 127, 1),
             ),
             child: Row(
@@ -80,6 +80,7 @@ class ConversationListScreen extends StatelessWidget {
               ],
             ),
           ),
+          SizedBox(height: 20),
         ],
       ),
     );
