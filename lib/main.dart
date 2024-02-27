@@ -4,6 +4,7 @@ import 'Caregiver_Conversation/patient_conversation_details.dart';
 import 'Caregiver_Conversation/patient_conversation_list.dart';
 import 'Caregiver_Login/caregiver_login.dart';
 import 'Caregiver_Login/caregiver_patient_account_creation.dart';
+import 'Caregiver_Login/caregiver_signup.dart';
 import 'Reminder/caregiver_reminder_creation.dart';
 import 'Welcome_screen/welcome.dart';
 import 'reminder_creation_screen.dart.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginPage(),
+      home: SignUpScreen(),
       routes: {
       //  '/Settings' : (context) => FigmaToCodeApp(),
          '/Login': (context) => LoginPage(), // Add this line
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
           '/caregiversignup': (context) => caregiversignup(),
           '/ReminderFormScreen': (context) => ReminderFormScreen(),
           '/reminder_creation_screen' : (context) => CaregiverReminderCreationScreen(),
+          '/caregiver_signup' : (context) => SignUpScreen(),
       },
     );
   }
