@@ -38,6 +38,8 @@ dependencies:
   path: ^1.8.0
   
   universal_io: ^2.2.2
+  speech_to_text: ^6.6.1
+  audioplayers: ^1.1.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -76,6 +78,7 @@ flutter:
     - asset/images/guideTour.jpg
     - asset/images/support.jpg
     - asset/images/x.jpg
+    - asset/images/speech-recognition.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
