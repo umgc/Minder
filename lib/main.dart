@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:minder/conversation_notfound.dart';
-import 'package:minder/conversation_notfound.dart';
-
+import 'package:minder/patient_login.dart';
+import 'package:minder/patient_signup.dart';
+import 'package:minder/patient_signupcompleted.dart';
 import 'Caregiver_Conversation/conversationDetailsScreen.dart';
-import 'Caregiver_Conversation/conversationListScreen.dart';
 import 'Caregiver_Login/caregiverlogin.dart';
 import 'Caregiver_Login/caregiversignup.dart';
 import 'Welcome_screen/welcome.dart';
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         //  '/Settings' : (context) => FigmaToCodeApp(),
         '/Login': (context) => LoginPage(), // Add this line
         '/welcome': (context) => SplashScreen(), // Add this line
-        '/conversationDetailsScreen': (context) => conversationDetailsScreen(),
+        '/conversationDetailsScreen': (context) => conversation_notfound(),
         '/conversationListScreen': (context) => conversation_notfound(),
         '/caregiversignup': (context) => caregiversignup(),
       },
