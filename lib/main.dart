@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'Caregiver_Conversation/conversationDetailsScreen.dart';
-import 'Caregiver_Conversation/conversationListScreen.dart';
-import 'Caregiver_Login/caregiverlogin.dart';
-import 'Caregiver_Login/caregiversignup.dart';
-import 'Reminder/ReminderForm.dart';
+import 'Caregiver_Conversation/patient_conversation_details.dart';
+import 'Caregiver_Conversation/patient_conversation_list.dart';
+import 'Caregiver_Login/caregiver_login.dart';
+import 'Caregiver_Login/caregiver_patient_account_creation.dart';
+import 'Reminder/caregiver_reminder_creation.dart';
 import 'Welcome_screen/welcome.dart';
+import 'reminder_creation_screen.dart.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: conversationDetailsScreen(),
+      home: LoginPage(),
       routes: {
       //  '/Settings' : (context) => FigmaToCodeApp(),
          '/Login': (context) => LoginPage(), // Add this line
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
           '/conversationListScreen': (context) => ConversationListScreen(),
           '/caregiversignup': (context) => caregiversignup(),
           '/ReminderFormScreen': (context) => ReminderFormScreen(),
+          '/reminder_creation_screen' : (context) => CaregiverReminderCreationScreen(),
       },
     );
   }

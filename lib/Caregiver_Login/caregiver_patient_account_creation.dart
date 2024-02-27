@@ -38,12 +38,12 @@ class caregiversignup extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 16),
-              buildFormField('Patient\'s First Name'),
-              buildFormField('Patient\'s Last Name'),
-              buildFormField('Birth Date'),
-              buildCensoredFormField('Registration ID'),
+              buildFormField('Patient\'s First Name *'),
+              buildFormField('Patient\'s Last Name *'),
+            
               Spacer(),
               ElevatedButton(
+                
                 onPressed: () {
                   // Handle Sign Up button press
                 },
@@ -51,6 +51,7 @@ class caregiversignup extends StatelessWidget {
                   backgroundColor: Color.fromRGBO(47, 102, 127, 1),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25),
+                    
                   ),
                 ),
                 child: Padding(
@@ -63,6 +64,7 @@ class caregiversignup extends StatelessWidget {
                   ),
                 ),
               ),
+              SizedBox(height: 16),
             ],
           ),
         ),
