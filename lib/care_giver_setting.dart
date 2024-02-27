@@ -358,8 +358,10 @@ class _Iphone8Plus1State extends State<Iphone8Plus1> {
                       print('Sign OUt button pressed');
                     },
                     style: ElevatedButton.styleFrom(
+
                       backgroundColor: Color.fromARGB(
                           255, 100, 139, 179), // Change color as needed
+
                     ),
                     child: const Text(
                       'SIgn Out',
