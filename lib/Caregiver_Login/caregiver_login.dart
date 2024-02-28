@@ -59,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
               width: 100.0,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/your_image.png'), 
+                  image: AssetImage('asset/images/Caregiver_loginimg.png'), 
                   fit: BoxFit.cover,
                 ),
                 shape: BoxShape.circle,
