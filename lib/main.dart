@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+ 
 import 'package:minder/conversation_notfound.dart';
 import 'package:minder/patient_login.dart';
 import 'package:minder/patient_signup.dart';
@@ -7,6 +8,7 @@ import 'Caregiver_Conversation/conversationDetailsScreen.dart';
 import 'Caregiver_Login/caregiverlogin.dart';
 import 'Caregiver_Login/caregiversignup.dart';
 import 'Welcome_screen/welcome.dart';
+import 'reminder_creation_screen.dart.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,14 +22,19 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: conversation_notfound(),
+
+      home: SignUpScreen(),
       routes: {
         //  '/Settings' : (context) => FigmaToCodeApp(),
         '/Login': (context) => LoginPage(), // Add this line
         '/welcome': (context) => SplashScreen(), // Add this line
-        '/conversationDetailsScreen': (context) => conversation_notfound(),
-        '/conversationListScreen': (context) => conversation_notfound(),
-        '/caregiversignup': (context) => caregiversignup(),
+         '/conversationDetailsScreen': (context) => conversationDetailsScreen(),
+          '/conversationListScreen': (context) => ConversationListScreen(),
+          '/caregiversignup': (context) => caregiversignup(),
+          '/ReminderFormScreen': (context) => ReminderFormScreen(),
+          '/reminder_creation_screen' : (context) => CaregiverReminderCreationScreen(),
+          '/caregiver_signup' : (context) => SignUpScreen(),
+
       },
     );
   }
