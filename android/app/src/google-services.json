@@ -1,0 +1,29 @@
+{
+    "project_info": {
+      "project_number": "797512359534",
+      "project_id": "minder-db872",
+      "storage_bucket": "minder-db872.appspot.com"
+    },
+    "client": [
+      {
+        "client_info": {
+          "mobilesdk_app_id": "1:797512359534:android:db47cbe5d32a9dfe2c907f",
+          "android_client_info": {
+            "package_name": "Minder.Application"
+          }
+        },
+        "oauth_client": [],
+        "api_key": [
+          {
+            "current_key": "AIzaSyDAdUwuWveJxL6_VEBJmMAwCVdMEcwD98E"
+          }
+        ],
+        "services": {
+          "appinvite_service": {
+            "other_platform_oauth_client": []
+          }
+        }
+      }
+    ],
+    "configuration_version": "1"
+  }

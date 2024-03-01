@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
- 
+import 'package:minder/Caregiver_Conversation/patient_conversation_list.dart';
+import 'package:minder/Caregiver_Login/caregiver_patient_account_creation.dart';
+import 'package:minder/Reminder/caregiver_reminder_creation.dart';
 import 'package:minder/conversation_notfound.dart';
 import 'package:minder/patient_login.dart';
 import 'package:minder/patient_signup.dart';
 import 'package:minder/patient_signupcompleted.dart';
-import 'Caregiver_Conversation/conversationDetailsScreen.dart';
-import 'Caregiver_Login/caregiverlogin.dart';
-import 'Caregiver_Login/caregiversignup.dart';
+import 'package:minder/Caregiver_Conversation/patient_conversation_details.dart';
+import 'package:minder/Caregiver_Login/caregiver_signup.dart';
+import 'package:minder/Caregiver_Login/caregiver_login.dart';
 import 'Welcome_screen/welcome.dart';
 import 'reminder_creation_screen.dart.dart';
 
