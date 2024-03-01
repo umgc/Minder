@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:minder/Caregiver_Login/caregiver_login.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,6 +18,15 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+               Navigator.pop(context);
+            },
+          ),
+         
+        ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -34,7 +44,7 @@ class SignUpScreen extends StatelessWidget {
           ),
           ),
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 7),
           Text(
             'Sign Up',
             style: TextStyle(
@@ -43,20 +53,23 @@ class SignUpScreen extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: 16),
+          SizedBox(height: 8),
           buildInputWithIcon('Enter your full name', 'Full Name',Icons.person),
           buildInputWithIcon('Enter your Relationship', 'Relationship',Icons.person),
           buildInputWithIcon('Enter your e-mail', '' ,Icons.email),
           buildInputWithIcon('Create a username', 'username',Icons.person),
           buildPasswordInputWithIcon('Create a password', '',Icons.lock),
-          SizedBox(height: 16),
+          SizedBox(height: 8),
           Spacer(),
           Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18),
           child:
           ElevatedButton(
             onPressed: () {
-              // Handle Sign Up button press
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginPage()),
+              );
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Color.fromRGBO(47, 102, 127, 1),
@@ -75,7 +88,7 @@ class SignUpScreen extends StatelessWidget {
           ),
           
           ),
-          SizedBox(height: 16),
+          SizedBox(height: 10),
         ],
       ),
     );

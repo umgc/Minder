@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:minder/Caregiver_Login/caregiver_signup.dart';
 
 import 'caregiver_patient_account_creation.dart';
 
@@ -49,6 +50,13 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  void _createAccount() {
+     Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SignUpScreen()),
+              );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,8 +70,8 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             
             Container(
-              height: 100.0,
-              width: 100.0,
+              height: 250.0,
+              width: 250.0,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('asset/images/Caregiver_loginimg.png'), 
@@ -165,12 +173,23 @@ class _LoginPageState extends State<LoginPage> {
                     
                     print('Forgot your password clicked');
                   },
-                  child: Text('Forgot your password'),
+                  child: Text('Forgot your password?'),
                 ),
               ],
             ),
-
+            SizedBox(height: 8.0), // Added spacing
+            InkWell(
+              onTap: _createAccount,
+              child: Text(
+                'New here? Create an account.',
+                style: TextStyle(
+                  color: const Color.fromARGB(255, 0, 0, 0),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
             SizedBox(height: 32.0),
+          
           ],
         ),
       ),

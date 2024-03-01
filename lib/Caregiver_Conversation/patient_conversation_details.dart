@@ -21,7 +21,7 @@ class conversationDetailsScreen extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            // Handle back button press
+            Navigator.pop(context);
           },
         ),
         title: Text('Doctor Appointment'),

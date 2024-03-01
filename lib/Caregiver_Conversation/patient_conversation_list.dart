@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:minder/Caregiver_Conversation/patient_conversation_details.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,6 +29,13 @@ class ConversationListScreen extends StatelessWidget {
           ),
         ),
         centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () {
+            showDeleteConfirmationDialog(context);
+            
+          },
+        ),
         actions: [],
       ),
       body: Column(
@@ -56,9 +64,9 @@ class ConversationListScreen extends StatelessWidget {
           
           buildSectionDraft('Conversations', 'View All'),
           SizedBox(height: 20),
-          buildConversationBox('Doctor Appointment', Colors.black, 'Aug 28', const Color.fromARGB(255, 168, 216, 255)),
-          buildConversationBox('Salon Appointment', Colors.black, 'Aug 28', const Color.fromARGB(255, 168, 216, 255)),
-          buildConversationBox('Breakfast with John', Colors.black, 'Aug 28', const Color.fromARGB(255, 168, 216, 255)),
+          buildConversationBox('Doctor Appointment', Colors.black, 'Aug 28', const Color.fromARGB(255, 168, 216, 255),context),
+          buildConversationBox('Salon Appointment', Colors.black, 'Aug 28', const Color.fromARGB(255, 168, 216, 255),context),
+          buildConversationBox('Breakfast with John', Colors.black, 'Aug 28', const Color.fromARGB(255, 168, 216, 255),context),
           Spacer(),
           ElevatedButton(
             onPressed: () {
@@ -184,7 +192,7 @@ class ConversationListScreen extends StatelessWidget {
     );
   }
 
-  Widget buildConversationBox(String conversationName, Color videoIconColor, String date, Color buttonColor) {
+  Widget buildConversationBox(String conversationName, Color videoIconColor, String date, Color buttonColor, BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       padding: EdgeInsets.all(10),
@@ -210,14 +218,14 @@ class ConversationListScreen extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              // Handle View All functionality
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>  conversationDetailsScreen()));
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: buttonColor,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(5),
               child: Text(
                 date,
                 style: TextStyle(fontSize: 16, color: Colors.black),
@@ -229,3 +237,75 @@ class ConversationListScreen extends StatelessWidget {
     );
   }
 }
+ Future<void> showDeleteConfirmationDialog(BuildContext context) async {
+  return showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        backgroundColor: Colors.black,
+        content: SingleChildScrollView(
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color.fromRGBO(151, 228, 241, 1),
+                    ),
+                    child: Center(
+                      child: Text(
+                        '?',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 16),
+                  Flexible(
+                    child: Text(
+                      'You will be signed out',
+                      style: TextStyle(color: Colors.white, fontSize: 14),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              // Handle delete button press
+              Navigator.of(context).pop();
+              // Add your delete logic here
+              Navigator.pop(context);
+            },
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.white,
+            ),
+            child: Text(
+              'OK',
+              style: TextStyle(color: Colors.black),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              // Handle cancel button press
+              Navigator.of(context).pop();
+            },
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.white,
+            ),
+            child: Text(
+              'Cancel',
+              style: TextStyle(color: Colors.black),
+            ),
+          ),
+        ],
+      );
+    },
+  );
+}
+

@@ -31,7 +31,7 @@ class _ReminderFormScreenState extends State<ReminderFormScreen> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-          
+          Navigator.pop(context);
           },
         ),
         title: Text(

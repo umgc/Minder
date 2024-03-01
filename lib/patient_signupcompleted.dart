@@ -47,7 +47,7 @@ class PatientSignupCompleted extends StatelessWidget {
                   // Navigate to the desired screen
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => CaregiverSetting()),
+                    MaterialPageRoute(builder: (context) => Settings()),
                   );
                 },
                 child: Container(
