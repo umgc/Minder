@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'caregiver_patient_account_creation.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -36,6 +38,11 @@ class _LoginPageState extends State<LoginPage> {
     if (username == 'admin' && password == 'password') {
       
       print('Login successful!');
+      Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => caregiversignup()),
+              );
+      
     } else {
       
       print('Invalid credentials');

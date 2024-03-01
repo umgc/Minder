@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../Caregiver_Login/caregiver_login.dart';
+import '../end_user_license_agreement.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -59,7 +62,10 @@ class SplashScreen extends StatelessWidget {
               // Caregiver Sign-In Button
               ElevatedButton(
                 onPressed: () {
-                  // Handle Caregiver Sign-In button press
+                   Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CaregiverEulaScreen()),
+              );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.lightBlue,

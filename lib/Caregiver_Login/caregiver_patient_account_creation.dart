@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../patient_signup.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -46,6 +48,10 @@ class caregiversignup extends StatelessWidget {
                 
                 onPressed: () {
                   // Handle Sign Up button press
+                  Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => patient_signup()),
+            );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color.fromRGBO(47, 102, 127, 1),
