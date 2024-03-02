@@ -8,6 +8,8 @@ import 'package:minder/care_giver_support-screen.dart';
 import 'package:minder/patient_signup.dart';
 import 'package:minder/tour_one.dart';
 
+import 'Reminder/caregiver_reminderscreen.dart';
+
 
 
 
@@ -164,7 +166,7 @@ class Settings extends StatelessWidget {
                   
                    Navigator.push(
               context ,
-              MaterialPageRoute(builder: (context) =>   ReminderFormScreen()),
+              MaterialPageRoute(builder: (context) =>   RemindersScreen()),
             );
               } break; 
               case 'Guided Tour': { 

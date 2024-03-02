@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:minder/Caregiver_Conversation/patient_conversation_details.dart';
 
+import '../manage_recording.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -70,7 +72,10 @@ class ConversationListScreen extends StatelessWidget {
           Spacer(),
           ElevatedButton(
             onPressed: () {
-              // Handle record button press
+               Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MobileFrame(child: RecordingScreen()),
+              ));
             },
             style: ElevatedButton.styleFrom(
               padding: EdgeInsets.all(25),
@@ -277,9 +282,9 @@ class ConversationListScreen extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              // Handle delete button press
+              
               Navigator.of(context).pop();
-              // Add your delete logic here
+              
               Navigator.pop(context);
             },
             style: TextButton.styleFrom(
@@ -292,7 +297,7 @@ class ConversationListScreen extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              // Handle cancel button press
+              
               Navigator.of(context).pop();
             },
             style: TextButton.styleFrom(
