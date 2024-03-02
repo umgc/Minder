@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:minder/Caregiver_Login/caregiver_login.dart';
+import 'package:minder/patient_login.dart';
 
 import 'Welcome_screen/welcome.dart';
 
 void main() {
-  runApp(const ReminderApp());
+  runApp(const ReminderApp1());
 }
 
-class ReminderApp extends StatelessWidget {
-  const ReminderApp({Key? key}) : super(key: key);
+class ReminderApp1 extends StatelessWidget {
+  const ReminderApp1({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +19,15 @@ class ReminderApp extends StatelessWidget {
       ),
       home: Scaffold(
         body: ListView(children: const [
-          CaregiverEulaScreen(),
+          CaregiverEulaScreen1(),
         ]),
       ),
     );
   }
 }
 
-class CaregiverEulaScreen extends StatelessWidget {
-  const CaregiverEulaScreen({super.key});
+class CaregiverEulaScreen1 extends StatelessWidget {
+  const CaregiverEulaScreen1({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -212,7 +213,7 @@ class CaregiverEulaScreen extends StatelessWidget {
                       // Handle Agree button press
                      Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => LoginPage()),);
+                MaterialPageRoute(builder: (context) => patient_login()),);
                       print('Agree button pressed');
                     },
                     style: ElevatedButton.styleFrom(

@@ -21,7 +21,7 @@ class conversationDetailsScreen extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            // Handle back button press
+            Navigator.pop(context);
           },
         ),
         title: Text('Doctor Appointment'),
@@ -166,9 +166,9 @@ class conversationDetailsScreen extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              // Handle delete button press
+               
               Navigator.of(context).pop();
-              // Add your delete logic here
+               
             },
             style: TextButton.styleFrom(
               backgroundColor: Colors.white,
@@ -180,7 +180,7 @@ class conversationDetailsScreen extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              // Handle cancel button press
+               
               Navigator.of(context).pop();
             },
             style: TextButton.styleFrom(

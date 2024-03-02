@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'care_giver_setting.dart';
+
 void main() {
   runApp(const ReminderApp());
 }
@@ -40,29 +42,38 @@ class PatientSignupCompleted extends StatelessWidget {
               left: 16,
               bottom: 20,
               right: 16,
-              child: Container(
-                height: 40,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF2F667F),
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Color(0x00000014),
-                      blurRadius: 10,
-                      offset: Offset(0, 4),
-                    ),
-                  ],
-                ),
-                child: Center(
-                  child: Text(
-                    'Done',
-                    style: const TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontSize: 14,
-                      color: Colors.white,
-                      letterSpacing: 0,
-                      fontWeight: FontWeight.bold,
-                      fontStyle: FontStyle.normal,
+              child: GestureDetector(
+                onTap: () {
+                  // Navigate to the desired screen
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Settings()),
+                  );
+                },
+                child: Container(
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF2F667F),
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Color(0x00000014),
+                        blurRadius: 10,
+                        offset: Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Done',
+                      style: const TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontSize: 14,
+                        color: Colors.white,
+                        letterSpacing: 0,
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.normal,
+                      ),
                     ),
                   ),
                 ),
@@ -105,7 +116,8 @@ class PatientSignupCompleted extends StatelessWidget {
             Positioned(
               left: 16,
               top: 178,
-              child: Container(
+              child: 
+              Container(
                 width: 329,
                 height: 312,
                 decoration: BoxDecoration(
