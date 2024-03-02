@@ -177,9 +177,9 @@ class RemindersScreen extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              // Handle delete button press
+               
               Navigator.of(context).pop();
-              // Add your delete logic here
+               
             },
             style: TextButton.styleFrom(
               backgroundColor: Colors.white,
@@ -191,7 +191,7 @@ class RemindersScreen extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              // Handle cancel button press
+               
               Navigator.of(context).pop();
             },
             style: TextButton.styleFrom(
