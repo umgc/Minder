@@ -1,0 +1,12 @@
+{
+  "resourceName": "minderforms",
+  "tableName": "caregiver_profile",
+  "partitionKey": {
+    "fieldName": "fullName",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": [
+    "minder9d11eb24"
+  ]
+}
