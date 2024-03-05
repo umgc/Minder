@@ -33,6 +33,26 @@ class MyHomePage extends StatelessWidget {
       return DateFormat('EEEE, MMMM d, yyyy').format(DateTime.now());
     }
 
+    void _showPlayPopup(BuildContext context) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Guided Tour: Play Recording'),
+            content: const Text('This plays a media file associated with the current conversation, if the file exists.'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Close'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+
     return DefaultTabController(
       length: 3, // Number of tabs
       child: Scaffold(
@@ -48,7 +68,8 @@ class MyHomePage extends StatelessWidget {
             IconButton(
               icon: const Icon(Icons.delete),
               onPressed: () {
-                // Delete button functionality
+                // Show delete confirmation dialog
+                _showDeleteConfirmationDialog(context);
               },
             ),
             const SizedBox(width: 16),
@@ -89,7 +110,8 @@ class MyHomePage extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            // Handle play button functionality
+            // Show play popup
+            _showPlayPopup(context);
           },
           child: const Icon(Icons.play_arrow),
         ),
@@ -113,6 +135,33 @@ class MyHomePage extends StatelessWidget {
           Text('$time\n$date', textAlign: TextAlign.center),
         ],
       ),
+    );
+  }
+
+  void _showDeleteConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Guided Tour: Delete'),
+          content: const Text('From here you can delete the current file. Select "cancel" to not delete, select "delete" to confirm deletion. In this demo, nothing will happen when either are clicked.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                // Perform delete operation here
+                Navigator.of(context).pop();
+              },
+              child: const Text('Delete'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
