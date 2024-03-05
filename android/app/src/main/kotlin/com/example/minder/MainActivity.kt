@@ -1,6 +1,7 @@
-package com.example.minder_application
+package com.minder
 
 import io.flutter.embedding.android.FlutterActivity
 
 class MainActivity: FlutterActivity() {
+    // Your code
 }
