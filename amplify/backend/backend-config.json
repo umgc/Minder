@@ -1,0 +1,141 @@
+{
+  "api": {
+    "MinderAPI": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "minder9d11eb24"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
+  "auth": {
+    "mindercad7eadd": {
+      "customAuth": false,
+      "dependsOn": [],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyCharacters": [],
+          "passwordPolicyMinLength": 8
+        },
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito"
+    }
+  },
+  "function": {
+    "minder9d11eb24": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "minderforms"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "hosting": {
+    "S3AndCloudFront": {
+      "providerPlugin": "awscloudformation",
+      "service": "S3AndCloudFront"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_minder9d11eb24_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "minder9d11eb24"
+        }
+      ]
+    },
+    "AMPLIFY_function_minder9d11eb24_develop": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "minder9d11eb24"
+        }
+      ]
+    },
+    "AMPLIFY_function_minder9d11eb24_production": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "minder9d11eb24"
+        }
+      ]
+    },
+    "AMPLIFY_function_minder9d11eb24_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "minder9d11eb24"
+        }
+      ]
+    },
+    "AMPLIFY_function_minder9d11eb24_secretsPathAmplifyAppId": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "minder9d11eb24"
+        }
+      ]
+    },
+    "AMPLIFY_function_minder9d11eb24_uat": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "minder9d11eb24"
+        }
+      ]
+    }
+  },
+  "storage": {
+    "minderforms": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
+    "minders3": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "LambdaExecutionRole"
+          ],
+          "category": "function",
+          "resourceName": "minder9d11eb24"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
+    }
+  }
+}

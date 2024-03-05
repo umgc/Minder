@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:minder/main.dart';
 
+import 'patient_signupcompleted.dart';
+
 void main() {
   runApp(const ReminderApp());
 }
@@ -129,29 +131,37 @@ class patient_signup extends StatelessWidget {
                   bottom: 24, // Placed at the bottom of the screen
                   child: Padding(
                     padding: const EdgeInsets.only(top: 16),
-                    child: Container(
-                      width: 338,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFaad3ff),
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
-                            spreadRadius: 2,
-                            blurRadius: 6,
-                            offset: const Offset(0, 3),
-                          ),
-                        ],
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Set up your Face ID',
-                          style: TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontSize: 14,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
+                    child: GestureDetector(
+                      onTap: () {
+                        // Handle the tap on the button, e.g., navigate to the Face ID setup screen
+                        // Example: Navigator.push(context, MaterialPageRoute(builder: (context) => FaceIDSetupScreen()));
+                         Navigator.push(context, MaterialPageRoute(builder: (context) => const PatientSignupCompleted()));
+                        print('Set up your Face ID button tapped!');
+                      },
+                      child: Container(
+                        width: 338,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFaad3ff),
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              spreadRadius: 2,
+                              blurRadius: 6,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Set up your Face ID',
+                            style: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontSize: 14,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
