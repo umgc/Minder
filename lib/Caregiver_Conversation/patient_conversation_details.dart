@@ -66,8 +66,16 @@ class conversationDetailsScreen extends StatelessWidget {
 ),
             SizedBox(height: 16),
             const Text(
-              'Patient: "some questions"\nDoctor: "some response"',
-              style: TextStyle(fontSize: 16),
+              'Patient: "is there a possiblitiy to explore dietary adjustments to address the discomfort i feel, especeially after meals?"',
+              style: TextStyle(fontSize: 21),
+            ),
+            const Text(
+              'Doctor: "Absolutely. That\'s a valid consideration. Lets delve into potential dietary modifications as part of your treatment plan. I\'ll provide guidance, and we can schedule a follow-up to monitor your progress, Sound good?"',
+              style: TextStyle(fontSize: 21),
+            ),
+            const Text(
+              'Patient: "Sounds like a plan. I appreciate your guidance, and i look forward to making psotiive changes. Thank you, Doctor"',
+              style: TextStyle(fontSize: 21),
             ),
             Spacer(),
             SizedBox(
