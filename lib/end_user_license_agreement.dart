@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
- 
+import 'package:minder/Caregiver_Login/caregiver_login.dart';
+
+import 'Welcome_screen/welcome.dart';
 
 void main() {
   runApp(const ReminderApp());
@@ -208,10 +210,16 @@ class CaregiverEulaScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       // Handle Agree button press
+                     Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginPage()),);
                       print('Agree button pressed');
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: const Color.fromARGB(255, 152, 199, 238), // Change color as needed
+
+                      backgroundColor: const Color.fromARGB(
+                          255, 152, 199, 238), // Change color as needed
+
                     ),
                     child: const Text(
                       'Agree',
@@ -232,10 +240,15 @@ class CaregiverEulaScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       // Handle Disagree button press
+                      Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SplashScreen()),);
                       print('Disagree button pressed');
                     },
                     style: ElevatedButton.styleFrom(
-                      primary:  const Color.fromARGB(255, 24, 65, 99),// Change color as needed
+
+                      backgroundColor: const Color.fromARGB(
+                          255, 24, 65, 99), // Change color as needed
                     ),
                     child: const Text(
                       'Disagree',

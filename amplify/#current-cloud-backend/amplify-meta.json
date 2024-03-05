@@ -1,0 +1,192 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-minder-dev-111914-authRole",
+      "UnauthRoleArn": "arn:aws:iam::471112682615:role/amplify-minder-dev-111914-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::471112682615:role/amplify-minder-dev-111914-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-minder-dev-111914-deployment",
+      "UnauthRoleName": "amplify-minder-dev-111914-unauthRole",
+      "StackName": "amplify-minder-dev-111914",
+      "StackId": "arn:aws:cloudformation:us-east-1:471112682615:stack/amplify-minder-dev-111914/7411e0d0-d7e7-11ee-8762-0eedfeacfaa7",
+      "AmplifyAppId": "d3hwahau445d41"
+    }
+  },
+  "function": {
+    "minder9d11eb24": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "storage",
+          "resourceName": "minderforms",
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ]
+        }
+      ],
+      "lastBuildTimeStamp": "2024-03-01T17:57:16.258Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2024-03-01T17:57:16.301Z",
+      "distZipFilename": "minder9d11eb24-636f7775747847373541-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-minder-dev-111914-deployment",
+        "s3Key": "amplify-builds/minder9d11eb24-636f7775747847373541-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-minder-dev-111914-deployment/amplify-cfn-templates/function/minder9d11eb24-cloudformation-template.json",
+        "logicalId": "functionminder9d11eb24"
+      },
+      "lastPushTimeStamp": "2024-03-01T17:59:51.819Z",
+      "output": {
+        "LambdaExecutionRoleArn": "arn:aws:iam::471112682615:role/minderLambdaRole74a2987c-dev",
+        "Region": "us-east-1",
+        "CloudWatchEventRule": "amplify-minder-dev-111914-functionm-CloudWatchEvent-qjzSRkC2MyCq",
+        "Arn": "arn:aws:lambda:us-east-1:471112682615:function:minder9d11eb24-dev",
+        "Name": "minder9d11eb24-dev",
+        "LambdaExecutionRole": "minderLambdaRole74a2987c-dev"
+      },
+      "lastPushDirHash": "hQOcAQbSBa2B7QaSTTEhyepuFxo="
+    }
+  },
+  "api": {
+    "MinderAPI": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "minder9d11eb24",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-minder-dev-111914-deployment/amplify-cfn-templates/api/MinderAPI-cloudformation-template.json",
+        "logicalId": "apiMinderAPI"
+      },
+      "lastPushTimeStamp": "2024-03-01T17:59:51.319Z",
+      "output": {
+        "ApiName": "MinderAPI",
+        "RootUrl": "https://5zc4k2nzpb.execute-api.us-east-1.amazonaws.com/dev",
+        "ApiId": "5zc4k2nzpb"
+      },
+      "lastPushDirHash": "9VKn3QpaR0W6O7WmcgywNoLaq8U="
+    }
+  },
+  "hosting": {
+    "S3AndCloudFront": {
+      "service": "S3AndCloudFront",
+      "providerPlugin": "awscloudformation",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-minder-dev-111914-deployment/amplify-cfn-templates/hosting/template.json",
+        "logicalId": "hostingS3AndCloudFront"
+      },
+      "lastPushTimeStamp": "2024-03-01T17:59:51.323Z",
+      "output": {
+        "CloudFrontSecureURL": "https://d1geqrqxicydw9.cloudfront.net",
+        "S3BucketSecureURL": "https://minder-20240301120537-hostingbucket-dev.s3.amazonaws.com",
+        "CloudFrontOriginAccessIdentity": "E2L980XF2AP5Y1",
+        "WebsiteURL": "http://minder-20240301120537-hostingbucket-dev.s3-website-us-east-1.amazonaws.com",
+        "CloudFrontDistributionID": "E1JWJY8AS5WJ10",
+        "Region": "us-east-1",
+        "HostingBucketName": "minder-20240301120537-hostingbucket-dev",
+        "CloudFrontDomainName": "d1geqrqxicydw9.cloudfront.net"
+      },
+      "lastPushDirHash": "5qzMza1RGWmQGqNiu57rk+heawU="
+    }
+  },
+  "auth": {
+    "mindercad7eadd": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-minder-dev-111914-deployment/amplify-cfn-templates/auth/mindercad7eadd-cloudformation-template.json",
+        "logicalId": "authmindercad7eadd"
+      },
+      "lastPushTimeStamp": "2024-03-01T17:59:51.819Z",
+      "output": {
+        "UserPoolId": "us-east-1_MggfUYNBv",
+        "AppClientIDWeb": "6s603f0uojs9krue5a5h2fm9ev",
+        "AppClientID": "1u8ltelpe0jaddstaducd3b154",
+        "IdentityPoolId": "us-east-1:90dfcb32-a051-4f24-b672-8731d2098a22",
+        "UserPoolArn": "arn:aws:cognito-idp:us-east-1:471112682615:userpool/us-east-1_MggfUYNBv",
+        "IdentityPoolName": "mindercad7eadd_identitypool_cad7eadd__dev",
+        "UserPoolName": "mindercad7eadd_userpool_cad7eadd"
+      },
+      "lastPushDirHash": "L3nsIaW7iGP98ntWxh9fW8GLOnU="
+    }
+  },
+  "storage": {
+    "minders3": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "minder9d11eb24",
+          "attributes": [
+            "Name",
+            "Arn",
+            "LambdaExecutionRole"
+          ]
+        }
+      ],
+      "lastPushTimeStamp": "2024-03-01T17:59:51.819Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-minder-dev-111914-deployment/amplify-cfn-templates/storage/cloudformation-template.json",
+        "logicalId": "storageminders3"
+      },
+      "output": {
+        "BucketName": "minderstore111914-dev",
+        "Region": "us-east-1"
+      },
+      "lastPushDirHash": "Cg/nRMlQEXOA8fHaYUtplQZfbn4="
+    },
+    "minderforms": {
+      "service": "DynamoDB",
+      "providerPlugin": "awscloudformation",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-minder-dev-111914-deployment/amplify-cfn-templates/storage/minderforms-cloudformation-template.json",
+        "logicalId": "storageminderforms"
+      },
+      "lastPushTimeStamp": "2024-03-01T17:59:51.819Z",
+      "output": {
+        "PartitionKeyName": "fullName",
+        "Region": "us-east-1",
+        "Arn": "arn:aws:dynamodb:us-east-1:471112682615:table/caregiver_profile-dev",
+        "StreamArn": "arn:aws:dynamodb:us-east-1:471112682615:table/caregiver_profile-dev/stream/2024-03-01T17:57:27.664",
+        "PartitionKeyType": "S",
+        "Name": "caregiver_profile-dev"
+      },
+      "lastPushDirHash": "K0yuI81m3sKjnPwqKSjBavODmCs="
+    }
+  }
+}
