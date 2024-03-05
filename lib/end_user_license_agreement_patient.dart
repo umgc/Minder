@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:minder/Caregiver_Login/caregiver_login.dart';
 import 'package:minder/patient_login.dart';
-
 import 'Welcome_screen/welcome.dart';
 
 void main() {
@@ -9,7 +7,7 @@ void main() {
 }
 
 class ReminderApp1 extends StatelessWidget {
-  const ReminderApp1({Key? key}) : super(key: key);
+  const ReminderApp1({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,17 +33,17 @@ class CaregiverEulaScreen1 extends StatelessWidget {
       onTap: () {
         // Handle tap on the screen (optional).
       },
-     // body: Center(
     child: SingleChildScrollView(
       reverse: true,
+      child: Center(
       child: Column(
-        children: [
-          Container(
-            width: 375,
-            height: 667,
-            color: Colors.white, // Set the background color to white
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+        // children: [
+        //   Container(
+        //     width: 375,
+        //     height: 667,
+        //     color: Colors.white, // Set the background color to white
+        //     child: Column(
+        //       mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
                   'Minder',
@@ -58,11 +56,12 @@ class CaregiverEulaScreen1 extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-                Container(
+                const SizedBox(
                   width: 327,
                   height: 321,
-                  child: const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Column(
+                   // crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         'By using the Short-Term Memory',
@@ -208,7 +207,7 @@ class CaregiverEulaScreen1 extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-                Container(
+                SizedBox(
                   width: 335,
                   height: 56,
                   child: ElevatedButton(
@@ -216,7 +215,7 @@ class CaregiverEulaScreen1 extends StatelessWidget {
                       // Handle Agree button press
                      Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => patient_login()),);
+                MaterialPageRoute(builder: (context) => const patient_login()),);
                       print('Agree button pressed');
                     },
                     style: ElevatedButton.styleFrom(
@@ -238,7 +237,7 @@ class CaregiverEulaScreen1 extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-                Container(
+                SizedBox(
                   width: 335,
                   height: 56,
                   child: ElevatedButton(
@@ -246,7 +245,7 @@ class CaregiverEulaScreen1 extends StatelessWidget {
                       // Handle Disagree button press
                       Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SplashScreen()),);
+                MaterialPageRoute(builder: (context) => const SplashScreen()),);
                       print('Disagree button pressed');
                     },
                     style: ElevatedButton.styleFrom(
@@ -269,9 +268,11 @@ class CaregiverEulaScreen1 extends StatelessWidget {
               ],
             ),
           ),
-        ],
+       // ],
       ),
-      ),
-    );
+     // ),
+      );
+   // ),
+   // );
   }
 }

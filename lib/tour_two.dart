@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 
-class MyWidget extends StatelessWidget {
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
+    return MaterialApp(
+    home: Scaffold(
+       body: Center(
+          child: Container(
         width: 375,
         height: 667,
         color: Colors.white,
@@ -18,7 +26,7 @@ class MyWidget extends StatelessWidget {
                 height: 527,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  image: DecorationImage(
+                  image: const DecorationImage(
                     image: NetworkImage(
                         'https://assets.api.uizard.io/api/cdn/stream/28b8daef-658c-472b-a8e9-fac320652a00.png'),
                     fit: BoxFit.cover,
@@ -26,10 +34,10 @@ class MyWidget extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
+            const Positioned(
               left: 11,
               top: 11.5,
-              child: Container(
+              child: SizedBox(
                 width: 31,
                 height: 31,
                 child: Icon(
@@ -38,10 +46,10 @@ class MyWidget extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
+            const Positioned(
               left: 279,
               top: 627,
-              child: Container(
+              child: SizedBox(
                 width: 40,
                 height: 40,
                 child: Icon(
@@ -50,10 +58,10 @@ class MyWidget extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
+            const Positioned(
               left: 74,
               top: 627,
-              child: Container(
+              child: SizedBox(
                 width: 40,
                 height: 40,
                 child: Icon(
@@ -62,10 +70,10 @@ class MyWidget extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
+            const Positioned(
               left: 169,
               top: 627,
-              child: Container(
+              child: SizedBox(
                 width: 40,
                 height: 40,
                 child: Icon(
@@ -82,7 +90,7 @@ class MyWidget extends StatelessWidget {
                 height: 115,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  image: DecorationImage(
+                  image: const DecorationImage(
                     image: NetworkImage(
                         'https://assets.api.uizard.io/api/cdn/stream/2cc0b016-e38a-4777-ac07-415ee74ac2b8.png'),
                     fit: BoxFit.cover,
@@ -90,7 +98,7 @@ class MyWidget extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
+            const Positioned(
               left: 153,
               top: 155,
               child: Text(
@@ -105,7 +113,7 @@ class MyWidget extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
+            const Positioned(
               left: 153,
               top: 172,
               child: Text(
@@ -128,7 +136,7 @@ class MyWidget extends StatelessWidget {
                 height: 193,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  image: DecorationImage(
+                  image: const DecorationImage(
                     image: NetworkImage(
                         'https://assets.api.uizard.io/api/cdn/stream/93d7817c-caf5-4a0f-930a-9ee9bc04f514.png'),
                     fit: BoxFit.cover,
@@ -136,11 +144,11 @@ class MyWidget extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
+            const Positioned(
               left: 74,
               top: 350,
               child: Text(
-                '<html>',
+                'Select a transmogrifier to extract useful information from this conversation.',
                 style: TextStyle(
                   fontFamily: 'Open Sans',
                   fontSize: 16,
@@ -155,6 +163,8 @@ class MyWidget extends StatelessWidget {
           ],
         ),
       ),
+    ),
+    ),
     );
   }
 }

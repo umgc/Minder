@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 
-class MyWidget extends StatelessWidget {
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
+    return MaterialApp(
+    home: Scaffold(
+       body: Center(
+          child: Container(
         width: 375,
         height: 667,
         color: Colors.white,
@@ -18,7 +26,7 @@ class MyWidget extends StatelessWidget {
                 height: 584,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  image: DecorationImage(
+                  image: const DecorationImage(
                     image: NetworkImage(
                         'https://assets.api.uizard.io/api/cdn/stream/dfede6a5-bec4-475d-ae7a-a8400a68d504.png'),
                     fit: BoxFit.cover,
@@ -26,10 +34,10 @@ class MyWidget extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
+            const Positioned(
               left: 11,
               top: 11.5,
-              child: Container(
+              child: SizedBox(
                 width: 31,
                 height: 31,
                 child: Icon(
@@ -38,10 +46,10 @@ class MyWidget extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
+            const Positioned(
               left: 284,
               top: 627,
-              child: Container(
+              child: SizedBox(
                 width: 40,
                 height: 40,
                 child: Icon(
@@ -50,10 +58,10 @@ class MyWidget extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
+            const Positioned(
               left: 82,
               top: 627,
-              child: Container(
+              child: SizedBox(
                 width: 40,
                 height: 40,
                 child: Icon(
@@ -62,10 +70,10 @@ class MyWidget extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
+            const Positioned(
               left: 184,
               top: 627,
-              child: Container(
+              child: SizedBox(
                 width: 40,
                 height: 40,
                 child: Icon(
@@ -82,7 +90,7 @@ class MyWidget extends StatelessWidget {
                 height: 111,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  image: DecorationImage(
+                  image: const DecorationImage(
                     image: NetworkImage(
                         'https://assets.api.uizard.io/api/cdn/stream/b3b5f7a1-b0a1-4f2d-a345-91558054c237.png'),
                     fit: BoxFit.cover,
@@ -90,7 +98,7 @@ class MyWidget extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
+            const Positioned(
               left: 63,
               top: 506,
               child: Text(
@@ -105,7 +113,7 @@ class MyWidget extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
+            const Positioned(
               left: 63,
               top: 523,
               child: Text(
@@ -123,6 +131,8 @@ class MyWidget extends StatelessWidget {
           ],
         ),
       ),
+    ),
+    ),
     );
   }
 }

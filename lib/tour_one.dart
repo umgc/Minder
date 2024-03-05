@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:minder/main.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      image: DecorationImage(
+                      image: const DecorationImage(
                         image: NetworkImage(
                             'https://assets.api.uizard.io/api/cdn/stream/40d873a7-c901-48f6-ad5a-2298a13f53fc.png'),
                         fit: BoxFit.cover,
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 11,
                   top: 11.5,
                   width: 31,
@@ -49,11 +50,11 @@ class MyApp extends StatelessWidget {
                   width: 40,
                   height: 40,
                   child: Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       color: Color(0xFFAAD3FF),
                     ),
-                    child: Icon(
+                    child: const Icon(
                       Icons.play_arrow,
                       color: Colors.white,
                     ),
@@ -65,11 +66,11 @@ class MyApp extends StatelessWidget {
                   width: 40,
                   height: 40,
                   child: Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       color: Color(0xFFAAD3FF),
                     ),
-                    child: Icon(
+                    child: const Icon(
                       Icons.play_arrow,
                       color: Colors.white,
                     ),
@@ -81,11 +82,11 @@ class MyApp extends StatelessWidget {
                   width: 40,
                   height: 40,
                   child: Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       color: Color(0xFF2F667F),
                     ),
-                    child: Icon(
+                    child: const Icon(
                       Icons.play_arrow,
                       color: Colors.white,
                     ),
@@ -99,7 +100,7 @@ class MyApp extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      image: DecorationImage(
+                      image: const DecorationImage(
                         image: NetworkImage(
                             'https://assets.api.uizard.io/api/cdn/stream/36912534-89d0-4804-9085-2480712f8534.png'),
                         fit: BoxFit.cover,
@@ -115,7 +116,7 @@ class MyApp extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      image: DecorationImage(
+                      image: const DecorationImage(
                         image: NetworkImage(
                             'https://assets.api.uizard.io/api/cdn/stream/36912534-89d0-4804-9085-2480712f8534.png'),
                         fit: BoxFit.cover,
@@ -123,7 +124,7 @@ class MyApp extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 215,
                   top: 266,
                   child: Text(
@@ -137,7 +138,7 @@ class MyApp extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 215,
                   top: 283,
                   child: Text(
@@ -151,7 +152,7 @@ class MyApp extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 215,
                   top: 300,
                   child: Text(
@@ -165,7 +166,7 @@ class MyApp extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 215,
                   top: 491,
                   child: Text(
@@ -179,7 +180,7 @@ class MyApp extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 215,
                   top: 508,
                   child: Text(
