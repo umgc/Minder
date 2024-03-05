@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
 
       //home: SplashScreen(),
       home: 
-      conversationDetailsScreen(),
+      SplashScreen(),
       routes: {
         //  '/Settings' : (context) => FigmaToCodeApp(),
         '/Login': (context) => LoginPage(), // Add this line
