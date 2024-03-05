@@ -35,6 +35,9 @@ class CaregiverEulaScreen1 extends StatelessWidget {
       onTap: () {
         // Handle tap on the screen (optional).
       },
+     // body: Center(
+    child: SingleChildScrollView(
+      reverse: true,
       child: Column(
         children: [
           Container(
@@ -267,6 +270,7 @@ class CaregiverEulaScreen1 extends StatelessWidget {
             ),
           ),
         ],
+      ),
       ),
     );
   }

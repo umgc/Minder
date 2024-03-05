@@ -1,101 +1,202 @@
 import 'package:flutter/material.dart';
+import 'package:minder/main.dart';
+
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Search Bar and Buttons',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Minder Guided Tour: Conversation List'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            // Handle back button functionality here
-          },
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: IconButton(
-              icon: const Icon(Icons.search),
-              onPressed: () {
-                // Handle search functionality here
-              },
-            ),
-          ),
-        ],
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Search conversations',
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 20),
-          Expanded(
-            child: ListView(
+      home: Scaffold(
+        body: Center(
+          child: Container(
+            width: 375,
+            height: 667,
+            color: Colors.white,
+            child: Stack(
               children: [
-                _buildButtonWithDate('Doctor Appointment', 'Feb 18, 2024'),
-                _buildButtonWithDate('Haircut', 'Feb 19, 2024'),
-                _buildButtonWithDate('Breakfast with John', 'Feb 20, 2024'),
+                Positioned(
+                  left: 30,
+                  top: 54,
+                  width: 325,
+                  height: 559,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      image: DecorationImage(
+                        image: NetworkImage(
+                            'https://assets.api.uizard.io/api/cdn/stream/40d873a7-c901-48f6-ad5a-2298a13f53fc.png'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 11,
+                  top: 11.5,
+                  width: 31,
+                  height: 31,
+                  child: Icon(
+                    Icons.close,
+                    color: Colors.black,
+                  ),
+                ),
+                Positioned(
+                  left: 271,
+                  top: 627,
+                  width: 40,
+                  height: 40,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0xFFAAD3FF),
+                    ),
+                    child: Icon(
+                      Icons.play_arrow,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 162,
+                  top: 627,
+                  width: 40,
+                  height: 40,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0xFFAAD3FF),
+                    ),
+                    child: Icon(
+                      Icons.play_arrow,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 64,
+                  top: 627,
+                  width: 40,
+                  height: 40,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0xFF2F667F),
+                    ),
+                    child: Icon(
+                      Icons.play_arrow,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 200,
+                  top: 231,
+                  width: 145,
+                  height: 117,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      image: DecorationImage(
+                        image: NetworkImage(
+                            'https://assets.api.uizard.io/api/cdn/stream/36912534-89d0-4804-9085-2480712f8534.png'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 200,
+                  top: 449,
+                  width: 145,
+                  height: 117,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      image: DecorationImage(
+                        image: NetworkImage(
+                            'https://assets.api.uizard.io/api/cdn/stream/36912534-89d0-4804-9085-2480712f8534.png'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 215,
+                  top: 266,
+                  child: Text(
+                    'Tap to see details',
+                    style: TextStyle(
+                      fontFamily: 'Source Sans Pro',
+                      fontSize: 13,
+                      color: Color(0xFF161616),
+                      fontWeight: FontWeight.w600,
+                      fontStyle: FontStyle.normal,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 215,
+                  top: 283,
+                  child: Text(
+                    'and play the',
+                    style: TextStyle(
+                      fontFamily: 'Source Sans Pro',
+                      fontSize: 13,
+                      color: Color(0xFF161616),
+                      fontWeight: FontWeight.w600,
+                      fontStyle: FontStyle.normal,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 215,
+                  top: 300,
+                  child: Text(
+                    'conversation',
+                    style: TextStyle(
+                      fontFamily: 'Source Sans Pro',
+                      fontSize: 13,
+                      color: Color(0xFF161616),
+                      fontWeight: FontWeight.w600,
+                      fontStyle: FontStyle.normal,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 215,
+                  top: 491,
+                  child: Text(
+                    'Tap to start',
+                    style: TextStyle(
+                      fontFamily: 'Source Sans Pro',
+                      fontSize: 13,
+                      color: Color(0xFF161616),
+                      fontWeight: FontWeight.w600,
+                      fontStyle: FontStyle.normal,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 215,
+                  top: 508,
+                  child: Text(
+                    'recording',
+                    style: TextStyle(
+                      fontFamily: 'Source Sans Pro',
+                      fontSize: 13,
+                      color: Color(0xFF161616),
+                      fontWeight: FontWeight.w600,
+                      fontStyle: FontStyle.normal,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Handle record button functionality here
-        },
-        child: const Icon(Icons.mic),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-    );
-  }
-
-  Widget _buildButtonWithDate(String buttonText, String date) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: ElevatedButton(
-              onPressed: () {
-                // Add your button functionality here
-              },
-              child: Text(buttonText),
-            ),
-          ),
-          const SizedBox(width: 20),
-          Text(date),
-        ],
+        ),
       ),
     );
   }
