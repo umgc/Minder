@@ -1,6 +1,12 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+//import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_storage_s3/amplify_storage_s3.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as Path;
 
 void main() {
   runApp(MyApp());
@@ -82,7 +88,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
   @override
   void dispose() {
     _controller.dispose();
-    timer?.cancel(); // Cancel the timer when disposing
+    timer?.cancel();
     super.dispose();
   }
 
@@ -104,7 +110,6 @@ class _RecordingScreenState extends State<RecordingScreen> {
             ),
           ),
           SizedBox(height: 20.0),
-          // Use FutureBuilder to wait for camera initialization
           FutureBuilder<void>(
             future: _initializeControllerFuture,
             builder: (context, snapshot) {
@@ -163,14 +168,13 @@ class _RecordingScreenState extends State<RecordingScreen> {
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
     String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
-    return '$twoDigitMinutes:$twoDigitSeconds';
+    return "$twoDigitMinutes:$twoDigitSeconds";
   }
 
   void startRecording() {
     try {
       _initializeControllerFuture.then((_) async {
         await _controller.startVideoRecording();
-
         setState(() {
           isRecording = true;
           isPaused = false;
@@ -196,11 +200,15 @@ class _RecordingScreenState extends State<RecordingScreen> {
         XFile videoFile = await _controller.stopVideoRecording();
         String path = videoFile.path;
         print("Video saved at: $path");
+
+        // Upload video to S3
+        await uploadVideoToS3(path);
+
         setState(() {
           isRecording = false;
           isPaused = false;
         });
-        timer?.cancel(); // Cancel the timer when recording stops
+        timer?.cancel();
       } catch (e) {
         print(e);
       }
@@ -211,5 +219,19 @@ class _RecordingScreenState extends State<RecordingScreen> {
     setState(() {
       isPaused = !isPaused;
     });
+  }
+
+  Future<void> uploadVideoToS3(String filePath) async {
+    try {
+      File localFile = File(filePath);
+      final key = 'Uploads/${DateTime.now().millisecondsSinceEpoch}.mp4';
+      UploadFileResult result = await Amplify.Storage.uploadFile(
+        local: localFile,
+        key: key,
+      );
+      print('Successfully uploaded video: ${result.key}');
+    } catch (e) {
+      print('Error uploading video: $e');
+    }
   }
 }

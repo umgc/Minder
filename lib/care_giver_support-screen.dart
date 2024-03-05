@@ -5,19 +5,28 @@ void main() {
 }
 
 class CaregiverSupport extends StatelessWidget {
-  const CaregiverSupport({super.key});
+  const CaregiverSupport({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: Colors.black,
+      theme: ThemeData.light().copyWith(
+        scaffoldBackgroundColor: Color.fromARGB(255, 255, 255, 255),
       ),
       home: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          title: Text('Caregiver Support'),
+        ),
         body: Center(
           child: Container(
-            width: 375, // Set the width to match your desired mobile frame width
-            color: Colors.black,
+            width: 375,
+            color: const Color.fromARGB(255, 255, 255, 255),
             child: CaregiverSupportScreen1(),
           ),
         ),
@@ -27,7 +36,7 @@ class CaregiverSupport extends StatelessWidget {
 }
 
 class CaregiverSupportScreen1 extends StatelessWidget {
-  const CaregiverSupportScreen1({super.key});
+  const CaregiverSupportScreen1({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,19 +45,19 @@ class CaregiverSupportScreen1 extends StatelessWidget {
         // Handle tap on the screen (optional).
       },
       child: Container(
-        color: Colors.white, // Set the background color to white
+        color: Colors.white,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-             Positioned(
-                left: 30,
-                top: 70.50,
-                child: Image.asset(
-                  'asset/images/x.jpg',
-                  width: 20,
-                  height: 20,
-                ),
+            Positioned(
+              left: 30,
+              top: 70.50,
+              child: Image.asset(
+                'asset/images/x.jpg',
+                width: 20,
+                height: 20,
               ),
+            ),
             Text(
               'Need assistance?',
               style: TextStyle(
@@ -89,29 +98,29 @@ class CaregiverSupportScreen1 extends StatelessWidget {
               ),
             ),
             SizedBox(height: 14),
-           Container(
-                  width: 200,
-                  height: 56,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Handle Agree button press
-                      print('Chat button pressed');
-                    },
-                    style: ElevatedButton.styleFrom(
-                       backgroundColor: Color.fromARGB(255, 90, 156, 209), // Change color as needed
-                    ),
-                    child: const Text(
-                      'Chat',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w700,
-                        height: 0,
-                      ),
-                    ),
+            Container(
+              width: 200,
+              height: 56,
+              child: ElevatedButton(
+                onPressed: () {
+                  // Handle Chat button press
+                  print('Chat button pressed');
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromARGB(255, 90, 156, 209),
+                ),
+                child: const Text(
+                  'Chat',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w700,
+                    height: 0,
                   ),
                 ),
+              ),
+            ),
           ],
         ),
       ),
