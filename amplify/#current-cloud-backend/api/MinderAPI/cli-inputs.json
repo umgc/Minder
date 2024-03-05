@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/recordungs": {
+      "name": "/recordungs",
+      "lambdaFunction": "minder9d11eb24",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}
