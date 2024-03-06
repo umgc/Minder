@@ -17,6 +17,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.4.5"
+  amplify_auth_cognito:
+    dependency: "direct main"
+    description:
+      name: amplify_auth_cognito
+      sha256: "71566580b8b739469640a3adb9b890b975b0e813dcf5156deeedd3ba6733722d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.5"
+  amplify_auth_cognito_android:
+    dependency: transitive
+    description:
+      name: amplify_auth_cognito_android
+      sha256: f7e79463e5a6b0a3056dbf1a5c524a88827f3583aacf97d3ea49867343466aeb
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.5"
+  amplify_auth_cognito_ios:
+    dependency: transitive
+    description:
+      name: amplify_auth_cognito_ios
+      sha256: "29183353dea036fc575faad1337a9c308ac483db368b7652e25eb7a9fd39660a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.5"
   amplify_auth_plugin_interface:
     dependency: transitive
     description:
@@ -329,14 +353,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.5"
-  firebase_ml_vision:
-    dependency: "direct main"
-    description:
-      name: firebase_ml_vision
-      sha256: "893416932a24d95722cd16c5e96bd0f87c3399497e9c4344723d16a93b666524"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.12.0+3"
   flutter:
     dependency: "direct main"
     description: flutter
