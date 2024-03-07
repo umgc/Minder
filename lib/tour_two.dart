@@ -1,189 +1,170 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Minder Guided Tour: Part 2',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    String getCurrentTime() {
-      return DateFormat('HH:mm:ss').format(DateTime.now());
-    }
-
-    String getCurrentDate() {
-      return DateFormat('EEEE, MMMM d, yyyy').format(DateTime.now());
-    }
-
-    void _showPlayPopup(BuildContext context) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Guided Tour: Play Recording'),
-            content: const Text('This plays a media file associated with the current conversation, if the file exists.'),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Close'),
-              ),
-            ],
-          );
-        },
-      );
-    }
-
-    return DefaultTabController(
-      length: 3, // Number of tabs
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Minder Guided Tour: Conversation Details'),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              // Back button functionality
-            },
-          ),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.delete),
-              onPressed: () {
-                // Show delete confirmation dialog
-                _showDeleteConfirmationDialog(context);
-              },
-            ),
-            const SizedBox(width: 16),
-            _buildDateTimeDisplay(getCurrentTime(), getCurrentDate()),
-          ],
-          bottom: const TabBar(
-            tabs: [
-              Tab(text: 'Summary'),
-              Tab(text: 'Reminders'),
-              Tab(text: 'Notes'),
-            ],
-          ),
-        ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    home: Scaffold(
+       body: Center(
+          child: Container(
+        width: 375,
+        height: 667,
+        color: Colors.white,
+        child: Stack(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
+            Positioned(
+              left: 33,
+              top: 70,
+              child: Container(
+                width: 309,
+                height: 527,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  image: const DecorationImage(
+                    image: NetworkImage(
+                        'https://assets.api.uizard.io/api/cdn/stream/28b8daef-658c-472b-a8e9-fac320652a00.png'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            const Positioned(
+              left: 11,
+              top: 11.5,
+              child: SizedBox(
+                width: 31,
+                height: 31,
+                child: Icon(
+                  Icons.close,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+            const Positioned(
+              left: 279,
+              top: 627,
+              child: SizedBox(
+                width: 40,
+                height: 40,
+                child: Icon(
+                  Icons.circle,
+                  color: Color(0xFFaad3ff),
+                ),
+              ),
+            ),
+            const Positioned(
+              left: 74,
+              top: 627,
+              child: SizedBox(
+                width: 40,
+                height: 40,
+                child: Icon(
+                  Icons.circle,
+                  color: Color(0xFFaad3ff),
+                ),
+              ),
+            ),
+            const Positioned(
+              left: 169,
+              top: 627,
+              child: SizedBox(
+                width: 40,
+                height: 40,
+                child: Icon(
+                  Icons.circle,
+                  color: Color(0xFF2f667f),
+                ),
+              ),
+            ),
+            Positioned(
+              left: 147,
+              top: 97,
+              child: Container(
+                width: 156,
+                height: 115,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  image: const DecorationImage(
+                    image: NetworkImage(
+                        'https://assets.api.uizard.io/api/cdn/stream/2cc0b016-e38a-4777-ac07-415ee74ac2b8.png'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            const Positioned(
+              left: 153,
+              top: 155,
               child: Text(
-                'File Name',
-                style: Theme.of(context).textTheme.headline6,
+                'Tap to delete this',
+                style: TextStyle(
+                  fontFamily: 'Source Sans Pro',
+                  fontSize: 13,
+                  color: Color(0xFF161616),
+                  letterSpacing: 0,
+                  fontWeight: FontWeight.w600,
+                  fontStyle: FontStyle.normal,
+                ),
               ),
             ),
-            const SizedBox(height: 8),
-            const Expanded(
-              child: TabBarView(
-                children: [
-                  // Tab 1
-                  _TabContent(),
-                  // Tab 2
-                  _TabContent(),
-                  // Tab 3
-                  _TabContent(),
-                ],
+            const Positioned(
+              left: 153,
+              top: 172,
+              child: Text(
+                'conversation.',
+                style: TextStyle(
+                  fontFamily: 'Source Sans Pro',
+                  fontSize: 13,
+                  color: Color(0xFF161616),
+                  letterSpacing: 0,
+                  fontWeight: FontWeight.w600,
+                  fontStyle: FontStyle.normal,
+                ),
               ),
             ),
+            Positioned(
+              left: 33,
+              top: 276,
+              child: Container(
+                width: 216,
+                height: 193,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  image: const DecorationImage(
+                    image: NetworkImage(
+                        'https://assets.api.uizard.io/api/cdn/stream/93d7817c-caf5-4a0f-930a-9ee9bc04f514.png'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            const Positioned(
+              left: 74,
+              top: 350,
+              child: Text(
+                'Select a transmogrifier to extract useful information from this conversation.',
+                style: TextStyle(
+                  fontFamily: 'Open Sans',
+                  fontSize: 16,
+                  color: Colors.black,
+                  letterSpacing: 0,
+                  fontWeight: FontWeight.normal,
+                  fontStyle: FontStyle.normal,
+                ),
+              ),
+            ),
+            // Continue with the other text widgets...
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            // Show play popup
-            _showPlayPopup(context);
-          },
-          child: const Icon(Icons.play_arrow),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       ),
-    );
-  }
-
-  Widget _buildDateTimeDisplay(String time, String date) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.white),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Icon(Icons.access_time),
-          const SizedBox(width: 8),
-          Text('$time\n$date', textAlign: TextAlign.center),
-        ],
-      ),
-    );
-  }
-
-  void _showDeleteConfirmationDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Guided Tour: Delete'),
-          content: const Text('From here you can delete the current file. Select "cancel" to not delete, select "delete" to confirm deletion. In this demo, nothing will happen when either are clicked.'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                // Perform delete operation here
-                Navigator.of(context).pop();
-              },
-              child: const Text('Delete'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-}
-
-class _TabContent extends StatelessWidget {
-  const _TabContent({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: TextFormField(
-        onChanged: (value) {
-          // Handle text field value changes
-        },
-        decoration: InputDecoration(
-          hintText: 'Enter your text here...',
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-        ),
-      ),
+    ),
+    ),
     );
   }
 }
