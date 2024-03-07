@@ -88,7 +88,7 @@ class SplashScreen extends StatelessWidget {
                   // Handle Patient Sign-In button press
                   Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => CaregiverEulaScreen1()),
+                MaterialPageRoute(builder: (context) => CaregiverEulaScreen()),
               );
                 },
                 style: ElevatedButton.styleFrom(

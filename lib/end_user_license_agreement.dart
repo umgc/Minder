@@ -212,7 +212,7 @@ class CaregiverEulaScreen extends StatelessWidget {
                       // Handle Agree button press
                      Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const LoginPage()),);
+                MaterialPageRoute(builder: (context) =>  LoginPage()),);
                       print('Agree button pressed');
                     },
                     style: ElevatedButton.styleFrom(
@@ -242,7 +242,7 @@ class CaregiverEulaScreen extends StatelessWidget {
                       // Handle Disagree button press
                       Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const SplashScreen()),);
+                MaterialPageRoute(builder: (context) =>   SplashScreen()),);
                       print('Disagree button pressed');
                     },
                     style: ElevatedButton.styleFrom(

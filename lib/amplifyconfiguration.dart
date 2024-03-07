@@ -39,34 +39,34 @@ const amplifyconfig = '''{
                 "Auth": {
                     "Default": {
                         "authenticationFlowType": "USER_SRP_AUTH",
-                        "socialProviders": [],
-                        "usernameAttributes": [
-                            "EMAIL"
-                        ],
-                        "signupAttributes": [
-                            "EMAIL"
+                        "mfaConfiguration": "OFF",
+                        "mfaTypes": [
+                            "SMS"
                         ],
                         "passwordProtectionSettings": {
                             "passwordPolicyMinLength": 8,
                             "passwordPolicyCharacters": []
                         },
-                        "mfaConfiguration": "OFF",
-                        "mfaTypes": [
-                            "SMS"
+                        "signupAttributes": [
+                            "EMAIL"
+                        ],
+                        "socialProviders": [],
+                        "usernameAttributes": [
+                            "EMAIL"
                         ],
                         "verificationMechanisms": [
                             "EMAIL"
                         ]
                     }
                 },
-                "S3TransferUtility": {
+                "DynamoDBObjectMapper": {
                     "Default": {
-                        "Bucket": "minderstore111914-dev",
                         "Region": "us-east-1"
                     }
                 },
-                "DynamoDBObjectMapper": {
+                "S3TransferUtility": {
                     "Default": {
+                        "Bucket": "minderstore111914-dev",
                         "Region": "us-east-1"
                     }
                 }
@@ -75,11 +75,6 @@ const amplifyconfig = '''{
     },
     "storage": {
         "plugins": {
-            "awsS3StoragePlugin": {
-                "bucket": "minderstore111914-dev",
-                "region": "us-east-1",
-                "defaultAccessLevel": "guest"
-            },
             "awsDynamoDbStoragePlugin": {
                 "partitionKeyName": "fullName",
                 "region": "us-east-1",
@@ -87,6 +82,11 @@ const amplifyconfig = '''{
                 "streamArn": "arn:aws:dynamodb:us-east-1:471112682615:table/caregiver_profile-dev/stream/2024-03-01T17:57:27.664",
                 "partitionKeyType": "S",
                 "name": "caregiver_profile-dev"
+            },
+            "awsS3StoragePlugin": {
+                "bucket": "minderstore111914-dev",
+                "region": "us-east-1",
+                "defaultAccessLevel": "guest"
             }
         }
     }
