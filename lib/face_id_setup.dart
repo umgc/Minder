@@ -2,18 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: FaceDetectionScreen(),
     );
   }
 }
 
 class FaceDetectionScreen extends StatefulWidget {
+  const FaceDetectionScreen({super.key});
+
   @override
   _FaceDetectionScreenState createState() => _FaceDetectionScreenState();
 }
@@ -33,11 +37,11 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Faces Detected"),
+            title: const Text("Faces Detected"),
             content: Text("Found ${faces.length} faces"),
             actions: <Widget>[
               TextButton(
-                child: Text("OK"),
+                child: const Text("OK"),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -53,12 +57,12 @@ class _FaceDetectionScreenState extends State<FaceDetectionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Face Detection Example'),
+        title: const Text('Face Detection Example'),
       ),
       body: Center(
         child: ElevatedButton(
           onPressed: _takePictureAndDetectFaces,
-          child: Text('Take Picture and Detect Faces'),
+          child: const Text('Take Picture and Detect Faces'),
         ),
       ),
     );

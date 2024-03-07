@@ -208,7 +208,7 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
                   ),
                 ),
                 // Dropdown for Hour
-                Container(
+                SizedBox(
                   width: 50, // Adjust the width as needed
                   child: TextFormField(
                     controller: hourController,
@@ -220,7 +220,7 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
                   ),
                 ),
                 // Dropdown for Minute
-                Container(
+                SizedBox(
                   width: 50, // Adjust the width as needed
                   child: TextFormField(
                     controller: minuteController,

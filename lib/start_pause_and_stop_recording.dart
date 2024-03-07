@@ -5,17 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 //import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart' as Path;
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: MobileFrame(child: RecordingScreen()),
     );
   }
@@ -24,13 +24,13 @@ class MyApp extends StatelessWidget {
 class MobileFrame extends StatelessWidget {
   final Widget child;
 
-  MobileFrame({required this.child});
+  const MobileFrame({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border(
+        border: const Border(
           left: BorderSide(
             color: Colors.black,
             width: 1.0,
@@ -46,7 +46,7 @@ class MobileFrame extends StatelessWidget {
             color: Colors.black.withOpacity(0.5),
             spreadRadius: 5,
             blurRadius: 7,
-            offset: Offset(0, 3),
+            offset: const Offset(0, 3),
           ),
         ],
       ),
@@ -56,6 +56,8 @@ class MobileFrame extends StatelessWidget {
 }
 
 class RecordingScreen extends StatefulWidget {
+  const RecordingScreen({super.key});
+
   @override
   _RecordingScreenState createState() => _RecordingScreenState();
 }
@@ -96,20 +98,20 @@ class _RecordingScreenState extends State<RecordingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(''),
+        title: const Text(''),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(height: 20.0),
+          const SizedBox(height: 20.0),
           Container(
             alignment: Alignment.center,
             child: Text(
               _formatDuration(Duration(seconds: secondsElapsed)),
-              style: TextStyle(fontSize: 20.0),
+              style: const TextStyle(fontSize: 20.0),
             ),
           ),
-          SizedBox(height: 20.0),
+          const SizedBox(height: 20.0),
           FutureBuilder<void>(
             future: _initializeControllerFuture,
             builder: (context, snapshot) {
@@ -118,13 +120,13 @@ class _RecordingScreenState extends State<RecordingScreen> {
                   child: CameraPreview(_controller),
                 );
               } else {
-                return Expanded(
+                return const Expanded(
                   child: Center(child: CircularProgressIndicator()),
                 );
               }
             },
           ),
-          SizedBox(height: 20.0),
+          const SizedBox(height: 20.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -143,7 +145,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
                   color: Colors.white,
                 ),
               ),
-              SizedBox(width: 20.0),
+              const SizedBox(width: 20.0),
               if (isRecording)
                 FloatingActionButton(
                   onPressed: () {
@@ -158,7 +160,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
                 ),
             ],
           ),
-          SizedBox(height: 50.0),
+          const SizedBox(height: 50.0),
         ],
       ),
     );
@@ -181,7 +183,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
           secondsElapsed = 0;
         });
 
-        timer = Timer.periodic(Duration(seconds: 1), (timer) {
+        timer = Timer.periodic(const Duration(seconds: 1), (timer) {
           if (!isPaused) {
             setState(() {
               secondsElapsed++;
