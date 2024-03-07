@@ -5,7 +5,7 @@ void main() {
 }
 
 class ReminderApp extends StatelessWidget {
-  const ReminderApp({Key? key}) : super(key: key);
+  const ReminderApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class conversation_notfound extends StatelessWidget {
               width: 375,
               height: 64,
               color: Colors.white,
-              child: Center(
+              child: const Center(
                 child: Text(
                   'Minder',
                   style: TextStyle(
@@ -55,7 +55,7 @@ class conversation_notfound extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
+          const Positioned(
             top: 160.5,
             left: 13,
             child: Text(
@@ -68,7 +68,7 @@ class conversation_notfound extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
+          const Positioned(
             top: 161,
             left: 270,
             child: Text(
@@ -90,11 +90,11 @@ class conversation_notfound extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(19.5),
                 border: Border.all(
-                  color: Color(0xFFdbdbdb),
+                  color: const Color(0xFFdbdbdb),
                   width: 1,
                 ),
               ),
-              child: Center(
+              child: const Center(
                 child: Text(
                   'Meeting with Professor',
                   style: TextStyle(
@@ -106,7 +106,7 @@ class conversation_notfound extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
+          const Positioned(
             top: 292.5,
             left: 67,
             child: Text(
@@ -126,9 +126,9 @@ class conversation_notfound extends StatelessWidget {
               width: 335,
               height: 56,
               decoration: BoxDecoration(
-                color: Color(0xFF2F667F),
+                color: const Color(0xFF2F667F),
                 borderRadius: BorderRadius.circular(24),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: Color(0x1A030303),
                     blurRadius: 10,
@@ -136,7 +136,7 @@ class conversation_notfound extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Center(
+              child: const Center(
                 child: Text(
                   'Record',
                   style: TextStyle(

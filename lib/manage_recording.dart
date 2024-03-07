@@ -2,13 +2,15 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: MobileFrame(child: RecordingScreen()),
     );
   }
@@ -17,13 +19,13 @@ class MyApp extends StatelessWidget {
 class MobileFrame extends StatelessWidget {
   final Widget child;
 
-  MobileFrame({required this.child});
+  const MobileFrame({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border(
+        border: const Border(
           left: BorderSide(
             color: Colors.black,
             width: 1.0,
@@ -34,7 +36,7 @@ class MobileFrame extends StatelessWidget {
           ),
         ),
         borderRadius: BorderRadius.circular(12.0),
-        boxShadow: [],
+        boxShadow: const [],
       ),
       child: child,
     );
@@ -42,6 +44,8 @@ class MobileFrame extends StatelessWidget {
 }
 
 class RecordingScreen extends StatefulWidget {
+  const RecordingScreen({super.key});
+
   @override
   _RecordingScreenState createState() => _RecordingScreenState();
 }
@@ -57,18 +61,18 @@ class _RecordingScreenState extends State<RecordingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(''),
+        title: const Text(''),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           // Timer at the top
-          SizedBox(height: 0),
+          const SizedBox(height: 0),
           Text(
             _formatDuration(Duration(seconds: secondsElapsed)),
-            style: TextStyle(fontSize: 20.0),
+            style: const TextStyle(fontSize: 20.0),
           ),
-          SizedBox(height: 350.0),
+          const SizedBox(height: 350.0),
           // Record/pause/stop buttons at the bottom
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -88,7 +92,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
                   color: Colors.white,
                 ),
               ),
-              SizedBox(width: 20.0),
+              const SizedBox(width: 20.0),
               if (isRecording) // Show pause button only during recording
                 FloatingActionButton(
                   onPressed: () {
@@ -125,7 +129,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
     });
 
     // Start timer
-    timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (!isPaused) {
         setState(() {
           secondsElapsed++;

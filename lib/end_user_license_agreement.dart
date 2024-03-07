@@ -8,7 +8,7 @@ void main() {
 }
 
 class ReminderApp extends StatelessWidget {
-  const ReminderApp({Key? key}) : super(key: key);
+  const ReminderApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -54,10 +54,10 @@ class CaregiverEulaScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-                Container(
+                const SizedBox(
                   width: 327,
                   height: 321,
-                  child: const Column(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
@@ -204,7 +204,7 @@ class CaregiverEulaScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-                Container(
+                SizedBox(
                   width: 335,
                   height: 56,
                   child: ElevatedButton(
@@ -212,7 +212,7 @@ class CaregiverEulaScreen extends StatelessWidget {
                       // Handle Agree button press
                      Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => LoginPage()),);
+                MaterialPageRoute(builder: (context) => const LoginPage()),);
                       print('Agree button pressed');
                     },
                     style: ElevatedButton.styleFrom(
@@ -234,7 +234,7 @@ class CaregiverEulaScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-                Container(
+                SizedBox(
                   width: 335,
                   height: 56,
                   child: ElevatedButton(
@@ -242,7 +242,7 @@ class CaregiverEulaScreen extends StatelessWidget {
                       // Handle Disagree button press
                       Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SplashScreen()),);
+                MaterialPageRoute(builder: (context) => const SplashScreen()),);
                       print('Disagree button pressed');
                     },
                     style: ElevatedButton.styleFrom(

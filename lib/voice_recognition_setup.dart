@@ -5,19 +5,23 @@ import 'package:audioplayers/audioplayers.dart';
 import 'dart:io';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: VoiceRecognitionScreen(),
     );
   }
 }
 
 class VoiceRecognitionScreen extends StatefulWidget {
+  const VoiceRecognitionScreen({super.key});
+
   @override
   _VoiceRecognitionScreenState createState() => _VoiceRecognitionScreenState();
 }
@@ -49,7 +53,7 @@ class _VoiceRecognitionScreenState extends State<VoiceRecognitionScreen> {
           });
           _saveToFile(result.recognizedWords);
         },
-        listenFor: Duration(seconds: 10),
+        listenFor: const Duration(seconds: 10),
       );
 
       setState(() {
@@ -74,7 +78,7 @@ class _VoiceRecognitionScreenState extends State<VoiceRecognitionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('Voice Recognition')),
+        title: const Center(child: Text('Voice Recognition')),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -82,19 +86,19 @@ class _VoiceRecognitionScreenState extends State<VoiceRecognitionScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset('asset/images/speech-recognition.jpg', height: 300, width: 300),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             Text(
               _text,
-              style: TextStyle(fontSize: 18.0),
+              style: const TextStyle(fontSize: 18.0),
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
                   onPressed: _isListening ? _stopListening : _startListening,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: _isListening ? Colors.red : Color.fromARGB(255, 157, 201, 236), // Change colors as needed
+                    backgroundColor: _isListening ? Colors.red : const Color.fromARGB(255, 157, 201, 236), // Change colors as needed
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(15.0),
@@ -103,9 +107,9 @@ class _VoiceRecognitionScreenState extends State<VoiceRecognitionScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             // Add your custom screen widget here
-            NewScreen1(),
+            const NewScreen1(),
           ],
         ),
       ),
@@ -114,6 +118,8 @@ class _VoiceRecognitionScreenState extends State<VoiceRecognitionScreen> {
 }
 
 class NewScreen1 extends StatelessWidget {
+  const NewScreen1({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
