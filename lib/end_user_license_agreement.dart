@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
- 
+import 'package:minder/Caregiver_Login/caregiver_login.dart';
+
+import 'Welcome_screen/welcome.dart';
 
 void main() {
   runApp(const ReminderApp());
 }
 
 class ReminderApp extends StatelessWidget {
-  const ReminderApp({Key? key}) : super(key: key);
+  const ReminderApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -52,10 +54,10 @@ class CaregiverEulaScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-                Container(
+                const SizedBox(
                   width: 327,
                   height: 321,
-                  child: const Column(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
@@ -202,16 +204,22 @@ class CaregiverEulaScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-                Container(
+                SizedBox(
                   width: 335,
                   height: 56,
                   child: ElevatedButton(
                     onPressed: () {
                       // Handle Agree button press
+                     Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginPage()),);
                       print('Agree button pressed');
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: const Color.fromARGB(255, 152, 199, 238), // Change color as needed
+
+                      backgroundColor: const Color.fromARGB(
+                          255, 152, 199, 238), // Change color as needed
+
                     ),
                     child: const Text(
                       'Agree',
@@ -226,16 +234,21 @@ class CaregiverEulaScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-                Container(
+                SizedBox(
                   width: 335,
                   height: 56,
                   child: ElevatedButton(
                     onPressed: () {
                       // Handle Disagree button press
+                      Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SplashScreen()),);
                       print('Disagree button pressed');
                     },
                     style: ElevatedButton.styleFrom(
-                      primary:  const Color.fromARGB(255, 24, 65, 99),// Change color as needed
+
+                      backgroundColor: const Color.fromARGB(
+                          255, 24, 65, 99), // Change color as needed
                     ),
                     child: const Text(
                       'Disagree',

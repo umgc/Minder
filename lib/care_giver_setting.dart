@@ -1,183 +1,190 @@
+
+
 import 'package:flutter/material.dart';
- void main() {
-  runApp(const ReminderApp());
+import 'package:minder/Welcome_screen/welcome.dart';
+import 'package:minder/all_tour_guide.dart';
+import 'package:minder/care_giver_support-screen.dart';
+
+import 'Reminder/caregiver_reminderscreen.dart';
+
+
+
+
+void main() {
+  runApp(const Settings());
 }
 
-class ReminderApp extends StatelessWidget {
-  const ReminderApp({Key? key}) : super(key: key);
+class Settings extends StatelessWidget {
+  const Settings({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: const Color.fromARGB(255, 18, 32, 47),
-      ),
       home: Scaffold(
-        body: ListView(children: const [
-          CaregiverSettingScreen(),
-        ]),
+        appBar: AppBar(
+          title: const Text('Settings'),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Profile Information Box
+             Container(
+  decoration: BoxDecoration(
+    borderRadius: BorderRadius.circular(8),
+    boxShadow: [
+      BoxShadow(
+        color: Colors.black.withOpacity(0.1),
+        spreadRadius: 2,
+        blurRadius: 6,
+        offset: const Offset(0, 3),
       ),
-    );
-  }
-}
-
-class CaregiverSettingScreen extends StatelessWidget {
-  const CaregiverSettingScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        // Handle tap on the screen (optional).
-      },
-  child: Column(
-        children: [
-          Container(
-            width: 375,
-            height: 667,
-            color: Colors.white, // Set the background color to white
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                 'Settings',
-                        style: TextStyle(
-                          color: Color(0xFF030303),
-                          fontSize: 38,
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w700,
-                          height: 0,
-                  ),
+    ],
+  ),
+  child: Container(
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(8),
+      color: Colors.white,
+    ),
+    padding: const EdgeInsets.all(16.0),
+    child: Row(
+      children: [
+        // Image
+        Image.asset(
+          '../asset/images/profile.png', // Provide the path to your image asset
+          width: 60, // Set the desired width
+          height: 60, // Set the desired height
+        ),
+        const SizedBox(width: 16), // Add spacing between image and text
+        // Profile Information Text and Edit Icon
+        const Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Profile Information',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
                 ),
-                const SizedBox(height: 20),
-                Container(
-                  width: 250,
-                  child: const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                  ),
+              ),
+              SizedBox(height: 8),
+              Text(
+                'Edit profile details',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 119, 119, 119),
                 ),
-                const SizedBox(height: 10),
-                Container(
-                  width: 250,
-                  height: 56,
-                  child: 
-                  
-                  ElevatedButton(
-                    onPressed: () {
-                      // Handle Agree button press
-                      print('Profile button pressed');
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Color.fromARGB(255, 234, 237, 240), // Change color as needed
-                    ),
-                    child: const Text(
-                      'Profile Information',
-                      
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w700,
-                        height: 0,
-                        
-                      ),
-                    ),
-                  ),
-                  
-                ),
-                const SizedBox(height: 20),
-                Container(
-                  width: 250,
-                  height: 56,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Handle Agree button press
-                      print('Guided TOur button pressed');
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Color.fromARGB(255, 241, 243, 245), // Change color as needed
-                    ),
-                
-                    child: const Text(
-                      'Guided Tour',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w700,
-                        height: 0,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Container(
-                  width: 250,
-                  height: 56,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Handle Agree button press
-                      print('Support Center button pressed');
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Color.fromARGB(255, 241, 243, 245), // Change color as needed
-                    ),
-                
-                    child: const Text(
-                      'Support Center',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w700,
-                        height: 0,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-               Container(
-                  width: 0,
-                  height: 300,
-                  child: const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                  ),
-                ),
-                Container(
-                  
-                  
-                  width: 250,
-                  height: 56,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Handle Disagree button press
-                      print('Sign Out button pressed');
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary:  Color.fromARGB(255, 100, 139, 179),// Change color as needed
-                    ),
-                    child: const Text(
-                      'Sign Out',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w700,
-                        height: 0,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
+        ),
+        const Align(
+          alignment: Alignment.topRight,
+          child: Text(
+                '>',
+                style: TextStyle(
+                  fontFamily: 'SansSerifFont',
+                  fontSize: 36,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+        ),
+      ],
+    ),
+  ),
+),
+              const SizedBox(height: 25),
+              // Reminders, Guided Tour, Support Center Boxes
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      spreadRadius: 2,
+                      blurRadius: 6,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    buildListItem('Reminders', Icons.notifications, context),
+                    buildListItem('Guided Tour', Icons.explore, context),
+                    buildListItem('Support Center', Icons.live_help, context),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+              // Sign Out Button
+              const Spacer(),
+              ElevatedButton(
+                onPressed: () {
+                  // Handle sign-out logic
+                  Navigator.push(
+              context ,
+              MaterialPageRoute(builder: (context) =>   const SplashScreen()),
+            );
+                  
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 168, 225, 252),
+                ),
+                child: const Text(
+                  'Sign Out',
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
+
+  Widget buildListItem(String title, IconData icon, BuildContext context) {
+    return ListTile(
+      title: Text(title),
+      trailing: const Text(
+                '>',
+                style: TextStyle(
+                  fontSize: 27,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+      onTap: () {
+        // Handle the tap on each item
+        switch ( title ) { 
+              case 'Reminders': { 
+                  
+                   Navigator.push(
+              context ,
+              MaterialPageRoute(builder: (context) =>   const RemindersScreen()),
+            );
+              } break; 
+              case 'Guided Tour': { 
+               Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const TourGuide()),
+              );
+              } break; 
+              case 'Support Center': { 
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CaregiverSupport()),
+              );    
+
+              } break;
+              default: { 
+                  //Body of default case  
+              } break; 
+            } 
+        print('$title tapped');
+      },
+    );
+  }
 }
-
-
-
- 
-   
