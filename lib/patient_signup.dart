@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:minder/main.dart';
 
 import 'patient_signupcompleted.dart';
 
@@ -8,7 +7,7 @@ void main() {
 }
 
 class ReminderApp extends StatelessWidget {
-  const ReminderApp({Key? key}) : super(key: key);
+  const ReminderApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +25,7 @@ class ReminderApp extends StatelessWidget {
 }
 
 class patient_signup extends StatelessWidget {
-  const patient_signup({Key? key}) : super(key: key);
+  const patient_signup({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +47,7 @@ class patient_signup extends StatelessWidget {
                   child: Container(
                     width: 387,
                     height: 180,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: NetworkImage(
                             'https://assets.api.uizard.io/api/cdn/stream/40264403-5d53-44bd-8dcf-5ad147ce1b6e.png'),
@@ -59,7 +58,7 @@ class patient_signup extends StatelessWidget {
                 ),
 
                 // Welcome text
-                Positioned(
+                const Positioned(
                   left: 24, // Align with left edge
                   top: 180, // Positioned below the first image
                   child: SizedBox(
@@ -85,7 +84,7 @@ class patient_signup extends StatelessWidget {
                     width: 200,
                     height: 200,
                     decoration: BoxDecoration(
-                      image: DecorationImage(
+                      image: const DecorationImage(
                         image: NetworkImage(
                             'https://assets.api.uizard.io/api/cdn/stream/a855b4aa-8e5c-4ff0-8966-a696cb7818d5.png'),
                         fit: BoxFit.cover,
@@ -104,11 +103,11 @@ class patient_signup extends StatelessWidget {
                 ),
 
                 // "Move your head..." text
-                Positioned(
+                const Positioned(
                   left: (375 - 200) / 2, // Center horizontally
                   top: 460, // Positioned below the second image
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 24, top: 16),
+                    padding: EdgeInsets.only(left: 24, top: 16),
                     child: SizedBox(
                       width: 200, // Match the width of the second image
                       child: Text(
@@ -153,7 +152,7 @@ class patient_signup extends StatelessWidget {
                             ),
                           ],
                         ),
-                        child: Center(
+                        child: const Center(
                           child: Text(
                             'Set up your Face ID',
                             style: TextStyle(

@@ -7,7 +7,7 @@ void main() {
 }
 
 class ReminderApp extends StatelessWidget {
-  const ReminderApp({Key? key}) : super(key: key);
+  const ReminderApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class ReminderApp extends StatelessWidget {
 }
 
 class PatientSignupCompleted extends StatelessWidget {
-  const PatientSignupCompleted({Key? key}) : super(key: key);
+  const PatientSignupCompleted({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class PatientSignupCompleted extends StatelessWidget {
                   // Navigate to the desired screen
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Settings()),
+                    MaterialPageRoute(builder: (context) => const Settings()),
                   );
                 },
                 child: Container(
@@ -63,10 +63,10 @@ class PatientSignupCompleted extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: Center(
+                  child: const Center(
                     child: Text(
                       'Done',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Montserrat',
                         fontSize: 14,
                         color: Colors.white,
@@ -79,7 +79,7 @@ class PatientSignupCompleted extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
+            const Positioned(
               left: 0,
               right: 0,
               top: 496.5, // Keep the vertical position as it is
@@ -89,7 +89,7 @@ class PatientSignupCompleted extends StatelessWidget {
                   children: [
                     Text(
                       'Face ID is now',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Source Sans Pro',
                         fontSize: 24,
                         color: Color(0xFF030303),
@@ -100,7 +100,7 @@ class PatientSignupCompleted extends StatelessWidget {
                     ),
                     Text(
                       'Set Up.',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Source Sans Pro',
                         fontSize: 24,
                         color: Color(0xFF030303),

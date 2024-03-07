@@ -2,12 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:minder/Reminder/caregiver_reminder_creation.dart';
+import 'package:minder/Tour/caregiver_tour_guide_1.dart';
 import 'package:minder/Welcome_screen/welcome.dart';
 import 'package:minder/all_tour_guide.dart';
 import 'package:minder/care_giver_support-screen.dart';
-import 'package:minder/patient_signup.dart';
-import 'package:minder/tour_one.dart';
-
 import 'Reminder/caregiver_reminderscreen.dart';
 
 
@@ -18,14 +16,14 @@ void main() {
 }
 
 class Settings extends StatelessWidget {
-  const Settings({Key? key}) : super(key: key);
+  const Settings({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Settings'),
+          title: const Text('Settings'),
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -50,7 +48,7 @@ class Settings extends StatelessWidget {
       borderRadius: BorderRadius.circular(8),
       color: Colors.white,
     ),
-    padding: EdgeInsets.all(16.0),
+    padding: const EdgeInsets.all(16.0),
     child: Row(
       children: [
         // Image
@@ -59,9 +57,9 @@ class Settings extends StatelessWidget {
           width: 60, // Set the desired width
           height: 60, // Set the desired height
         ),
-        SizedBox(width: 16), // Add spacing between image and text
+        const SizedBox(width: 16), // Add spacing between image and text
         // Profile Information Text and Edit Icon
-        Expanded(
+        const Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -76,13 +74,13 @@ class Settings extends StatelessWidget {
               Text(
                 'Edit profile details',
                 style: TextStyle(
-                  color: const Color.fromARGB(255, 119, 119, 119),
+                  color: Color.fromARGB(255, 119, 119, 119),
                 ),
               ),
             ],
           ),
         ),
-        Align(
+        const Align(
           alignment: Alignment.topRight,
           child: Text(
                 '>',
@@ -97,7 +95,7 @@ class Settings extends StatelessWidget {
     ),
   ),
 ),
-              SizedBox(height: 25),
+              const SizedBox(height: 25),
               // Reminders, Guided Tour, Support Center Boxes
               Container(
                 decoration: BoxDecoration(
@@ -120,22 +118,22 @@ class Settings extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               // Sign Out Button
-              Spacer(),
+              const Spacer(),
               ElevatedButton(
                 onPressed: () {
                   // Handle sign-out logic
                   Navigator.push(
               context ,
-              MaterialPageRoute(builder: (context) =>   SplashScreen()),
+              MaterialPageRoute(builder: (context) =>   const SplashScreen()),
             );
                   
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(255, 168, 225, 252),
                 ),
-                child: Text(
+                child: const Text(
                   'Sign Out',
                   style: TextStyle(
                     color: Colors.black,
@@ -166,19 +164,19 @@ class Settings extends StatelessWidget {
                   
                    Navigator.push(
               context ,
-              MaterialPageRoute(builder: (context) =>   RemindersScreen()),
+              MaterialPageRoute(builder: (context) =>   const RemindersScreen()),
             );
               } break; 
               case 'Guided Tour': { 
                Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const TourGuide()),
+                MaterialPageRoute(builder: (context) => const ConversationListTourScreen()),
               );
               } break; 
               case 'Support Center': { 
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => CaregiverSupport()),
+                MaterialPageRoute(builder: (context) => const CaregiverSupport()),
               );    
 
               } break;

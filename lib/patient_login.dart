@@ -6,7 +6,7 @@ void main() {
 }
 
 class ReminderApp extends StatelessWidget {
-  const ReminderApp({Key? key}) : super(key: key);
+  const ReminderApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class ReminderApp extends StatelessWidget {
 }
 
 class patient_login extends StatelessWidget {
-  const patient_login({Key? key}) : super(key: key);
+  const patient_login({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +52,7 @@ class patient_login extends StatelessWidget {
                 child: Container(
                   width: 387,
                   height: 180,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: NetworkImage(
                           'https://assets.api.uizard.io/api/cdn/stream/40264403-5d53-44bd-8dcf-5ad147ce1b6e.png'),
@@ -68,7 +68,7 @@ class patient_login extends StatelessWidget {
   onTap: () {
     Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ConversationListScreen()),
+                MaterialPageRoute(builder: (context) => const ConversationListScreen()),
               );
   },
                 child: Container(
@@ -86,7 +86,7 @@ class patient_login extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: Center(
+                  child: const Center(
                     child: Text(
                       'Log in',
                       style: TextStyle(
@@ -100,7 +100,7 @@ class patient_login extends StatelessWidget {
                 ),
               ),
               ),
-              Positioned(
+              const Positioned(
                 left: 90,
                 top: 200,
                 child: Text(
@@ -113,7 +113,7 @@ class patient_login extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 left: 70,
                 top: 230,
                 child: Text(
@@ -151,7 +151,7 @@ class patient_login extends StatelessWidget {
                   width: 277,
                   height: 241,
                   decoration: BoxDecoration(
-                    image: DecorationImage(
+                    image: const DecorationImage(
                       image: NetworkImage(
                           'https://assets.api.uizard.io/api/cdn/stream/73b2653b-6556-474d-a368-12e16d8d2546.png'),
                       fit: BoxFit.cover,

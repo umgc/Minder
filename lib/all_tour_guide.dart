@@ -5,25 +5,25 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: const TourGuide(),
+    return const MaterialApp(
+      home: TourGuide(),
     );
   }
 }
 
 class TourGuide extends StatefulWidget {
-  const TourGuide({Key? key}) : super(key: key);
+  const TourGuide({super.key});
 
   @override
   _TourGuideState createState() => _TourGuideState();
 }
 
 class _TourGuideState extends State<TourGuide> {
-  PageController _pageController = PageController(initialPage: 0);
+  final PageController _pageController = PageController(initialPage: 0);
   int _currentPage = 0;
 
   @override
@@ -45,7 +45,7 @@ class _TourGuideState extends State<TourGuide> {
             _currentPage = index;
           });
         },
-        children: [
+        children: const [
           ImagePage(image: 'First Image'),
           ImagePage(image: 'Second Image'),
           ImagePage(image: 'Third Image'),
@@ -92,7 +92,7 @@ class _TourGuideState extends State<TourGuide> {
 class ImagePage extends StatelessWidget {
   final String image;
 
-  const ImagePage({Key? key, required this.image}) : super(key: key);
+  const ImagePage({super.key, required this.image});
 
   @override
   Widget build(BuildContext context) {
