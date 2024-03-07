@@ -1,4 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:minder/care_giver_setting.dart';
+
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 void main() {
   runApp(MyApp());
@@ -8,25 +13,44 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: conversationDetailsScreen(),
+      home: conversationDetailsTourScreen(),
     );
   }
 }
 
-class conversationDetailsScreen extends StatelessWidget {
+class conversationDetailsTourScreen extends StatefulWidget {
+  const conversationDetailsTourScreen({Key? key}) : super(key: key);
+
+  @override
+  ConversationListScreenState createState() => ConversationListScreenState();
+}
+class ConversationListScreenState extends State<conversationDetailsTourScreen> {
+   late TutorialCoachMark tutorialCoachMark;
+  GlobalKey keyButton = GlobalKey();
+  GlobalKey keyButton1 = GlobalKey();
+  GlobalKey keyButton2 = GlobalKey();
+   @override
+  void initState() {
+    createTutorial();
+    Future.delayed(Duration.zero, showTutorial);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
+          key: keyButton,
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context);
+            // Handle back button press
           },
         ),
         title: Text('Doctor Appointment'),
         actions: [
           IconButton(
+            key: keyButton1,
             icon: Icon(Icons.delete),
             onPressed: () {
              showDeleteConfirmationDialog(context);
@@ -56,8 +80,10 @@ class conversationDetailsScreen extends StatelessWidget {
             ),
             SizedBox(height: 12),
            Row(
+            key: keyButton2,
   mainAxisAlignment: MainAxisAlignment.spaceBetween,
   children: [
+    
     buildTileButton('Full Conversation', Icons.message, Colors.white, const Color.fromRGBO(47, 102, 127, 1), fontSize: 10),
      buildTileButton('Summary', Icons.notifications, Colors.black, Colors.white, fontSize: 10),
     buildTileButton('Reminder', Icons.notifications, Colors.black, Colors.white, fontSize: 10),
@@ -66,16 +92,8 @@ class conversationDetailsScreen extends StatelessWidget {
 ),
             SizedBox(height: 16),
             const Text(
-              'Patient: "is there a possiblitiy to explore dietary adjustments to address the discomfort i feel, especeially after meals?"',
-              style: TextStyle(fontSize: 21),
-            ),
-            const Text(
-              'Doctor: "Absolutely. That\'s a valid consideration. Lets delve into potential dietary modifications as part of your treatment plan. I\'ll provide guidance, and we can schedule a follow-up to monitor your progress, Sound good?"',
-              style: TextStyle(fontSize: 21),
-            ),
-            const Text(
-              'Patient: "Sounds like a plan. I appreciate your guidance, and i look forward to making psotiive changes. Thank you, Doctor"',
-              style: TextStyle(fontSize: 21),
+              'Patient: "some questions"\nDoctor: "some response"',
+              style: TextStyle(fontSize: 16),
             ),
             Spacer(),
             SizedBox(
@@ -108,8 +126,49 @@ class conversationDetailsScreen extends StatelessWidget {
     );
   }
 
+  void showTutorial() {
+    tutorialCoachMark.show(context: context);
+  }
+
+  void createTutorial() {
+    tutorialCoachMark = TutorialCoachMark(
+      targets: _createTargets(),
+      colorShadow: Colors.red,
+      textSkip: "SKIP",
+      paddingFocus: 5,
+      opacityShadow: 0.5,
+      imageFilter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+      onFinish: () {
+        Navigator.push(
+              context ,
+              MaterialPageRoute(builder: (context) => const   Settings()),
+            );
+      },
+      onClickTarget: (target) {
+        print('onClickTarget: $target');
+      },
+      onClickTargetWithTapPosition: (target, tapDetails) {
+        print("target: $target");
+        print(
+            "clicked at position local: ${tapDetails.localPosition} - global: ${tapDetails.globalPosition}");
+      },
+      onClickOverlay: (target) {
+        print('onClickOverlay: $target');
+      },
+      onSkip: () {
+        print("skip");
+        Navigator.push(
+              context ,
+              MaterialPageRoute(builder: (context) => const   Settings()),
+            );
+        return true;
+      },
+    );
+  }
+
   Widget buildTileButton(String text, IconData icon, Color iconColor, Color backgroundColor, {double fontSize = 12.0}) {
   return Expanded(
+    
     child: Card(
       elevation: 8,
       shape: RoundedRectangleBorder(
@@ -174,9 +233,9 @@ class conversationDetailsScreen extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-               
+              // Handle delete button press
               Navigator.of(context).pop();
-               
+              // Add your delete logic here
             },
             style: TextButton.styleFrom(
               backgroundColor: Colors.white,
@@ -188,7 +247,7 @@ class conversationDetailsScreen extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-               
+              // Handle cancel button press
               Navigator.of(context).pop();
             },
             style: TextButton.styleFrom(
@@ -204,4 +263,92 @@ class conversationDetailsScreen extends StatelessWidget {
     },
   );
 }
+List<TargetFocus> _createTargets() {
+    List<TargetFocus> targets = [];
+    targets.add(
+      TargetFocus(
+        identify: "keyButton",
+        keyTarget: keyButton,
+        alignSkip: Alignment.topRight,
+        enableOverlayTab: true,
+        contents: [
+          TargetContent(
+            align: ContentAlign.bottom,
+            builder: (context, controller) {
+              return const Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "Tap to go back.",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ],
+        
+      ),
+    );
+
+    targets.add(
+      TargetFocus(
+        identify: "keyButton1",
+        keyTarget: keyButton1,
+        alignSkip: Alignment.topLeft,
+        contents: [
+          TargetContent(
+            align: ContentAlign.bottom,
+            builder: (context, controller) {
+              return const Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "Tap to delete this conversation",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ],
+      ),
+    );   
+        targets.add(
+      TargetFocus(
+        identify: "keyButton2",
+        keyTarget: keyButton2,
+        alignSkip: Alignment.topRight,
+        contents: [
+          TargetContent(
+            align: ContentAlign.top,
+            builder: (context, controller) {
+              return const Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "Select a transmogrifier to extract useful infromation from this conversation.",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ],
+        shape: ShapeLightFocus.RRect,
+        radius: 5,
+      ),
+    ); 
+    return targets;
+  }
+
 }
