@@ -1,0 +1,22 @@
+{
+  "permissions": {},
+  "lambdaLayers": [],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "develop",
+      "environmentVariableName": "develop"
+    },
+    {
+      "cloudFormationParameterName": "uat",
+      "environmentVariableName": "uat"
+    },
+    {
+      "cloudFormationParameterName": "production",
+      "environmentVariableName": "production"
+    }
+  ],
+  "secretNames": [
+    "chatGpt_api_key",
+    "whisper_api_key"
+  ]
+}

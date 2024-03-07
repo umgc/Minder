@@ -74,7 +74,7 @@ class ConversationListScreen extends StatelessWidget {
             onPressed: () {
                Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) =>(RecordingScreen()),
+                MaterialPageRoute(builder: (context) => MobileFrame(child: RecordingScreen()),
               ));
             },
             style: ElevatedButton.styleFrom(

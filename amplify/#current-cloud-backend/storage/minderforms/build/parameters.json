@@ -1,0 +1,5 @@
+{
+  "tableName": "caregiver_profile",
+  "partitionKeyName": "fullName",
+  "partitionKeyType": "S"
+}

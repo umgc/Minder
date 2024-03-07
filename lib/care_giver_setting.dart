@@ -1,12 +1,12 @@
 
 
 import 'package:flutter/material.dart';
-// import 'package:minder/Reminder/caregiver_reminder_creation.dart';
+import 'package:minder/Reminder/caregiver_reminder_creation.dart';
 import 'package:minder/Welcome_screen/welcome.dart';
 import 'package:minder/all_tour_guide.dart';
 import 'package:minder/care_giver_support-screen.dart';
-//import 'package:minder/patient_signup.dart';
-//import 'package:minder/tour_one.dart';
+import 'package:minder/patient_signup.dart';
+import 'package:minder/tour_one.dart';
 
 import 'Reminder/caregiver_reminderscreen.dart';
 
