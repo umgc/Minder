@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:minder/Caregiver_Conversation/patient_conversation_list.dart';
 import 'package:minder/Caregiver_Login/caregiver_patient_account_creation.dart';
 import 'package:minder/Reminder/caregiver_reminder_creation.dart';
+import 'package:minder/manage_recording.dart';
 import 'package:minder/patient_signup.dart';
+import 'package:minder/voice_recognition_setup.dart';
 
 import 'Caregiver_Conversation/patient_conversation_details.dart';
 import 'Caregiver_Login/caregiver_login.dart';
@@ -27,21 +29,21 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
 
-      home: const SplashScreen(),
+      home:  const MobileFrame(child: RecordingScreen()),
       //home: tour
       routes: {
         //  '/Settings' : (context) => FigmaToCodeApp(),
-        '/Login': (context) => const LoginPage(), // Add this line
-        '/welcome': (context) => const SplashScreen(), // Add this line
-         '/conversationDetailsScreen': (context) => const conversationDetailsScreen(),
+        '/Login': (context) =>  LoginPage(), // Add this line
+        '/welcome': (context) =>  SplashScreen(), // Add this line
+         '/conversationDetailsScreen': (context) => conversationDetailsScreen(),
         //  '/conversationListScreen': (context) => tour_one(),
-          '/conversationListScreen': (context) => const ConversationListScreen(),
-          '/caregiversignup': (context) => const caregiversignup(),
-          '/ReminderFormScreen': (context) => const ReminderFormScreen(),
+          '/conversationListScreen': (context) => ConversationListScreen(),
+          '/caregiversignup': (context) => caregiversignup(),
+          '/ReminderFormScreen': (context) =>  ReminderFormScreen(),
           '/reminder_creation_screen' : (context) => CaregiverReminderCreationScreen(),
-          '/caregiver_signup' : (context) => const SignUpScreen(),
-          '/eula' : (context) => const CaregiverEulaScreen(),
-          '/faceidsignup' : (context) => const patient_signup(),
+          '/caregiver_signup' : (context) =>  SignUpScreen(),
+          '/eula' : (context) =>  CaregiverEulaScreen(),
+          '/faceidsignup' : (context) =>  patient_signup(),
         //  '/tourone' : (context) => MyHomePage(),
       },
     );

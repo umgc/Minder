@@ -153,7 +153,7 @@ class CaregiverEulaScreen1 extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const SplashScreen()),
+                      MaterialPageRoute(builder: (context) =>  SplashScreen()),
                     );
                     print('Disagree button pressed');
                   },
