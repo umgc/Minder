@@ -7,17 +7,15 @@ void main() {
 }
 
 class ReminderApp1 extends StatelessWidget {
-
-  const ReminderApp1({super.key});
-
+  const ReminderApp1({super.key, Key? door});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: const Color.fromARGB(255, 18, 32, 47),
-      ),
-      home: Scaffold(
+       theme: ThemeData.dark().copyWith(
+         scaffoldBackgroundColor: const Color.fromARGB(255, 18, 32, 47),
+       ),
+      home: const Scaffold(
         body: CaregiverEulaScreen1(),
       ),
     );
@@ -25,44 +23,33 @@ class ReminderApp1 extends StatelessWidget {
 }
 
 class CaregiverEulaScreen1 extends StatelessWidget {
-  const CaregiverEulaScreen1({Key? key});
+  const CaregiverEulaScreen1({super.key, Key? window});
 
   @override
   Widget build(BuildContext context) {
-
-    return GestureDetector(
-      onTap: () {
-        // Handle tap on the screen (optional).
-      },
-    child: SingleChildScrollView(
-      reverse: true,
+    return Scrollbar(
       child: Center(
-      child: Column(
-        // children: [
-        //   Container(
-        //     width: 375,
-        //     height: 667,
-        //     color: Colors.white, // Set the background color to white
-        //     child: Column(
-        //       mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  'Minder',
-                  style: TextStyle(
-                    color: Color(0xFF030303),
-                    fontSize: 38,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.w700,
-                    height: 0,
-                  ),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(32),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+               const Text(
+                'Minder',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color(0xFF030303),
+                  fontSize: 38,
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.w700,
                 ),
-                const SizedBox(height: 20),
-                const SizedBox(
-                  width: 327,
-                  height: 321,
+              ),
+              const SizedBox(height: 20),
+              const SizedBox(
+                width: 327,
+                height: 321,
+                child: SingleChildScrollView(
                   child: Column(
-                   // crossAxisAlignment: CrossAxisAlignment.start,
-
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
@@ -119,89 +106,76 @@ class CaregiverEulaScreen1 extends StatelessWidget {
                 'MISCELLANEOUS\n'
                 '17.1 If any of the terms of this agreement should be or become invalid, the validity of the remaining provisions shall not be affected. Invalid terms will be replaced by valid ones formulated in a way that will achieve the primary purpose.\n'
                 '17.2 Collateral agreements, changes, and amendments are only valid if laid down in writing. The preceding clause can only be waived in writing.',
+                        softWrap: true,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Color(0xFF030303),
                           fontSize: 18,
                           fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w400,
                           height: 1.5,
                         ),
                       ),
                     ],
                   ),
                 ),
-
-                const SizedBox(height: 20),
-                SizedBox(
-                  width: 335,
-                  height: 56,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Handle Agree button press
-                     Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const patient_login()),);
-                      print('Agree button pressed');
-                    },
-                    style: ElevatedButton.styleFrom(
-
-                      backgroundColor: const Color.fromARGB(
-                          255, 152, 199, 238), // Change color as needed
-
-                    ),
-                    child: const Text(
-                      'Agree',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w700,
-                        height: 0,
-                      ),
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: 335,
+                height: 56,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const patient_login()),
+                    );
+                    print('Agree button pressed');
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 152, 199, 238),
+                  ),
+                  child: const Text(
+                    'Agree',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                 ),
-                const SizedBox(height: 10),
-                SizedBox(
-                  width: 335,
-                  height: 56,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Handle Disagree button press
-                      Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const SplashScreen()),);
-                      print('Disagree button pressed');
-                    },
-                    style: ElevatedButton.styleFrom(
-
-                      backgroundColor: const Color.fromARGB(
-                          255, 24, 65, 99), // Change color as needed
-                    ),
-                    child: const Text(
-                      'Disagree',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w700,
-                        height: 0,
-                      ),
-
+              ),
+              const SizedBox(height: 10),
+              SizedBox(
+                width: 335,
+                height: 56,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const SplashScreen()),
+                    );
+                    print('Disagree button pressed');
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 24, 65, 99),
+                  ),
+                  child: const Text(
+                    'Disagree',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                 ),
               ),
             ],
           ),
-
-       // ],
-
+        ),
       ),
-     // ),
-      );
-   // ),
-   // );
+    );
   }
 }

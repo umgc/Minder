@@ -12,6 +12,7 @@ import 'Welcome_screen/welcome.dart';
 import 'end_user_license_agreement.dart';
 import 'reminder_creation_screen.dart.dart';
 
+
 void main() {
   runApp(const MyApp());
 }
@@ -23,9 +24,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Minder App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      //theme: ThemeData(fontFamily: 'Montserrat'),
+       theme: ThemeData(
+         primarySwatch: Colors.blue,
+       ),
 
       home: const SplashScreen(),
       //home: tour
