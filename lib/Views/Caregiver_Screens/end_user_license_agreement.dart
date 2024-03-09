@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:minder/Caregiver_Login/caregiver_login.dart';
+import 'package:minder/Views/Caregiver_Screens/caregiver_login.dart';
 
-import 'Welcome_screen/welcome.dart';
+import '../Welcome_screen/welcome.dart';
 
 void main() {
   runApp(const ReminderApp());

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../Caregiver_Login/caregiver_login.dart';
+import '../../Views/Caregiver_Screens/caregiver_login.dart';
 
 void main() {
   runApp(MyApp());

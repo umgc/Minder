@@ -1,12 +1,12 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:minder/Reminder/caregiver_reminder_creation.dart';
-import 'package:minder/Tour/caregiver_tour_guide_1.dart';
-import 'package:minder/Welcome_screen/welcome.dart';
-import 'package:minder/all_tour_guide.dart';
-import 'package:minder/care_giver_support-screen.dart';
-import 'Reminder/caregiver_reminderscreen.dart';
+//import 'package:minder/Models/Reminder/caregiver_reminder_creation.dart';
+import 'package:minder/Views/Tour/caregiver_tour_guide_1.dart';
+import 'package:minder/Views/Welcome_screen/welcome.dart';
+//import 'package:minder/Z_temporary_files/all_tour_guide.dart';
+import 'package:minder/Views/Caregiver_Screens/care_giver_support-screen.dart';
+import '../../Models/Reminder/caregiver_reminderscreen.dart';
 
 
 

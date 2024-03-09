@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:minder/Reminder/caregiver_reminder_creation.dart';
+import 'package:minder/Models/Reminder/caregiver_reminder_creation.dart';
 
 void main() {
   runApp(RemindersScreen());

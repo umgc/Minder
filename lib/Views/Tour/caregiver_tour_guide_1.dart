@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:minder/Caregiver_Conversation/patient_conversation_details.dart';
+import 'dart:ui';
 
-import '../start_pause_and_stop_recording.dart';
+import 'package:flutter/material.dart';
+import 'package:minder/Views/Tour/caregiver_tour_guide_2.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,12 +12,30 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ConversationListScreen(),
+      home: ConversationListTourScreen(),
     );
   }
 }
 
-class ConversationListScreen extends StatelessWidget {
+class ConversationListTourScreen extends StatefulWidget {
+    const ConversationListTourScreen({Key? key}) : super(key: key);
+
+  @override
+  ConversationListScreenState createState() => ConversationListScreenState();
+}
+class ConversationListScreenState extends State<ConversationListTourScreen> {
+   late TutorialCoachMark tutorialCoachMark;
+
+  GlobalKey keyButton = GlobalKey();
+  GlobalKey keyButton1 = GlobalKey();
+
+   @override
+  void initState() {
+    createTutorial();
+    Future.delayed(Duration.zero, showTutorial);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,13 +50,6 @@ class ConversationListScreen extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {
-            showDeleteConfirmationDialog(context);
-            
-          },
-        ),
         actions: [],
       ),
       body: Column(
@@ -62,23 +74,21 @@ class ConversationListScreen extends StatelessWidget {
           
           SizedBox(height: 20),
           buildNewSection('Conversation draft'),
-          SizedBox(height: 20),
+          
           
           buildSectionDraft('Conversations', 'View All'),
           SizedBox(height: 20),
-          buildConversationBox('Doctor Appointment', Colors.black, 'Aug 28', const Color.fromARGB(255, 168, 216, 255),context),
-          buildConversationBox('Salon Appointment', Colors.black, 'Aug 28', const Color.fromARGB(255, 168, 216, 255),context),
-          buildConversationBox('Breakfast with John', Colors.black, 'Aug 28', const Color.fromARGB(255, 168, 216, 255),context),
+          buildConversationBox('Doctor Appointment', Colors.black, 'Aug 28', const Color.fromARGB(255, 168, 216, 255), true, keyButton ),
+          buildConversationBox('Salon Appointment', Colors.black, 'Aug 28', const Color.fromARGB(255, 168, 216, 255), false, keyButton),
+          buildConversationBox('Breakfast with John', Colors.black, 'Aug 28', const Color.fromARGB(255, 168, 216, 255), false, keyButton),
           Spacer(),
           ElevatedButton(
+            
             onPressed: () {
-               Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => MobileFrame(child: RecordingScreen()),
-              ));
+              // Handle record button press
             },
             style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.all(25),
+              padding: EdgeInsets.all(16),
               backgroundColor: Color.fromRGBO(47, 102, 127, 1),
             ),
             child: Row(
@@ -88,16 +98,57 @@ class ConversationListScreen extends StatelessWidget {
                 SizedBox(width: 8),
                 Text(
                   'Record',
+                  key: keyButton1,
                   style: TextStyle(fontSize: 18, color: Colors.white),
                 ),
               ],
             ),
           ),
-          SizedBox(height: 20),
         ],
       ),
     );
   }
+   
+  void showTutorial() {
+    tutorialCoachMark.show(context: context);
+  }
+
+  void createTutorial() {
+    tutorialCoachMark = TutorialCoachMark(
+      targets: _createTargets(),
+      colorShadow: Colors.red,
+      textSkip: "SKIP",
+      paddingFocus: 5,
+      opacityShadow: 0.5,
+      imageFilter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+      onFinish: () {
+         Navigator.push(
+              context ,
+              MaterialPageRoute(builder: (context) => const   conversationDetailsTourScreen()),
+            );
+      },
+      onClickTarget: (target) {
+        print('onClickTarget: $target');
+      },
+      onClickTargetWithTapPosition: (target, tapDetails) {
+        print("target: $target");
+        print(
+            "clicked at position local: ${tapDetails.localPosition} - global: ${tapDetails.globalPosition}");
+      },
+      onClickOverlay: (target) {
+        print('onClickOverlay: $target');
+      },
+      onSkip: () {
+        print("skip");
+        Navigator.push(
+              context ,
+              MaterialPageRoute(builder: (context) => const   conversationDetailsTourScreen()),
+            );
+        return true;
+      },
+    );
+  }
+   
 
   Widget buildSectionDraft(String title, String viewAllText) {
     return Padding(
@@ -148,7 +199,7 @@ class ConversationListScreen extends StatelessWidget {
   Widget buildNewBox() {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(30),
@@ -188,17 +239,19 @@ class ConversationListScreen extends StatelessWidget {
           icon: Icon(Icons.check, color: Colors.green),
           onPressed: () {
             // Handle check button press
-          },
-        ),
-      ],
-    ),
-  ],
-),
-    );
-  }
+            },
+          ),
+        ],
+      ),
+    ],
+  ),
+      );
+    }
 
-  Widget buildConversationBox(String conversationName, Color videoIconColor, String date, Color buttonColor, BuildContext context) {
-    return Container(
+  Widget buildConversationBox(String conversationName, Color videoIconColor, String date, Color buttonColor, bool keybool ,GlobalKey<State<StatefulWidget>>  key1) {
+    if(keybool){
+      return Container(
+         key: key1,
       margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -222,15 +275,16 @@ class ConversationListScreen extends StatelessWidget {
             style: TextStyle(fontSize: 18),
           ),
           ElevatedButton(
+           
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) =>  conversationDetailsScreen()));
+              // Handle View All functionality
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: buttonColor,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(5),
+              padding: const EdgeInsets.all(10),
               child: Text(
                 date,
                 style: TextStyle(fontSize: 16, color: Colors.black),
@@ -240,77 +294,113 @@ class ConversationListScreen extends StatelessWidget {
         ],
       ),
     );
-  }
-}
- Future<void> showDeleteConfirmationDialog(BuildContext context) async {
-  return showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        backgroundColor: Colors.black,
-        content: SingleChildScrollView(
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color.fromRGBO(151, 228, 241, 1),
-                    ),
-                    child: Center(
-                      child: Text(
-                        '?',
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 16),
-                  Flexible(
-                    child: Text(
-                      'You will be signed out',
-                      style: TextStyle(color: Colors.white, fontSize: 14),
-                    ),
-                  ),
-                ],
+    }
+    else {
+      return Container(
+      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(30),
+        boxShadow: [
+          BoxShadow(
+            color: Color.fromARGB(255, 204, 204, 204).withOpacity(0.5),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Icon(Icons.videocam, color: videoIconColor),
+          Text(
+            conversationName,
+            style: TextStyle(fontSize: 18),
+          ),
+          ElevatedButton(
+            
+            onPressed: () {
+              // Handle View All functionality
+              print("button pressed");
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: buttonColor,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Text(
+                date,
+                style: TextStyle(fontSize: 16, color: Colors.black),
               ),
-            ],
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              
-              Navigator.of(context).pop();
-              
-              Navigator.pop(context);
-            },
-            style: TextButton.styleFrom(
-              backgroundColor: Colors.white,
-            ),
-            child: Text(
-              'OK',
-              style: TextStyle(color: Colors.black),
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              
-              Navigator.of(context).pop();
-            },
-            style: TextButton.styleFrom(
-              backgroundColor: Colors.white,
-            ),
-            child: Text(
-              'Cancel',
-              style: TextStyle(color: Colors.black),
             ),
           ),
         ],
-      );
-    },
-  );
-}
+      ),
+    );
+    }
+    
+  }
+ List<TargetFocus> _createTargets() {
+    List<TargetFocus> targets = [];
+    targets.add(
+      TargetFocus(
+        identify: "keyButton",
+        keyTarget: keyButton,
+        alignSkip: Alignment.topRight,
+        enableOverlayTab: true,
+        contents: [
+          TargetContent(
+            align: ContentAlign.top,
+            builder: (context, controller) {
+              return const Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "Tap to see details and play the conversation.",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ],
+        shape: ShapeLightFocus.RRect,
+        radius: 5,
+      ),
+    );
 
+    targets.add(
+      TargetFocus(
+        identify: "keyButton1",
+        keyTarget: keyButton1,
+        alignSkip: Alignment.topRight,
+        contents: [
+          TargetContent(
+            align: ContentAlign.top,
+            builder: (context, controller) {
+              return const Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "Tap to start recording.",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ],
+      ),
+    );   
+    return targets;
+  }
+}

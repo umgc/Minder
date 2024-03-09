@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:minder/care_giver_setting.dart';
+import 'package:minder/Views/Caregiver_Screens/care_giver_setting.dart';
 
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 

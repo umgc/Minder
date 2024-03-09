@@ -17,6 +17,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.4.5"
+  amplify_auth_cognito:
+    dependency: "direct main"
+    description:
+      name: amplify_auth_cognito
+      sha256: "71566580b8b739469640a3adb9b890b975b0e813dcf5156deeedd3ba6733722d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.5"
+  amplify_auth_cognito_android:
+    dependency: transitive
+    description:
+      name: amplify_auth_cognito_android
+      sha256: f7e79463e5a6b0a3056dbf1a5c524a88827f3583aacf97d3ea49867343466aeb
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.5"
+  amplify_auth_cognito_ios:
+    dependency: transitive
+    description:
+      name: amplify_auth_cognito_ios
+      sha256: "29183353dea036fc575faad1337a9c308ac483db368b7652e25eb7a9fd39660a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.5"
   amplify_auth_plugin_interface:
     dependency: transitive
     description:
@@ -173,10 +197,10 @@ packages:
     dependency: transitive
     description:
       name: camera_avfoundation
-      sha256: "7d0763dfcbf060f56aa254a68c103210280bee9e97bbe4fdef23e257a4f70ab9"
+      sha256: "8b113e43ee4434c9244c03c905432a0d5956cedaded3cd7381abaab89ce50297"
       url: "https://pub.dev"
     source: hosted
-    version: "0.9.14"
+    version: "0.9.14+1"
   camera_platform_interface:
     dependency: transitive
     description:
@@ -309,10 +333,10 @@ packages:
     dependency: "direct main"
     description:
       name: firebase_core
-      sha256: "797379ea206eaeeb62499775de812761493d0692890fdc7f90b6183a3369176d"
+      sha256: "53316975310c8af75a96e365f9fccb67d1c544ef0acdbf0d88bbe30eedd1c4f9"
       url: "https://pub.dev"
     source: hosted
-    version: "2.25.5"
+    version: "2.27.0"
   firebase_core_platform_interface:
     dependency: transitive
     description:
@@ -401,7 +425,7 @@ packages:
     source: hosted
     version: "0.11.0"
   google_mlkit_face_detection:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: google_mlkit_face_detection
       sha256: a6ccff7d6ca8dfc2ab845ea7481645342e82aed31a81edd075169a3abbb25ed3
@@ -969,10 +993,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: "464f5674532865248444b4c3daca12bd9bf2d7c47f759ce2617986e7229494a8"
+      sha256: "8cb58b45c47dcb42ab3651533626161d6b67a2921917d8d429791f76972b3480"
       url: "https://pub.dev"
     source: hosted
-    version: "5.2.0"
+    version: "5.3.0"
   xdg_directories:
     dependency: transitive
     description:

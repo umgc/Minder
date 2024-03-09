@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'care_giver_setting.dart';
+import '../Caregiver_Screens/care_giver_setting.dart';
 
 void main() {
   runApp(const ReminderApp());
