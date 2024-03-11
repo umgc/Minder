@@ -9,6 +9,8 @@ class PasswordResetPage extends StatefulWidget {
 
 class _PasswordResetPageState extends State<PasswordResetPage> {
   final _emailController = TextEditingController();
+  final _confirmationCodeController = TextEditingController();
+  final _newPasswordController = TextEditingController();
   String _resetError = '';
   bool _isResetInitiated = false;
 
@@ -27,6 +29,32 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
         _isResetInitiated = true;
         _resetError = '';
       });
+    } on AuthException catch (e) {
+      setState(() {
+        _resetError = e.message;
+      });
+    }
+  }
+
+  Future<void> _confirmResetPassword() async {
+    String confirmationCode = _confirmationCodeController.text.trim();
+    String newPassword = _newPasswordController.text.trim();
+
+    if (confirmationCode.isEmpty || newPassword.isEmpty) {
+      setState(() {
+        _resetError = 'Please fill all fields';
+      });
+      return;
+    }
+
+    try {
+      await Amplify.Auth.confirmResetPassword(
+        username: _emailController.text.trim(),
+        newPassword: newPassword,
+        confirmationCode: confirmationCode,
+      );
+      // Navigate back to login page on success
+      Navigator.pop(context); 
     } on AuthException catch (e) {
       setState(() {
         _resetError = e.message;
@@ -58,25 +86,40 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
                 onPressed: _resetPassword,
                 child: Text('Reset Password'),
               ),
-              if (_resetError.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: Text(
-                    _resetError,
-                    style: TextStyle(color: Colors.red, fontSize: 16),
-                  ),
-                ),
             ] else ...[
               Text(
-                'A password reset link has been sent to your email. Please check your inbox and follow the instructions to reset your password.',
+                'Enter the confirmation code sent to your email and your new password.',
                 textAlign: TextAlign.center,
+              ),
+              TextField(
+                controller: _confirmationCodeController,
+                decoration: InputDecoration(
+                  labelText: 'Confirmation Code',
+                  hintText: 'Enter the confirmation code',
+                ),
+              ),
+              TextField(
+                controller: _newPasswordController,
+                decoration: InputDecoration(
+                  labelText: 'New Password',
+                  hintText: 'Enter your new password',
+                ),
+                obscureText: true,
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () => Navigator.pop(context),
-                child: Text('Back to Login'),
+                onPressed: _confirmResetPassword,
+                child: Text('Confirm New Password'),
               ),
-            ]
+            ],
+            if (_resetError.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Text(
+                  _resetError,
+                  style: TextStyle(color: Colors.red, fontSize: 16),
+                ),
+              ),
           ],
         ),
       ),

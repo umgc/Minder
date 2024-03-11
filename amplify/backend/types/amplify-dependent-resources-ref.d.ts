@@ -1,9 +1,8 @@
 export type AmplifyDependentResourcesAttributes = {
   "api": {
-    "MinderAPI": {
-      "ApiId": "string",
-      "ApiName": "string",
-      "RootUrl": "string"
+    "minder": {
+      "GraphQLAPIEndpointOutput": "string",
+      "GraphQLAPIIdOutput": "string"
     }
   },
   "auth": {

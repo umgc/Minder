@@ -1,0 +1,24 @@
+type Caregiver @model @auth(rules: [{allow: owner}]) {
+  id: ID!
+  username: String!
+  email: String!
+  patients: [Patient] @hasMany(indexName: "byCaregiver", fields: ["id"])
+}
+
+type Patient @model @auth(rules: [{allow: owner}]) {
+  id: ID!
+  patientsFirstName: String!
+  patientsLastName: String!
+  caregiverId: ID! @index(name: "byCaregiver")
+  caregiver: Caregiver @belongsTo(fields: ["caregiverId"])
+  reminders: [Reminder] @hasMany(indexName: "byPatient", fields: ["id"])
+}
+
+type Reminder @model @auth(rules: [{allow: owner}]) {
+  id: ID!
+  eventType: String!
+  dateTime: AWSDateTime!
+  description: String
+  patientId: ID! @index(name: "byPatient")
+  patient: Patient @belongsTo(fields: ["patientId"])
+}

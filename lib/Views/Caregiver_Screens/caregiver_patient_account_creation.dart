@@ -33,7 +33,7 @@ class _CaregiverSignupState extends State<CaregiverSignup> {
             _lastNameController.text.trim(), // Adjust as needed
         password:
             'your_default_password', // Use a default password or generate one
-        options: CognitoSignUpOptions(
+        options: SignUpOptions(
           userAttributes: {
             CognitoUserAttributeKey.name: _firstNameController.text.trim() +
                 ' ' +

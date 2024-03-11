@@ -190,3 +190,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+
+mixin NotAuthorizedException {
+}

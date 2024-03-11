@@ -28,6 +28,12 @@
       "storage": {
         "minderforms": {},
         "minders3": {}
+      },
+      "api": {
+        "minder": {}
+      },
+      "hosting": {
+        "S3AndCloudFront": {}
       }
     }
   }

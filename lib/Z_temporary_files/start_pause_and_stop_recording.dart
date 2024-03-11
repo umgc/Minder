@@ -1,137 +1,156 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
-import 'package:camera/camera.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_storage_s3/amplify_storage_s3.dart';
-import '../Config/amplifyconfiguration.dart'; // Ensure this contains your Amplify project configuration
 
 void main() {
-  runApp(VideoRecordingApp());
+  runApp(const MyApp());
 }
 
-class VideoRecordingApp extends StatefulWidget {
-  @override
-  _VideoRecordingAppState createState() => _VideoRecordingAppState();
-}
-
-class _VideoRecordingAppState extends State<VideoRecordingApp> {
-  @override
-  void initState() {
-    super.initState();
-    _configureAmplify();
-  }
-
-  void _configureAmplify() async {
-    if (!Amplify.isConfigured) {
-      Amplify.addPlugins([AmplifyAuthCognito(), AmplifyStorageS3()]);
-      try {
-        await Amplify.configure(amplifyconfig);
-        print("Amplify successfully configured");
-      } catch (e) {
-        print("Failed to configure Amplify: $e");
-      }
-    }
-  }
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(title: Text('Video Upload Demo')),
-        body: Center(child: VideoRecordingScreen()),
+    return const MaterialApp(
+      home: MobileFrame(child: RecordingScreen()),
+    );
+  }
+}
+
+class MobileFrame extends StatelessWidget {
+  final Widget child;
+
+  const MobileFrame({super.key, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        border: const Border(
+          left: BorderSide(
+            color: Colors.black,
+            width: 1.0,
+          ),
+          right: BorderSide(
+            color: Colors.black,
+            width: 1.0,
+          ),
+        ),
+        borderRadius: BorderRadius.circular(12.0),
+        boxShadow: const [],
+      ),
+      child: child,
+    );
+  }
+}
+
+class RecordingScreen extends StatefulWidget {
+  const RecordingScreen({super.key});
+
+  @override
+  _RecordingScreenState createState() => _RecordingScreenState();
+}
+
+class _RecordingScreenState extends State<RecordingScreen> {
+  bool isRecording = false;
+  bool isPaused = false;
+  int secondsElapsed = 0;
+
+  Timer? timer;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(''),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // Timer at the top
+          const SizedBox(height: 0),
+          Text(
+            _formatDuration(Duration(seconds: secondsElapsed)),
+            style: const TextStyle(fontSize: 20.0),
+          ),
+          const SizedBox(height: 350.0),
+          // Record/pause/stop buttons at the bottom
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              FloatingActionButton(
+                onPressed: () {
+                  if (isRecording) {
+                    stopRecording();
+                  } else {
+                    startRecording();
+                  }
+                },
+                backgroundColor: isRecording ? Colors.red : Colors.green,
+                child: Icon(
+                  isRecording ? Icons.stop : Icons.fiber_manual_record,
+                  size: 40.0,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(width: 20.0),
+              if (isRecording) // Show pause button only during recording
+                FloatingActionButton(
+                  onPressed: () {
+                    pauseRecording();
+                  },
+                  backgroundColor: Colors.blue,
+                  child: Icon(
+                    isPaused ? Icons.play_arrow : Icons.pause,
+                    size: 40.0,
+                    color: Colors.white,
+                  ),
+                ),
+            ],
+          ),
+        ],
       ),
     );
   }
-}
 
-class VideoRecordingScreen extends StatefulWidget {
-  @override
-  _VideoRecordingScreenState createState() => _VideoRecordingScreenState();
-}
-
-class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
-  late CameraController _controller;
-  late Future<void> _initializeControllerFuture;
-
-  @override
-  void initState() {
-    super.initState();
-    _initializeCamera();
+  String _formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
+    return '$twoDigitMinutes:$twoDigitSeconds';
   }
 
-  Future<void> _initializeCamera() async {
-    final cameras = await availableCameras();
-    _controller = CameraController(cameras.first, ResolutionPreset.medium);
-    _initializeControllerFuture = _controller.initialize();
+  void startRecording() {
+    // Your logic for starting recording
+    timer?.cancel(); // Cancel the existing timer
+    setState(() {
+      isRecording = true;
+      isPaused = false;
+      secondsElapsed = 0;
+    });
+
+    // Start timer
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (!isPaused) {
+        setState(() {
+          secondsElapsed++;
+        });
+      }
+    });
   }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
+  void stopRecording() {
+    // Your logic for stopping recording
+    timer?.cancel(); // Cancel the timer
+    setState(() {
+      isRecording = false;
+      isPaused = false;
+    });
   }
 
-  void _startRecording() async {
-    await _initializeControllerFuture;
-    await _controller.startVideoRecording();
-    setState(() {});
-  }
-
-  void _stopAndUploadRecording() async {
-    final videoFile = await _controller.stopVideoRecording();
-    final processedFilePath = await compute(_processVideo, videoFile.path);
-    _uploadVideoToS3(processedFilePath);
-    setState(() {});
-  }
-
-  static Future<String> _processVideo(String filePath) async {
-    // Placeholder for processing logic
-    await Future.delayed(Duration(seconds: 1)); // Simulate processing
-    return filePath;
-  }
-
-  Future<void> _uploadVideoToS3(String filePath) async {
-    final key = 'Uploads/${DateTime.now().millisecondsSinceEpoch}.mp4';
-    try {
-      await Amplify.Storage.uploadFile(local: File(filePath), key: key);
-      print('Video successfully uploaded: $key');
-    } catch (e) {
-      print('Error uploading video: $e');
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<void>(
-      future: _initializeControllerFuture,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          return Column(
-            children: [
-              Expanded(child: CameraPreview(_controller)),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: _startRecording,
-                    child: Text('Start Recording'),
-                  ),
-                  SizedBox(width: 20),
-                  ElevatedButton(
-                    onPressed: _stopAndUploadRecording,
-                    child: Text('Stop & Upload'),
-                  ),
-                ],
-              ),
-            ],
-          );
-        } else {
-          return const CircularProgressIndicator();
-        }
-      },
-    );
+  void pauseRecording() {
+    // Your logic for pausing recording
+    setState(() {
+      isPaused = !isPaused;
+    });
   }
 }

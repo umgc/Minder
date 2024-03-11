@@ -19,7 +19,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       final result = await Amplify.Auth.signUp(
         username: _emailController.text.trim(),
         password: _passwordController.text.trim(),
-        options: CognitoSignUpOptions(
+        options: SignUpOptions(
           userAttributes: {
             CognitoUserAttributeKey.email: _emailController.text.trim(),
             CognitoUserAttributeKey.name: _fullNameController.text.trim(),

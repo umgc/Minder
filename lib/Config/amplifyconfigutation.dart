@@ -4,11 +4,11 @@ const amplifyconfig = '''{
     "api": {
         "plugins": {
             "awsAPIPlugin": {
-                "MinderAPI": {
-                    "endpointType": "REST",
-                    "endpoint": "https://5zc4k2nzpb.execute-api.us-east-1.amazonaws.com/dev",
+                "minder": {
+                    "endpointType": "GraphQL",
+                    "endpoint": "https://jxwmyxbwyzhf3om73eout3udsq.appsync-api.us-east-1.amazonaws.com/graphql",
                     "region": "us-east-1",
-                    "authorizationType": "AWS_IAM"
+                    "authorizationType": "AMAZON_COGNITO_USER_POOLS"
                 }
             }
         }
@@ -20,6 +20,14 @@ const amplifyconfig = '''{
                 "Version": "0.1.0",
                 "IdentityManager": {
                     "Default": {}
+                },
+                "AppSync": {
+                    "Default": {
+                        "ApiUrl": "https://jxwmyxbwyzhf3om73eout3udsq.appsync-api.us-east-1.amazonaws.com/graphql",
+                        "Region": "us-east-1",
+                        "AuthMode": "AMAZON_COGNITO_USER_POOLS",
+                        "ClientDatabasePrefix": "minder_AMAZON_COGNITO_USER_POOLS"
+                    }
                 },
                 "CredentialsProvider": {
                     "CognitoIdentity": {
@@ -39,34 +47,34 @@ const amplifyconfig = '''{
                 "Auth": {
                     "Default": {
                         "authenticationFlowType": "USER_SRP_AUTH",
-                        "mfaConfiguration": "OFF",
-                        "mfaTypes": [
-                            "SMS"
+                        "socialProviders": [],
+                        "usernameAttributes": [
+                            "EMAIL"
+                        ],
+                        "signupAttributes": [
+                            "EMAIL"
                         ],
                         "passwordProtectionSettings": {
                             "passwordPolicyMinLength": 8,
                             "passwordPolicyCharacters": []
                         },
-                        "signupAttributes": [
-                            "EMAIL"
-                        ],
-                        "socialProviders": [],
-                        "usernameAttributes": [
-                            "EMAIL"
+                        "mfaConfiguration": "OFF",
+                        "mfaTypes": [
+                            "SMS"
                         ],
                         "verificationMechanisms": [
                             "EMAIL"
                         ]
                     }
                 },
-                "DynamoDBObjectMapper": {
-                    "Default": {
-                        "Region": "us-east-1"
-                    }
-                },
                 "S3TransferUtility": {
                     "Default": {
                         "Bucket": "minderstore111914-dev",
+                        "Region": "us-east-1"
+                    }
+                },
+                "DynamoDBObjectMapper": {
+                    "Default": {
                         "Region": "us-east-1"
                     }
                 }
@@ -75,6 +83,11 @@ const amplifyconfig = '''{
     },
     "storage": {
         "plugins": {
+            "awsS3StoragePlugin": {
+                "bucket": "minderstore111914-dev",
+                "region": "us-east-1",
+                "defaultAccessLevel": "guest"
+            },
             "awsDynamoDbStoragePlugin": {
                 "partitionKeyName": "fullName",
                 "region": "us-east-1",
@@ -82,11 +95,6 @@ const amplifyconfig = '''{
                 "streamArn": "arn:aws:dynamodb:us-east-1:471112682615:table/caregiver_profile-dev/stream/2024-03-01T17:57:27.664",
                 "partitionKeyType": "S",
                 "name": "caregiver_profile-dev"
-            },
-            "awsS3StoragePlugin": {
-                "bucket": "minderstore111914-dev",
-                "region": "us-east-1",
-                "defaultAccessLevel": "guest"
             }
         }
     }
