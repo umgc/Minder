@@ -53,6 +53,7 @@ dependencies:
   intl: ^0.19.0
   firebase_core: ^2.25.5 
   tutorial_coach_mark: ^1.2.11
+  flutter_sound: ^9.2.13
 
 dev_dependencies:
   flutter_test:

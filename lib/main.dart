@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
 
-      home:  SplashScreen(),
+      home:  VoiceRecognitionScreen(),
       //home: tour
       routes: {
         //  '/Settings' : (context) => FigmaToCodeApp(),
