@@ -1,11 +1,10 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:minder/Reminder/caregiver_reminder_creation.dart';
-import 'package:minder/Tour/caregiver_tour_guide_1.dart';
 import 'package:minder/Welcome_screen/welcome.dart';
 import 'package:minder/all_tour_guide.dart';
 import 'package:minder/care_giver_support-screen.dart';
+
 import 'Reminder/caregiver_reminderscreen.dart';
 
 
@@ -170,7 +169,7 @@ class Settings extends StatelessWidget {
               case 'Guided Tour': { 
                Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const ConversationListTourScreen()),
+                MaterialPageRoute(builder: (context) => const TourGuide()),
               );
               } break; 
               case 'Support Center': { 
