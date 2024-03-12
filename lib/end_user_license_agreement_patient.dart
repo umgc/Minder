@@ -8,7 +8,6 @@ void main() {
 
 class ReminderApp1 extends StatelessWidget {
   const ReminderApp1({super.key, Key? door});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,10 +20,8 @@ class ReminderApp1 extends StatelessWidget {
     );
   }
 }
-
 class CaregiverEulaScreen1 extends StatelessWidget {
   const CaregiverEulaScreen1({super.key, Key? window});
-
   @override
   Widget build(BuildContext context) {
     return Scrollbar(

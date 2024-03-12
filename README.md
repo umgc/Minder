@@ -1,6 +1,6 @@
-## Minder
+# Minder
 
-A memory support app for short-term memory loss individuals, using video recording and transcription for personalized memory aids. Reminds and revisit crucial moments effortlessly."
+A memory support app for short-term memory loss individuals, using video recording and transcription for personalized memory aids. Reminds and revisits crucial moments effortlessly.
 
 ## Table of Contents
 - [Getting Started](#getting-started)
@@ -11,11 +11,12 @@ A memory support app for short-term memory loss individuals, using video recordi
 - [Development](#development)
 - [License](#license)
 
-# Getting Started
+## Getting Started
 
 Before you can run and use this Flutter app, make sure you have the following software and tools installed.
 
 ### Prerequisites
+
 List any software or tools that users need to install before using your app. Include links to their official documentation.
 
 1. **Visual Studio Code (VS Code):**
@@ -39,6 +40,11 @@ List any software or tools that users need to install before using your app. Inc
    - For cloud-based storage, we use AWS (Amazon Web Services). You'll need an AWS account to set up and configure cloud storage functionalities.
      - [AWS Documentation](https://aws.amazon.com/getting-started/)
 
+6. **Amplify CLI:**
+   - Amplify provides a set of tools and services that can be used together or on their own, to help front-end web and mobile developers build scalable full stack applications, powered by AWS.
+   - Install the Amplify CLI globally on your machine to configure backend resources such as authentication, API, and storage.
+   - [Amplify CLI Installation Guide](https://docs.amplify.aws/cli/start/install)
+
 ## Installation
 
 Follow these steps to set up and run the app:
@@ -48,10 +54,3 @@ Follow these steps to set up and run the app:
    ```bash
    git clone https://github.com/umgc/minder.git
    cd minder
-   
-   flutter pub get
-
-   flutter run
-
- 
-
