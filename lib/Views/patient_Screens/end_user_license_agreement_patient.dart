@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:minder/Views/patient_Screens/patient_login.dart';
-import '../Welcome_screen/welcome.dart';
+import 'package:minder/Views/Caregiver_Screens/caregiver_signup.dart';
+import 'package:minder/Views/Welcome_screen/welcome.dart';
+ 
 
 void main() {
   runApp(const ReminderApp1());
 }
 
 class ReminderApp1 extends StatelessWidget {
-  const ReminderApp1({Key? key});
+  const ReminderApp1({super.key, Key? door});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: const Color.fromARGB(255, 18, 32, 47),
-      ),
-      home: Scaffold(
+       theme: ThemeData.dark().copyWith(
+         scaffoldBackgroundColor: const Color.fromARGB(255, 18, 32, 47),
+       ),
+      home: const Scaffold(
         body: CaregiverEulaScreen1(),
       ),
     );
@@ -23,7 +24,7 @@ class ReminderApp1 extends StatelessWidget {
 }
 
 class CaregiverEulaScreen1 extends StatelessWidget {
-  const CaregiverEulaScreen1({Key? key});
+  const CaregiverEulaScreen1({super.key, Key? window});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class CaregiverEulaScreen1 extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const Text(
+               const Text(
                 'Minder',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -106,12 +107,13 @@ class CaregiverEulaScreen1 extends StatelessWidget {
                 'MISCELLANEOUS\n'
                 '17.1 If any of the terms of this agreement should be or become invalid, the validity of the remaining provisions shall not be affected. Invalid terms will be replaced by valid ones formulated in a way that will achieve the primary purpose.\n'
                 '17.2 Collateral agreements, changes, and amendments are only valid if laid down in writing. The preceding clause can only be waived in writing.',
+                        softWrap: true,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Color(0xFF030303),
                           fontSize: 18,
                           fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w400,
                           height: 1.5,
                         ),
                       ),
@@ -127,7 +129,7 @@ class CaregiverEulaScreen1 extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const patient_login()),
+                      MaterialPageRoute(builder: (context) => SignUpScreen()),
                     );
                     print('Agree button pressed');
                   },
@@ -153,7 +155,7 @@ class CaregiverEulaScreen1 extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) =>  SplashScreen()),
+                      MaterialPageRoute(builder: (context) => SplashScreen()),
                     );
                     print('Disagree button pressed');
                   },

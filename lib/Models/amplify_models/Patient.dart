@@ -92,7 +92,7 @@ class Patient extends amplify_core.Model {
   
   const Patient._internal({required this.id, required patientsFirstName, required patientsLastName, caregiver, reminders, createdAt, updatedAt}): _patientsFirstName = patientsFirstName, _patientsLastName = patientsLastName, _caregiver = caregiver, _reminders = reminders, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Patient({String? id, required String patientsFirstName, required String patientsLastName, Caregiver? caregiver, List<Reminder>? reminders}) {
+  factory Patient({String? id, required String patientsFirstName, required String patientsLastName, Caregiver? caregiver, List<Reminder>? reminders, required String caregiverId}) {
     return Patient._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       patientsFirstName: patientsFirstName,

@@ -1,83 +1,117 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:camera/camera.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+class CameraScreen extends StatefulWidget {
+  final List<CameraDescription> cameras;
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: MobileFrame(child: RecordingScreen()),
-    );
-  }
-}
-
-class MobileFrame extends StatelessWidget {
-  final Widget child;
-
-  const MobileFrame({super.key, required this.child});
+  const CameraScreen({Key? key, required this.cameras}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: const Border(
-          left: BorderSide(
-            color: Colors.black,
-            width: 1.0,
-          ),
-          right: BorderSide(
-            color: Colors.black,
-            width: 1.0,
-          ),
-        ),
-        borderRadius: BorderRadius.circular(12.0),
-        boxShadow: const [],
-      ),
-      child: child,
-    );
-  }
+  _CameraScreenState createState() => _CameraScreenState();
 }
 
-class RecordingScreen extends StatefulWidget {
-  const RecordingScreen({super.key});
-
-  @override
-  _RecordingScreenState createState() => _RecordingScreenState();
-}
-
-class _RecordingScreenState extends State<RecordingScreen> {
+class _CameraScreenState extends State<CameraScreen> {
+  CameraController? controller;
   bool isRecording = false;
-  bool isPaused = false;
+  Timer? timer;
   int secondsElapsed = 0;
 
-  Timer? timer;
+  @override
+  void initState() {
+    super.initState();
+    controller = CameraController(widget.cameras[0], ResolutionPreset.high);
+    controller!.initialize().then((_) {
+      if (!mounted) {
+        return;
+      }
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    controller?.dispose();
+    super.dispose();
+  }
+
+  void startRecording() async {
+    if (!controller!.value.isInitialized) {
+      return;
+    }
+    try {
+      await controller!.startVideoRecording();
+      setState(() {
+        isRecording = true;
+        secondsElapsed = 0;
+      });
+      timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+        setState(() {
+          secondsElapsed++;
+        });
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void stopRecording() async {
+    if (!controller!.value.isRecordingVideo) {
+      return;
+    }
+    try {
+      timer?.cancel();
+      XFile videoFile = await controller!.stopVideoRecording();
+      setState(() {
+        isRecording = false;
+      });
+      // Optionally, save the video to the gallery or show a preview
+      final String filePath = videoFile.path;
+      print('Video recorded to $filePath');
+
+      // Implement video saving or playback logic here
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  String _formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    return '${twoDigits(duration.inMinutes.remainder(60))}:${twoDigits(duration.inSeconds.remainder(60))}';
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (controller == null || !controller!.value.isInitialized) {
+      return const Center(child: CircularProgressIndicator());
+    }
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(''),
-      ),
+      appBar: AppBar(title: const Text('Camera Recording')),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Timer at the top
-          const SizedBox(height: 0),
-          Text(
-            _formatDuration(Duration(seconds: secondsElapsed)),
-            style: const TextStyle(fontSize: 20.0),
+          Expanded(
+            child: AspectRatio(
+              aspectRatio: controller!.value.aspectRatio,
+              child: CameraPreview(controller!),
+            ),
           ),
-          const SizedBox(height: 350.0),
-          // Record/pause/stop buttons at the bottom
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'Timer: ${_formatDuration(Duration(seconds: secondsElapsed))}',
+              style: const TextStyle(fontSize: 20),
+            ),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              FloatingActionButton(
+              ElevatedButton.icon(
+                icon: Icon(isRecording ? Icons.stop : Icons.camera),
+                label: Text(isRecording ? 'Stop' : 'Record'),
                 onPressed: () {
                   if (isRecording) {
                     stopRecording();
@@ -85,72 +119,11 @@ class _RecordingScreenState extends State<RecordingScreen> {
                     startRecording();
                   }
                 },
-                backgroundColor: isRecording ? Colors.red : Colors.green,
-                child: Icon(
-                  isRecording ? Icons.stop : Icons.fiber_manual_record,
-                  size: 40.0,
-                  color: Colors.white,
-                ),
               ),
-              const SizedBox(width: 20.0),
-              if (isRecording) // Show pause button only during recording
-                FloatingActionButton(
-                  onPressed: () {
-                    pauseRecording();
-                  },
-                  backgroundColor: Colors.blue,
-                  child: Icon(
-                    isPaused ? Icons.play_arrow : Icons.pause,
-                    size: 40.0,
-                    color: Colors.white,
-                  ),
-                ),
             ],
           ),
         ],
       ),
     );
-  }
-
-  String _formatDuration(Duration duration) {
-    String twoDigits(int n) => n.toString().padLeft(2, '0');
-    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
-    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
-    return '$twoDigitMinutes:$twoDigitSeconds';
-  }
-
-  void startRecording() {
-    // Your logic for starting recording
-    timer?.cancel(); // Cancel the existing timer
-    setState(() {
-      isRecording = true;
-      isPaused = false;
-      secondsElapsed = 0;
-    });
-
-    // Start timer
-    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (!isPaused) {
-        setState(() {
-          secondsElapsed++;
-        });
-      }
-    });
-  }
-
-  void stopRecording() {
-    // Your logic for stopping recording
-    timer?.cancel(); // Cancel the timer
-    setState(() {
-      isRecording = false;
-      isPaused = false;
-    });
-  }
-
-  void pauseRecording() {
-    // Your logic for pausing recording
-    setState(() {
-      isPaused = !isPaused;
-    });
   }
 }

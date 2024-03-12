@@ -1,58 +1,65 @@
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:minder/Models/amplify_models/ModelProvider.dart'; // Adjust this import to your generated models location
 
-//import 'package:minder/Views/Caregiver_Screens/caregiver_signup.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
+class PatientRegistrationScreen extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: CaregiverSignup(),
-    );
-  }
+  _PatientRegistrationScreenState createState() => _PatientRegistrationScreenState();
 }
 
-class CaregiverSignup extends StatefulWidget {
-  @override
-  _CaregiverSignupState createState() => _CaregiverSignupState();
-}
-
-class _CaregiverSignupState extends State<CaregiverSignup> {
+class _PatientRegistrationScreenState extends State<PatientRegistrationScreen> {
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
 
-  Future<void> signUp() async {
-    try {
-      final result = await Amplify.Auth.signUp(
-        username: _firstNameController.text.trim() +
-            _lastNameController.text.trim(), // Adjust as needed
-        password:
-            'your_default_password', // Use a default password or generate one
-        options: SignUpOptions(
-          userAttributes: {
-            CognitoUserAttributeKey.name: _firstNameController.text.trim() +
-                ' ' +
-                _lastNameController.text.trim(),
-            // Add other attributes as needed
-          },
-        ),
-      );
+  bool _isLoading = false; // To control loading state UI
 
-      if (result.isSignUpComplete) {
-        print('Sign up successful!');
-        // Navigate to the next screen or show a success message
-      } else {
-        print('Sign up not complete, additional steps required.');
-        // Handle additional steps if necessary
-      }
+  Future<String?> _getCurrentUserId() async {
+    try {
+      AuthUser authUser = await Amplify.Auth.getCurrentUser();
+      return authUser.userId;
     } catch (e) {
-      print('Sign up failed: $e');
-      // Show an error message or handle the error
+      print("Error fetching user data: $e");
+      return null;
+    }
+  }
+
+  Future<void> _createPatientRecord(String caregiverId) async {
+    final patient = Patient(
+      patientsFirstName: _firstNameController.text.trim(),
+      patientsLastName: _lastNameController.text.trim(),
+      caregiverId: caregiverId,
+    );
+
+    try {
+      await Amplify.DataStore.save(patient);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Patient record created successfully.')));
+      // Optionally, navigate to another page or reset form
+      _firstNameController.clear();
+      _lastNameController.clear();
+    } catch (e) {
+      print("Failed to create patient record: $e");
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to create patient record.')));
+    } finally {
+      setState(() {
+        _isLoading = false; // Reset loading state
+      });
+    }
+  }
+
+  void _registerPatient() async {
+    setState(() {
+      _isLoading = true; // Set loading state
+    });
+
+    String? caregiverId = await _getCurrentUserId();
+    if (caregiverId != null) {
+      await _createPatientRecord(caregiverId);
+    } else {
+      print("Failed to obtain caregiver ID");
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to obtain caregiver ID.')));
+      setState(() {
+        _isLoading = false; // Reset loading state
+      });
     }
   }
 
@@ -60,77 +67,32 @@ class _CaregiverSignupState extends State<CaregiverSignup> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: Text('Create an Account'),
+        title: Text('Register a Patient'),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              'Sign up for Patient account',
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 14,
-              ),
+            TextField(
+              controller: _firstNameController,
+              decoration: InputDecoration(labelText: "Patient's First Name"),
+            ),
+            SizedBox(height: 8),
+            TextField(
+              controller: _lastNameController,
+              decoration: InputDecoration(labelText: "Patient's Last Name"),
             ),
             SizedBox(height: 16),
-            buildFormField('Patient\'s First Name *', _firstNameController),
-            buildFormField('Patient\'s Last Name *', _lastNameController),
-            Spacer(),
             ElevatedButton(
-              onPressed: signUp,
+              onPressed: _isLoading ? null : _registerPatient,
+              child: _isLoading ? CircularProgressIndicator(color: Colors.white) : Text('Register Patient'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color.fromRGBO(47, 102, 127, 1),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25),
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text(
-                  'Sign Up',
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
+                foregroundColor: Colors.white, backgroundColor: Theme.of(context).primaryColor,
               ),
             ),
-            SizedBox(height: 16),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget buildFormField(String labelText, TextEditingController controller) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            labelText,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(height: 8),
-          TextFormField(
-            controller: controller,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(25),
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

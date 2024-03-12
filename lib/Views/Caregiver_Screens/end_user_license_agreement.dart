@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:minder/Views/Caregiver_Screens/caregiver_login.dart';
-
-import '../Welcome_screen/welcome.dart';
-
+import 'package:minder/Views/Welcome_screen/welcome.dart';
+ 
 void main() {
   runApp(const ReminderApp());
 }
@@ -212,7 +211,7 @@ class CaregiverEulaScreen extends StatelessWidget {
                       // Handle Agree button press
                      Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) =>  LoginPage()),);
+                MaterialPageRoute(builder: (context) =>   LoginPage()),);
                       print('Agree button pressed');
                     },
                     style: ElevatedButton.styleFrom(
@@ -242,7 +241,7 @@ class CaregiverEulaScreen extends StatelessWidget {
                       // Handle Disagree button press
                       Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) =>   SplashScreen()),);
+                MaterialPageRoute(builder: (context) => SplashScreen()),);
                       print('Disagree button pressed');
                     },
                     style: ElevatedButton.styleFrom(
