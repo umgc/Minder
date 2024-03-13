@@ -77,56 +77,6 @@
       "service": "S3AndCloudFront"
     }
   },
-  "parameters": {
-    "AMPLIFY_function_minder9d11eb24_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "minder9d11eb24"
-        }
-      ]
-    },
-    "AMPLIFY_function_minder9d11eb24_develop": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "minder9d11eb24"
-        }
-      ]
-    },
-    "AMPLIFY_function_minder9d11eb24_production": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "minder9d11eb24"
-        }
-      ]
-    },
-    "AMPLIFY_function_minder9d11eb24_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "minder9d11eb24"
-        }
-      ]
-    },
-    "AMPLIFY_function_minder9d11eb24_secretsPathAmplifyAppId": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "minder9d11eb24"
-        }
-      ]
-    },
-    "AMPLIFY_function_minder9d11eb24_uat": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "minder9d11eb24"
-        }
-      ]
-    }
-  },
   "storage": {
     "minderforms": {
       "providerPlugin": "awscloudformation",

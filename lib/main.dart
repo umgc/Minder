@@ -10,7 +10,6 @@ import 'package:minder/Views/Caregiver_Screens/caregiver_login.dart';
 import 'package:minder/Views/Welcome_screen/welcome.dart';
 import 'package:minder/Views/Caregiver_Screens/end_user_license_agreement.dart';
 import 'Models/Reminder/reminder_creation_screen.dart.dart';
-import 'package:amplify_api/amplify_api.dart';
 import 'package:minder/Config/amplifyconfigutation.dart';
 
 

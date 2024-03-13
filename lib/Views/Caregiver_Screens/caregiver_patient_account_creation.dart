@@ -1,6 +1,7 @@
+import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:minder/Models/amplify_models/ModelProvider.dart'; // Adjust this import to your generated models location
+import 'package:path_provider/path_provider.dart';
 
 class PatientRegistrationScreen extends StatefulWidget {
   @override
@@ -13,25 +14,37 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen> {
 
   bool _isLoading = false; // To control loading state UI
 
-  Future<String?> _getCurrentUserId() async {
+  Future<File> get _localFile async {
+    final directory = await getApplicationDocumentsDirectory();
+    return File('${directory.path}/patient_data.txt');
+  }
+
+  Future<void> _writeDataToFile(String data) async {
+    final file = await _localFile;
+    await file.writeAsString(data);
+  }
+
+  Future<String> _readDataFromFile() async {
     try {
-      AuthUser authUser = await Amplify.Auth.getCurrentUser();
-      return authUser.userId;
+      final file = await _localFile;
+      String contents = await file.readAsString();
+      return contents;
     } catch (e) {
-      print("Error fetching user data: $e");
-      return null;
+      print("Error reading file: $e");
+      return '';
     }
   }
 
-  Future<void> _createPatientRecord(String caregiverId) async {
-    final patient = Patient(
-      patientsFirstName: _firstNameController.text.trim(),
-      patientsLastName: _lastNameController.text.trim(),
-      caregiverId: caregiverId,
-    );
+  Future<void> _createPatientRecord() async {
+    final patientData = {
+      'firstName': _firstNameController.text.trim(),
+      'lastName': _lastNameController.text.trim(),
+    };
+
+    String dataToWrite = patientData.toString();
 
     try {
-      await Amplify.DataStore.save(patient);
+      await _writeDataToFile(dataToWrite);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Patient record created successfully.')));
       // Optionally, navigate to another page or reset form
       _firstNameController.clear();
@@ -51,16 +64,7 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen> {
       _isLoading = true; // Set loading state
     });
 
-    String? caregiverId = await _getCurrentUserId();
-    if (caregiverId != null) {
-      await _createPatientRecord(caregiverId);
-    } else {
-      print("Failed to obtain caregiver ID");
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to obtain caregiver ID.')));
-      setState(() {
-        _isLoading = false; // Reset loading state
-      });
-    }
+    await _createPatientRecord();
   }
 
   @override
@@ -88,7 +92,8 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen> {
               onPressed: _isLoading ? null : _registerPatient,
               child: _isLoading ? CircularProgressIndicator(color: Colors.white) : Text('Register Patient'),
               style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white, backgroundColor: Theme.of(context).primaryColor,
+                foregroundColor: Colors.white,
+                backgroundColor: Theme.of(context).primaryColor,
               ),
             ),
           ],

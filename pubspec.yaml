@@ -43,10 +43,10 @@ dependencies:
   google_ml_kit: ^0.16.3
   local_auth: ^2.2.0   
   image_picker: ^1.0.7 # Check for the latest version 
-  amplify_flutter: ^1.7.0 
-  amplify_storage_s3: ^1.7.0 
-  amplify_auth_cognito: ^1.7.0 
-  amplify_api: ^1.7.0 
+  amplify_flutter: ^0.4.2
+  amplify_storage_s3: ^0.4.2
+  amplify_auth_cognito: ^0.4.2
+ 
   flutter_sound: ^9.2.13
 
   # The following adds the Cupertino Icons font to your application.

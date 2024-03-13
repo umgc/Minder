@@ -1,7 +1,6 @@
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:minder/Views/Caregiver_Screens/caregiver_login.dart';
 import 'package:minder/Views/Caregiver_Screens/caregiver_patient_account_creation.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -15,71 +14,62 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmationCodeController = TextEditingController();
 
-  void signUp() async {
+  Future<void> signUp() async {
     try {
       final result = await Amplify.Auth.signUp(
         username: _emailController.text.trim(),
         password: _passwordController.text.trim(),
-        options: SignUpOptions(
+        options: CognitoSignUpOptions(
           userAttributes: {
-            AuthUserAttributeKey.email: _emailController.text.trim(),
-            AuthUserAttributeKey.name: _fullNameController.text.trim(),
+            CognitoUserAttributeKey.email: _emailController.text.trim(),
+            CognitoUserAttributeKey.name: _fullNameController.text.trim(),
           },
         ),
       );
 
       if (result.isSignUpComplete) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Sign up successful! Check your email for a confirmation code.')));
-        _showConfirmationCodeDialog();
-      } else {
-        print('Sign up not complete, additional steps required.');
-      }
-    } on AuthException catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message)));
-    }
-  }
-
-  void confirmSignUp() async {
-    try {
-      final result = await Amplify.Auth.confirmSignUp(
-        username: _emailController.text.trim(),
-        confirmationCode: _confirmationCodeController.text.trim(),
-      );
-
-      if (result.isSignUpComplete) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Email confirmed, please log in.')));
-        // Assuming you have a named route for your login page, replace 'loginPageRouteName' with your actual route name
-        Navigator.push(context, MaterialPageRoute(builder: (context) => PatientRegistrationScreen()));
-      } else {
-        print('Email confirmation not complete, additional steps required.');
-      }
-    } on AuthException catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message)));
-    }
-  }
-
-  void _showConfirmationCodeDialog() {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Confirm Sign Up'),
-          content: TextField(
-            controller: _confirmationCodeController,
-            decoration: InputDecoration(hintText: 'Confirmation Code'),
-          ),
-          actions: [
-            TextButton(
-              child: Text('Confirm'),
-              onPressed: () {
-                confirmSignUp();
-              },
-            ),
-          ],
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Sign up successful!')));
+        // Navigate to the home screen after successful sign-up
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => PatientRegistrationScreen()), // Replace HomeScreen() with your actual home screen widget
         );
-      },
-    );
+      } else {
+        await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Enter Confirmation Code'),
+            content: TextField(
+              controller: _confirmationCodeController,
+              decoration: InputDecoration(labelText: 'Confirmation Code'),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () async {
+                  await confirmSignUp(_confirmationCodeController.text.trim());
+                  Navigator.pop(context); // Close the dialog
+                },
+                child: Text('Confirm'),
+              ),
+            ],
+          ),
+        );
+      }
+    } on AuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message)));
+    }
+  }
+
+  Future<void> confirmSignUp(String confirmationCode) async {
+    try {
+      await Amplify.Auth.confirmSignUp(
+        username: _emailController.text.trim(),
+        confirmationCode: confirmationCode,
+      );
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Sign up confirmed!')));
+    } on AuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message)));
+    }
   }
 
   @override
@@ -116,9 +106,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               onPressed: signUp,
               child: Text('Sign Up'),
               style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white, backgroundColor: const Color.fromRGBO(47, 102, 127, 1) // Text color
-                //padding: const EdgeInsets.symmetric(vertical: 15),
-                //textStyle: TextStyle(fontSize: 18),
+                foregroundColor: Colors.white,
+                backgroundColor: const Color.fromRGBO(47, 102, 127, 1),
               ),
             ),
           ],
