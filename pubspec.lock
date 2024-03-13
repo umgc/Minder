@@ -9,6 +9,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.4.5"
+  amplify_api:
+    dependency: "direct main"
+    description:
+      name: amplify_api
+      sha256: d0b92dffe012e31c112249f79a0a9b4c4e0a35eac58dc36737b97544c51cde40
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.5"
   amplify_api_plugin_interface:
     dependency: transitive
     description:
@@ -54,6 +62,14 @@ packages:
     description:
       name: amplify_core
       sha256: "427df4a2af82c0c65174c1192634dccb2fadfec2a538221df0b21bc0f446ac6a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.5"
+  amplify_datastore:
+    dependency: "direct main"
+    description:
+      name: amplify_datastore
+      sha256: bafb79ac1cf50315c3f3ed877477cce05bf5a5678073da91c10156ba9e4ac89c
       url: "https://pub.dev"
     source: hosted
     version: "0.4.5"
@@ -245,10 +261,10 @@ packages:
     dependency: transitive
     description:
       name: cross_file
-      sha256: fedaadfa3a6996f75211d835aaeb8fede285dae94262485698afd832371b9a5e
+      sha256: "55d7b444feb71301ef6b8838dbc1ae02e63dd48c8773f3810ff53bb1e2945b32"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.3+8"
+    version: "0.3.4+1"
   crypto:
     dependency: transitive
     description:
@@ -349,10 +365,10 @@ packages:
     dependency: transitive
     description:
       name: firebase_core_web
-      sha256: c8e1d59385eee98de63c92f961d2a7062c5d9a65e7f45bdc7f1b0b205aab2492
+      sha256: "5377eaac3b9fe8aaf22638d87f92b62784f23572e132dfc029195e84d6cb37de"
       url: "https://pub.dev"
     source: hosted
-    version: "2.11.5"
+    version: "2.12.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -505,13 +521,13 @@ packages:
     source: hosted
     version: "0.9.0"
   http:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: http
-      sha256: a2bbf9d017fcced29139daa8ed2bba4ece450ab222871df93ca9eec6f80c34ba
+      sha256: "761a297c042deedc1ffbb156d6e2af13886bb305c2a343a4d972504cd67dd938"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.0"
+    version: "1.2.1"
   http_parser:
     dependency: transitive
     description:
@@ -977,10 +993,10 @@ packages:
     dependency: transitive
     description:
       name: web
-      sha256: "4188706108906f002b3a293509234588823c8c979dc83304e229ff400c996b05"
+      sha256: "97da13628db363c635202ad97068d47c5b8aa555808e7a9411963c533b449b27"
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.2"
+    version: "0.5.1"
   win32:
     dependency: transitive
     description:
