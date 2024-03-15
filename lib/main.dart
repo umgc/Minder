@@ -12,6 +12,7 @@ import 'Welcome_screen/welcome.dart';
 import 'end_user_license_agreement.dart';
 import 'reminder_creation_screen.dart.dart';
 
+
 void main() {
   runApp(const MyApp());
 }
@@ -23,23 +24,24 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Minder App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      //theme: ThemeData(fontFamily: 'Montserrat'),
+       theme: ThemeData(
+         primarySwatch: Colors.blue,
+       ),
 
-      home: const SplashScreen(),
+      home:  SplashScreen(),
       //home: tour
       routes: {
         //  '/Settings' : (context) => FigmaToCodeApp(),
-        '/Login': (context) => const LoginPage(), // Add this line
-        '/welcome': (context) => const SplashScreen(), // Add this line
-         '/conversationDetailsScreen': (context) => const conversationDetailsScreen(),
+        '/Login': (context) =>  LoginPage(), // Add this line
+        '/welcome': (context) =>  SplashScreen(), // Add this line
+         '/conversationDetailsScreen': (context) =>  conversationDetailsScreen(),
         //  '/conversationListScreen': (context) => tour_one(),
-          '/conversationListScreen': (context) => const ConversationListScreen(),
-          '/caregiversignup': (context) => const caregiversignup(),
-          '/ReminderFormScreen': (context) => const ReminderFormScreen(),
+          '/conversationListScreen': (context) =>  ConversationListScreen(),
+          '/caregiversignup': (context) =>  caregiversignup(),
+          '/ReminderFormScreen': (context) =>  ReminderFormScreen(),
           '/reminder_creation_screen' : (context) => CaregiverReminderCreationScreen(),
-          '/caregiver_signup' : (context) => const SignUpScreen(),
+          '/caregiver_signup' : (context) =>  SignUpScreen(),
           '/eula' : (context) => const CaregiverEulaScreen(),
           '/faceidsignup' : (context) => const patient_signup(),
         //  '/tourone' : (context) => MyHomePage(),
