@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:intl/intl.dart';
+import 'dart:io';
 
 void main() {
   runApp(const ReminderApp());
 }
 
 class ReminderApp extends StatelessWidget {
-  const ReminderApp({super.key});
+  const ReminderApp({super.key, Key? door});
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +27,26 @@ class ReminderApp extends StatelessWidget {
   }
 }
 
-class CaregiverReminderCreationScreen extends StatelessWidget {
-   final TextEditingController hourController = TextEditingController();
+class CaregiverReminderCreationScreen extends StatefulWidget {
+  final TextEditingController hourController = TextEditingController();
   final TextEditingController minuteController = TextEditingController();
 
-  CaregiverReminderCreationScreen({super.key});
+  CaregiverReminderCreationScreen({super.key, Key? window});
+
+  @override
+  _CaregiverReminderCreationScreenState createState() =>
+      _CaregiverReminderCreationScreenState();
+}
+
+class _CaregiverReminderCreationScreenState
+    extends State<CaregiverReminderCreationScreen> {
+  DateTime? selectedDate;
+  TimeOfDay? selectedTime;
+  TextEditingController eventTypeController = TextEditingController();
+  TextEditingController discussionController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    
     return Column(
       children: [
         Container(
@@ -58,7 +73,7 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
                 ),
               ),
 
-             //Clock 
+              // Clock
 
               Positioned(
                 left: 130,
@@ -69,8 +84,8 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
                   height: 100,
                 ),
               ),
-             
-              //Choose a reminder Name
+
+              // Choose a reminder Name
 
               const Positioned.fill(
                 left: 108,
@@ -86,162 +101,193 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
                   ),
                 ),
               ),
-             
-           //Type of event
 
-          Positioned(
-            left: 20.50,
-            top: 214.50,
-            child: Container(
-              width: 334,
-              height: 45,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(22.5),
-                border: Border.all(color: Colors.grey.withOpacity(0.5), width: 1.0),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 10), // Adjust the left padding as needed
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    hintText: 'Type of Event',
-                    hintStyle: TextStyle(
-                      color: Color(0xFF272727),
-                      fontSize: 14,
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w400,
-                    ),
-                    border: InputBorder.none,
-                  ),
-                  style: const TextStyle(
-                    color: Color(0xFF272727),
-                    fontSize: 14,
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ),
-            ),
-          ),
+              // Type of event
 
-
-             //Date
               Positioned(
-  left: 20.50,
-  top: 272.50,
-  child: InkWell(
-    onTap: () async {
-      DateTime? pickedDate = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime.now(),
-        lastDate: DateTime(2101),
-      );
-
-      if (pickedDate != null) {
-        // Handle the selected date
-        print('Selected Date: $pickedDate');
-      }
-    },
-    child: Container(
-      width: 334,
-      height: 45,
-      decoration: BoxDecoration(
-         borderRadius: BorderRadius.circular(22.5),
-         border: Border.all(color: Colors.grey.withOpacity(0.5), width: 1.0),
-      ),
-      child: const Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Padding(
-            padding: EdgeInsets.only(left: 8, top: 13.50),
-            child: Text(
-              'Date',
-              style: TextStyle(
-                color: Color(0xFF272727),
-                fontSize: 14,
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.w400,
-                height: 0,
+                left: 20.50,
+                top: 214.50,
+                child: Container(
+                  width: 334,
+                  height: 45,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(22.5),
+                    border: Border.all(color: Colors.grey.withOpacity(0.5), width: 1.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10), // Adjust the left padding as needed
+                    child: TextFormField(
+                      controller: eventTypeController,
+                      decoration: const InputDecoration(
+                        hintText: 'Type of Event',
+                        hintStyle: TextStyle(
+                          color: Color(0xFF272727),
+                          fontSize: 14,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w400,
+                        ),
+                        border: InputBorder.none,
+                      ),
+                      style: const TextStyle(
+                        color: Color(0xFF272727),
+                        fontSize: 14,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Icon(
-              Icons.calendar_today,
-              color: Colors.grey,
-              size: 20,
-            ),
-          ),
-        ],
-      ),
-    ),
-  ),
-),
 
-             
-        // Time
-        Positioned(
-          left: 20.50,
-          top: 330.50,
-          child: Container(
-            width: 334,
-            height: 45,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(22.5),
-              border: Border.all(color: Colors.grey.withOpacity(0.5), width: 1.0),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.only(left: 8, top: 13.50),
-                  child: Text(
-                    'Time',
-                    style: TextStyle(
-                      color: Color.fromRGBO(39, 39, 39, 0.89),
-                      fontSize: 14,
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
+              // Date
+              Positioned(
+                left: 20.50,
+                top: 272.50,
+                child: InkWell(
+                  onTap: () async {
+                    DateTime? pickedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime(2101),
+                    );
+
+                    if (pickedDate != null) {
+                      setState(() {
+                        selectedDate = pickedDate;
+                      });
+                    }
+                  },
+                  child: Container(
+                    width: 334,
+                    height: 45,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(22.5),
+                      border: Border.all(color: Colors.grey.withOpacity(0.5), width: 1.0),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(left: 8, top: 13.50),
+                          child: Text(
+                            'Date',
+                            style: TextStyle(
+                              color: Color(0xFF272727),
+                              fontSize: 14,
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.w400,
+                              height: 0,
+                            ),
+                          ),
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.calendar_today,
+                            color: Colors.grey,
+                            size: 20,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 8, top: 13.50),
+                          child: Text(
+                            selectedDate != null
+                                ? '${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}'
+                                : 'Select Date',
+                            style: const TextStyle(
+                              color: Color(0xFF272727),
+                              fontSize: 14,
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                // Dropdown for Hour
-                SizedBox(
-                  width: 50, // Adjust the width as needed
-                  child: TextFormField(
-                    controller: hourController,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'HH',
+              ),
+
+              // Time
+              Positioned(
+                left: 20.50,
+                top: 330.50,
+                child: InkWell(
+                  onTap: () async {
+                    TimeOfDay? pickedTime = await showTimePicker(
+                      context: context,
+                      initialTime: TimeOfDay.now(),
+                    );
+
+                    if (pickedTime != null) {
+                      setState(() {
+                        selectedTime = pickedTime;
+                      });
+                    }
+                  },
+                  child: Container(
+                    width: 334,
+                    height: 45,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(22.5),
+                      border: Border.all(color: Colors.grey.withOpacity(0.5), width: 1.0),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(left: 8, top: 13.50),
+                          child: Text(
+                            'Time',
+                            style: TextStyle(
+                              color: Color.fromRGBO(39, 39, 39, 0.89),
+                              fontSize: 14,
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.w400,
+                              height: 0,
+                            ),
+                          ),
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.access_time,
+                            color: Colors.grey,
+                            size: 20,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 8, top: 13.50),
+                          child: Text(
+                            selectedTime != null
+                                ? '${selectedTime!.hour}:${selectedTime!.minute.toString().padLeft(2, '0')}'
+                                : 'Select Time',
+                            style: const TextStyle(
+                              color: Color(0xFF272727),
+                              fontSize: 14,
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                // Dropdown for Minute
-                SizedBox(
-                  width: 50, // Adjust the width as needed
-                  child: TextFormField(
-                    controller: minuteController,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'MM',
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-           // Upload a video Analysis 
+              ),
+
+              // Upload a video Analysis
               Positioned(
                 left: 176,
                 top: 540,
                 child: GestureDetector(
-                  onTap: () {
-                    // Add your logic for uploading video analysis here
+                  onTap: () async {
+                    FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+                    if (result != null) {
+                      print('Selected File: ${result.files.single.path}');
+                    }
                   },
                   child: Container(
                     width: 24,
@@ -276,19 +322,16 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
                 top: 642,
                 child: GestureDetector(
                   onTap: () {
-                    // Add your logic for creating a reminder here
+                    createReminderFile();
                   },
-                 
-                 
-                  child: 
-                  Container(
+                  child: Container(
                     width: 335,
                     height: 54,
                     clipBehavior: Clip.antiAlias,
                     decoration: BoxDecoration(
                       color: const Color.fromARGB(255, 88, 132, 168), // Add your desired color
-                       borderRadius: BorderRadius.circular(22.5),
-                        ),
+                      borderRadius: BorderRadius.circular(22.5),
+                    ),
                     child: const Stack(
                       children: [
                         Positioned(
@@ -303,7 +346,6 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
                               fontWeight: FontWeight.w700,
                               height: 0,
                             ),
-                            
                           ),
                         ),
                       ],
@@ -311,8 +353,7 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
                   ),
                 ),
               ),
-             
-             
+
               Positioned.fill(
                 left: 199,
                 top: 134,
@@ -320,10 +361,9 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
                   onTap: () {
                     // Add your logic for selecting an image here
                   },
-                 
                 ),
               ),
-              //Discusion 
+              //Discussion
               Positioned(
                 left: 34,
                 top: 404.50,
@@ -334,16 +374,17 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
                     border: Border.all(color: Colors.grey),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: TextField(
-                      style: TextStyle(
+                      controller: discussionController,
+                      style: const TextStyle(
                         color: Color(0xFF838485),
                         fontSize: 16,
                         fontFamily: 'Montserrat',
                         fontWeight: FontWeight.w400,
                       ),
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: 'Discussion',
                         hintStyle: TextStyle(
                           color: Color(0xFF838485),
@@ -362,5 +403,31 @@ class CaregiverReminderCreationScreen extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void createReminderFile() {
+    String eventType = eventTypeController.text;
+    String discussion = discussionController.text;
+
+    if (eventType.isNotEmpty) {
+      String fileName = '$eventType.txt';
+      String fileContent = 'Event Type: $eventType\n';
+      if (selectedDate != null) {
+        fileContent += 'Date: ${DateFormat('yyyy-MM-dd').format(selectedDate!)}\n';
+      }
+      if (selectedTime != null) {
+        fileContent += 'Time: ${selectedTime!.format(context)}\n';
+      }
+      if (discussion.isNotEmpty) {
+        fileContent += 'Discussion: $discussion';
+      }
+
+      // Save file
+      File(fileName).writeAsString(fileContent).then((value) {
+        print('Reminder file saved: $fileName');
+      }).catchError((error) {
+        print('Error saving reminder file: $error');
+      });
+    }
   }
 }

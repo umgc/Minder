@@ -29,19 +29,19 @@ class MyApp extends StatelessWidget {
          primarySwatch: Colors.blue,
        ),
 
-      home:  SplashScreen(),
+      home:  const SplashScreen(),
       //home: tour
       routes: {
         //  '/Settings' : (context) => FigmaToCodeApp(),
-        '/Login': (context) =>  LoginPage(), // Add this line
-        '/welcome': (context) =>  SplashScreen(), // Add this line
-         '/conversationDetailsScreen': (context) =>  conversationDetailsScreen(),
+        '/Login': (context) =>  const LoginPage(), // Add this line
+        '/welcome': (context) =>  const SplashScreen(), // Add this line
+         '/conversationDetailsScreen': (context) =>  const conversationDetailsScreen(),
         //  '/conversationListScreen': (context) => tour_one(),
-          '/conversationListScreen': (context) =>  ConversationListScreen(),
-          '/caregiversignup': (context) =>  caregiversignup(),
-          '/ReminderFormScreen': (context) =>  ReminderFormScreen(),
+          '/conversationListScreen': (context) =>  const ConversationListScreen(),
+          '/caregiversignup': (context) =>  const caregiversignup(),
+          '/ReminderFormScreen': (context) =>  const ReminderFormScreen(),
           '/reminder_creation_screen' : (context) => CaregiverReminderCreationScreen(),
-          '/caregiver_signup' : (context) =>  SignUpScreen(),
+          '/caregiver_signup' : (context) =>  const SignUpScreen(),
           '/eula' : (context) => const CaregiverEulaScreen(),
           '/faceidsignup' : (context) => const patient_signup(),
         //  '/tourone' : (context) => MyHomePage(),

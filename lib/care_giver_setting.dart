@@ -125,7 +125,7 @@ class Settings extends StatelessWidget {
                   // Handle sign-out logic
                   Navigator.push(
               context ,
-              MaterialPageRoute(builder: (context) =>    SplashScreen()),
+              MaterialPageRoute(builder: (context) =>    const SplashScreen()),
             );
                   
                 },
@@ -163,7 +163,7 @@ class Settings extends StatelessWidget {
                   
                    Navigator.push(
               context ,
-              MaterialPageRoute(builder: (context) =>    RemindersScreen()),
+              MaterialPageRoute(builder: (context) =>    const RemindersScreen()),
             );
               } break; 
               case 'Guided Tour': { 
