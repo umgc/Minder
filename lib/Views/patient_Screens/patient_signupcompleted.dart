@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../Caregiver_Screens/care_giver_setting.dart';
+import 'package:minder/Views/patient_Screens/voice_recognition_setup.dart';
 
 void main() {
   runApp(const ReminderApp());
@@ -47,7 +47,7 @@ class PatientSignupCompleted extends StatelessWidget {
                   // Navigate to the desired screen
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Settings()),
+                    MaterialPageRoute(builder: (context) =>  VoiceRecognitionSetupScreen()),
                   );
                 },
                 child: Container(

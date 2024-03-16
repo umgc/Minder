@@ -4,17 +4,17 @@ import 'package:minder/Views/Welcome_screen/welcome.dart';
  
 
 void main() {
-  runApp(const ReminderApp1());
+  runApp(const minder());
 }
 
-class ReminderApp1 extends StatelessWidget {
-  const ReminderApp1({super.key, Key? door});
+class minder extends StatelessWidget {
+  const minder({super.key, Key? door});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-       theme: ThemeData.dark().copyWith(
-         scaffoldBackgroundColor: const Color.fromARGB(255, 18, 32, 47),
+       theme: ThemeData.light().copyWith(
+         scaffoldBackgroundColor: Color.fromARGB(255, 245, 247, 248),
        ),
       home: const Scaffold(
         body: CaregiverEulaScreen1(),
@@ -160,7 +160,7 @@ class CaregiverEulaScreen1 extends StatelessWidget {
                     print('Disagree button pressed');
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 24, 65, 99),
+                    backgroundColor: const Color.fromRGBO(47, 102, 127, 1),
                   ),
                   child: const Text(
                     'Disagree',

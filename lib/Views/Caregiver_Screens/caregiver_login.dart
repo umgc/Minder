@@ -117,8 +117,8 @@ class _LoginPageState extends State<LoginPage> {
               ElevatedButton(
                 onPressed: _login,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  textStyle: TextStyle(color: Colors.white),
+                foregroundColor: Colors.white,
+                backgroundColor: const Color.fromRGBO(47, 102, 127, 1),
                 ),
                 child: Text('Login'),
               ),
@@ -144,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               SizedBox(height: 16),
               GestureDetector(
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => CaregiverEulaScreen1())),
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => minder())),
                 child: Text(
                   'Don\'t have an account? Sign Up',
                   style: TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.bold),

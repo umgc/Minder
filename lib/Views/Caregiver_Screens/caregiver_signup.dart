@@ -12,52 +12,55 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _relationshipController = TextEditingController();
   final TextEditingController _confirmationCodeController = TextEditingController();
 
   Future<void> signUp() async {
     try {
       final result = await Amplify.Auth.signUp(
-        username: _emailController.text.trim(),
+        username: _emailController.text.trim(), // Use email as the username
         password: _passwordController.text.trim(),
         options: CognitoSignUpOptions(
           userAttributes: {
             CognitoUserAttributeKey.email: _emailController.text.trim(),
             CognitoUserAttributeKey.name: _fullNameController.text.trim(),
+            CognitoUserAttributeKey.custom('Relationship'): _relationshipController.text.trim(),
           },
         ),
       );
 
       if (result.isSignUpComplete) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Sign up successful!')));
-        // Navigate to the home screen after successful sign-up
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => PatientRegistrationScreen()), // Replace HomeScreen() with your actual home screen widget
-        );
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Sign up successful! Please check your email for the confirmation code.')));
+        _showConfirmationCodeDialog();
       } else {
-        await showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text('Enter Confirmation Code'),
-            content: TextField(
-              controller: _confirmationCodeController,
-              decoration: InputDecoration(labelText: 'Confirmation Code'),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () async {
-                  await confirmSignUp(_confirmationCodeController.text.trim());
-                  Navigator.pop(context); // Close the dialog
-                },
-                child: Text('Confirm'),
-              ),
-            ],
-          ),
-        );
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Sign up successful! No confirmation needed.')));
       }
     } on AuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message)));
     }
+  }
+
+  void _showConfirmationCodeDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false, // Makes dialog modal
+      builder: (context) => AlertDialog(
+        title: Text('Enter Confirmation Code'),
+        content: TextField(
+          controller: _confirmationCodeController,
+          decoration: InputDecoration(hintText: 'Confirmation Code'),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: Text('Confirm'),
+            onPressed: () async {
+              Navigator.of(context).pop(); // Close the dialog
+              await confirmSignUp(_confirmationCodeController.text.trim());
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   Future<void> confirmSignUp(String confirmationCode) async {
@@ -67,6 +70,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
         confirmationCode: confirmationCode,
       );
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Sign up confirmed!')));
+      // Navigate to the next screen
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => PatientRegistrationScreen()), // Adjust this as needed
+      );
+    } on CodeMismatchException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Incorrect confirmation code.")));
+      _showConfirmationCodeDialog(); // Show the dialog again for another attempt
     } on AuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message)));
     }
@@ -87,18 +98,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            Image.asset(
+              'asset/images/caregiver_signup.jpg',
+              width: MediaQuery.of(context).size.width,
+              height: 200,
+              fit: BoxFit.cover,
+            ),
             TextFormField(
               controller: _fullNameController,
-              decoration: InputDecoration(labelText: 'Full Name'),
+              decoration: InputDecoration(labelText: 'Enter Your Full Name'),
+            ),
+            TextFormField(
+              controller: _relationshipController,
+              decoration: InputDecoration(labelText: 'Enter Your Relationship'),
             ),
             TextFormField(
               controller: _emailController,
-              decoration: InputDecoration(labelText: 'Email'),
+              decoration: InputDecoration(labelText: 'Enter Your Email'),
               keyboardType: TextInputType.emailAddress,
             ),
             TextFormField(
               controller: _passwordController,
-              decoration: InputDecoration(labelText: 'Password'),
+              decoration: InputDecoration(labelText: 'Create a Password'),
               obscureText: true,
             ),
             SizedBox(height: 20),

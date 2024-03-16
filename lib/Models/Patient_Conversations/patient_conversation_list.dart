@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:minder/Models/Caregiver_Conversation/patient_conversation_details.dart';
+import 'package:minder/Models/Patient_Conversations/patient_conversation_details.dart';
 
-import '../../Z_temporary_files/start_pause_and_stop_recording.dart';
+import '../Video_Recording/start_pause_and_stop_recording.dart';
 
 void main() {
   runApp(MyApp());

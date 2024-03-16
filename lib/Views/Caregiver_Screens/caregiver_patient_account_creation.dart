@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:minder/Views/patient_Screens/patient_signup.dart';
 
 class PatientRegistrationScreen extends StatefulWidget {
   @override
@@ -46,6 +47,11 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen> {
     try {
       await _writeDataToFile(dataToWrite);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Patient record created successfully.')));
+      // Navigate to the other screen after successful record creation
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const patient_signup()), // Replace NextScreen with the actual screen you want to navigate to
+      );
       // Optionally, navigate to another page or reset form
       _firstNameController.clear();
       _lastNameController.clear();
@@ -93,7 +99,7 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen> {
               child: _isLoading ? CircularProgressIndicator(color: Colors.white) : Text('Register Patient'),
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
-                backgroundColor: Theme.of(context).primaryColor,
+                backgroundColor: const Color.fromRGBO(47, 102, 127, 1),
               ),
             ),
           ],

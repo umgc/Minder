@@ -35,9 +35,9 @@ class SplashScreen extends StatelessWidget {
             children: [
               // Memory Support Text
               Text(
-                'Memory Support',
+                'Minder',
                 style: TextStyle(
-                  fontSize: 28.0,
+                  fontSize: 40.0,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                   
@@ -49,7 +49,7 @@ class SplashScreen extends StatelessWidget {
               Text(
                 'A place to record and organize conversations with doctors and reminders',
                 style: TextStyle(
-                  fontSize: 12.0,
+                  fontSize: 15.0,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
@@ -57,49 +57,49 @@ class SplashScreen extends StatelessWidget {
               ),
 
               // Space
-              SizedBox(height: 20.0),
+              SizedBox(height: 15.0),
 
-              // Caregiver Sign-In Button
-              ElevatedButton(
-                onPressed: () {
-                   Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => LoginPage()),
-              );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.lightBlue,
-                  padding: EdgeInsets.all(10.0),
-                  textStyle: TextStyle(
-                    fontSize: 10.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                child: Text('Caregiver Sign-In'),
-              ),
+      // Caregiver Sign-In Button
+ElevatedButton(
+  onPressed: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => LoginPage()), // This remains unchanged
+    );
+  },
+  style: ElevatedButton.styleFrom(
+    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10), // Adjusted padding for a larger button
+    textStyle: TextStyle(
+      fontSize: 18.0, // Increased font size for better readability
+      fontWeight: FontWeight.bold,
+    ),
+    backgroundColor: Color.fromRGBO(157, 220, 250, 1), // Custom background color
+  ),
+  child: Text('Caregiver'),
+),
 
-              // Space
-              SizedBox(height: 20.0),
+// Space
+SizedBox(height: 15.0), // Adjust spacing as needed
 
-              // Patient Sign-In Button
-              ElevatedButton(
-                onPressed: () {
-                  // Handle Patient Sign-In button press
-                  Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => patient_login()),
-              );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.lightBlue,
-                  padding: EdgeInsets.all(10.0),
-                  textStyle: TextStyle(
-                    fontSize: 10.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                child: Text('Patient Sign-In'),
-              ),
+// Patient Sign-In Button
+ElevatedButton(
+  onPressed: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => patient_login()), // This remains unchanged
+    );
+  },
+  style: ElevatedButton.styleFrom(
+    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10), // Adjusted padding for a larger button
+    textStyle: TextStyle(
+      fontSize: 18.0, // Increased font size for better readability
+      fontWeight: FontWeight.bold,
+    ),
+    backgroundColor: Color.fromRGBO(157, 220, 250, 1), // Custom background color
+  ),
+  child: Text('Patient'),
+),
+
             ],
           ),
         ],
