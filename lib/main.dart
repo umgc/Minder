@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/Login': (context) => LoginPage(),
         '/welcome': (context) => SplashScreen(),
-        '/conversationDetailsScreen': (context) => conversationDetailsScreen(),
+        '/conversationDetailsScreen': (context) => ConversationDetailsScreen(),
         '/conversationListScreen': (context) => ConversationListScreen(),
         '/caregiversignup': (context) => CaregiverSignup(),
         '/ReminderFormScreen': (context) => ReminderFormScreen(),

@@ -35,7 +35,6 @@ class ConversationListScreen extends StatelessWidget {
           icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
             showDeleteConfirmationDialog(context);
-            
           },
         ),
         actions: [],
@@ -53,29 +52,32 @@ class ConversationListScreen extends StatelessWidget {
                 hintText: 'Search conversation',
                 prefixIcon: Icon(Icons.search),
                 border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color.fromARGB(106, 245, 245, 245)),
+                  borderSide:
+                      BorderSide(color: Color.fromARGB(106, 245, 245, 245)),
                   borderRadius: BorderRadius.circular(25),
                 ),
               ),
             ),
           ),
-          
           SizedBox(height: 20),
           buildNewSection('Conversation draft'),
           SizedBox(height: 20),
-          
           buildSectionDraft('Conversations', 'View All'),
           SizedBox(height: 20),
-          buildConversationBox('Doctor Appointment', Colors.black, 'Aug 28', const Color.fromARGB(255, 168, 216, 255),context),
-          buildConversationBox('Salon Appointment', Colors.black, 'Aug 28', const Color.fromARGB(255, 168, 216, 255),context),
-          buildConversationBox('Breakfast with John', Colors.black, 'Aug 28', const Color.fromARGB(255, 168, 216, 255),context),
+          buildConversationBox('Doctor Appointment', Colors.black, 'Aug 28',
+              const Color.fromARGB(255, 168, 216, 255), context),
+          buildConversationBox('Salon Appointment', Colors.black, 'Aug 28',
+              const Color.fromARGB(255, 168, 216, 255), context),
+          buildConversationBox('Breakfast with John', Colors.black, 'Aug 28',
+              const Color.fromARGB(255, 168, 216, 255), context),
           Spacer(),
           ElevatedButton(
             onPressed: () {
-               Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => MobileFrame(child: RecordingScreen()),
-              ));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MobileFrame(child: RecordingScreen()),
+                  ));
             },
             style: ElevatedButton.styleFrom(
               padding: EdgeInsets.all(25),
@@ -120,7 +122,8 @@ class ConversationListScreen extends StatelessWidget {
             ),
             child: Text(
               viewAllText,
-              style: TextStyle(fontSize: 12, color: Color.fromARGB(255, 141, 141, 141)),
+              style: TextStyle(
+                  fontSize: 12, color: Color.fromARGB(255, 141, 141, 141)),
             ),
           ),
         ],
@@ -162,42 +165,45 @@ class ConversationListScreen extends StatelessWidget {
         ],
       ),
       child: Row(
-  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  children: [
-    IconButton(
-      icon: Icon(Icons.videocam, color: const Color.fromARGB(255, 0, 0, 0)),
-      onPressed: () {
-        // Handle close button press
-      },
-    ),
-    SizedBox(width: 10), // Adjust the width as needed
-    Text(
-      "Buying grocery",
-      style: TextStyle(fontSize: 18),
-    ),
-    SizedBox(width: 10), // Adjust the width as needed
-    Row(
-      children: [
-        IconButton(
-          icon: Icon(Icons.close, color: const Color.fromARGB(255, 0, 0, 0)),
-          onPressed: () {
-            // Handle close button press
-          },
-        ),
-        IconButton(
-          icon: Icon(Icons.check, color: Colors.green),
-          onPressed: () {
-            // Handle check button press
-          },
-        ),
-      ],
-    ),
-  ],
-),
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          IconButton(
+            icon:
+                Icon(Icons.videocam, color: const Color.fromARGB(255, 0, 0, 0)),
+            onPressed: () {
+              // Handle close button press
+            },
+          ),
+          SizedBox(width: 10), // Adjust the width as needed
+          Text(
+            "Buying grocery",
+            style: TextStyle(fontSize: 18),
+          ),
+          SizedBox(width: 10), // Adjust the width as needed
+          Row(
+            children: [
+              IconButton(
+                icon: Icon(Icons.close,
+                    color: const Color.fromARGB(255, 0, 0, 0)),
+                onPressed: () {
+                  // Handle close button press
+                },
+              ),
+              IconButton(
+                icon: Icon(Icons.check, color: Colors.green),
+                onPressed: () {
+                  // Handle check button press
+                },
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
-  Widget buildConversationBox(String conversationName, Color videoIconColor, String date, Color buttonColor, BuildContext context) {
+  Widget buildConversationBox(String conversationName, Color videoIconColor,
+      String date, Color buttonColor, BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       padding: EdgeInsets.all(10),
@@ -223,11 +229,15 @@ class ConversationListScreen extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) =>  conversationDetailsScreen()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ConversationDetailsScreen()));
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: buttonColor,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
             ),
             child: Padding(
               padding: const EdgeInsets.all(5),
@@ -242,7 +252,8 @@ class ConversationListScreen extends StatelessWidget {
     );
   }
 }
- Future<void> showDeleteConfirmationDialog(BuildContext context) async {
+
+Future<void> showDeleteConfirmationDialog(BuildContext context) async {
   return showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -282,9 +293,8 @@ class ConversationListScreen extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              
               Navigator.of(context).pop();
-              
+
               Navigator.pop(context);
             },
             style: TextButton.styleFrom(
@@ -297,7 +307,6 @@ class ConversationListScreen extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              
               Navigator.of(context).pop();
             },
             style: TextButton.styleFrom(
@@ -313,4 +322,3 @@ class ConversationListScreen extends StatelessWidget {
     },
   );
 }
-

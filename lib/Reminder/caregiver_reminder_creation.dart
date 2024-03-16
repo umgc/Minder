@@ -62,7 +62,7 @@ class _ReminderFormScreenState extends State<ReminderFormScreen> {
     };
 
     final url = Uri.parse(
-        'https://<your-api-id>.execute-api.us-east-2.amazonaws.com/<stage>/reminders');
+        'https://<your-api-id>.execute-api.us-east-2.amazonaws.com/<stage>/reminders'); // need an API added here JN
     final response = await http.post(
       url,
       body: json.encode(reminder),
