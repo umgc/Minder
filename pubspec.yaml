@@ -57,6 +57,7 @@ dependencies:
   amplify_api: ^0.4.5
   amplify_datastore: ^0.4.5
   http: ^1.2.1
+  mockito: ^5.4.4
 
 
 dev_dependencies:

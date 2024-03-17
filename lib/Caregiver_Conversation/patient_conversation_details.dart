@@ -99,11 +99,16 @@ class _ConversationDetailsScreenState extends State<ConversationDetailsScreen> {
               ],
             ),
             SizedBox(height: 16),
-            const Text(
-              'Patient: "some questions"\nDoctor: "some response"',
-              style: TextStyle(fontSize: 16),
+            Expanded(
+              child: ListView.builder(
+                itemCount: notes.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(notes[index]),
+                  );
+                },
+              ),
             ),
-            Spacer(),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(

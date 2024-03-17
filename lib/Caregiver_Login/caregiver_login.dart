@@ -8,19 +8,6 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Login Page',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: LoginPage(),
-    );
-  }
-}
-
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -94,6 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                 border: Border.all(color: Colors.blue),
               ),
               child: TextField(
+                key: Key('usernameField'), // Added key
                 controller: _usernameController,
                 decoration: InputDecoration(
                   labelText: 'Username',
@@ -109,6 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                 border: Border.all(color: Colors.blue),
               ),
               child: TextField(
+                key: Key('passwordField'), // Added key
                 controller: _passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
@@ -163,7 +152,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 TextButton(
                   onPressed: () {
-                    print('Forgot your password clicked');
+                    // Handle "Forgot your password?" action
                   },
                   child: Text('Forgot your password?'),
                 ),
