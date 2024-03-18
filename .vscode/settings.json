@@ -9,6 +9,6 @@
     "amplify/backend/awscloudformation": true
   },
   "java.configuration.updateBuildConfiguration": "interactive",
-  "cmake.sourceDirectory": "C:/Users/elsab/myApps/git/Minder/build/windows/x64/_deps/nuget-subbuild",
+  "cmake.sourceDirectory": "C:/Users/elsab/myApps/git/minder/linux",
   "cmake.options.statusBarVisibility": "visible"
 }

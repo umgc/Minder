@@ -50,7 +50,7 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen> {
       // Navigate to the other screen after successful record creation
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const patient_signup()), // Replace NextScreen with the actual screen you want to navigate to
+        MaterialPageRoute(builder: (context) => patient_signup()), // Replace NextScreen with the actual screen you want to navigate to
       );
       // Optionally, navigate to another page or reset form
       _firstNameController.clear();
