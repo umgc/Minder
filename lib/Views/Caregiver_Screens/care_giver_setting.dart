@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:minder/Views/Tour/caregiver_tour_guide_1.dart';
 import 'package:minder/Views/Welcome_screen/welcome.dart';
 import 'package:minder/Views/Caregiver_Screens/care_giver_support-screen.dart';
-import '../../Models/Reminder/caregiver_reminderscreen.dart';
+import 'package:minder/Models/Reminder/caregiver_reminder.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 
 void main() {
@@ -47,9 +47,9 @@ class Settings extends StatelessWidget {
                     children: [
                       // Image
                       Image.asset(
-                        'asset/images/profile.jpg', // Provide the path to your image asset
-                        width: 60, // Set the desired width
-                        height: 60, // Set the desired height
+                        'asset/images/minderlogo2.png', // Provide the path to your image asset
+                        width: 120, // Set the desired width
+                        height: 120, // Set the desired height
                       ),
                       const SizedBox(width: 16), // Add spacing between image and text
                       // Profile Information Text and Edit Icon
@@ -58,15 +58,15 @@ class Settings extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Profile Information',
+                              'Hey Caregiver',
                               style: TextStyle(
-                                fontSize: 16,
+                                fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             SizedBox(height: 8),
                             Text(
-                              'Edit profile details',
+                              'Minder made helping your User easy!',
                               style: TextStyle(
                                 color: Color.fromARGB(255, 119, 119, 119),
                               ),
@@ -121,12 +121,12 @@ class Settings extends StatelessWidget {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 168, 225, 252),
+                  backgroundColor: Color.fromRGBO(47, 102, 127, 1),
                 ),
                 child: const Text(
                   'Sign Out',
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Color.fromRGBO(247, 245, 245, 1),
                   ),
                 ),
               ),

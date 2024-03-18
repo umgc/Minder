@@ -25,7 +25,7 @@ class SplashScreen extends StatelessWidget {
         children: [
           // Background Image
           Image.network(
-            'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png', // Replace with your image URL
+            'https://greaterpublic.org/app/uploads/2024/01/iStock-1801206399.jpg', // Replace with your image URL
             fit: BoxFit.cover,
           ),
 
@@ -97,7 +97,7 @@ ElevatedButton(
     ),
     backgroundColor: Color.fromRGBO(157, 220, 250, 1), // Custom background color
   ),
-  child: Text('Patient'),
+  child: Text('User'),
 ),
 
             ],
