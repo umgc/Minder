@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:minder/Views/patient_Screens/voice_recognition_setup.dart';
+import 'package:minder/Views/User_Screens/voice_recognition_setup.dart';
 
 void main() {
   runApp(const ReminderApp());

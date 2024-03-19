@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:minder/Views/patient_Screens/patient_signup.dart';
+import 'package:minder/Views/User_Screens/user_signup.dart';
 
 class PatientRegistrationScreen extends StatefulWidget {
   @override

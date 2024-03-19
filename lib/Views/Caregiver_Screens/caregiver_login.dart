@@ -3,7 +3,7 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:minder/Views/Caregiver_Screens/care_giver_setting.dart';
 import 'package:minder/Views/Caregiver_Screens/password_reset.dart';
-import 'package:minder/Views/patient_Screens/end_user_license_agreement_patient.dart';
+import 'package:minder/Views/User_Screens/end_user_license_agreement_patient.dart';
 
 class LoginPage extends StatefulWidget {
   @override

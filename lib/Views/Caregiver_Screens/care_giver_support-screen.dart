@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:minder/Views/Caregiver_Screens/care_giver_setting.dart';
 
 void main() {
   runApp(const CaregiverSupport());
 }
 
 class CaregiverSupport extends StatelessWidget {
-  const CaregiverSupport({super.key, Key? door});
+  const CaregiverSupport({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,11 @@ class CaregiverSupport extends StatelessWidget {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.pop(context);
+              //Navigator.pop(context);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Settings()),
+                );
             },
           ),
           title: const Text('Caregiver Support'),
@@ -36,7 +41,7 @@ class CaregiverSupport extends StatelessWidget {
 }
 
 class CaregiverSupportScreen1 extends StatelessWidget {
-  const CaregiverSupportScreen1({super.key, Key? wall});
+  const CaregiverSupportScreen1({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,53 +54,31 @@ class CaregiverSupportScreen1 extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Positioned(
-              left: 30,
-              top: 70.50,
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Settings()),
+                );
+              },
               child: Image.asset(
-                'asset/images/x.jpg',
+                'asset/images/x.jpg', // Adjust the path to your image asset
                 width: 20,
                 height: 20,
               ),
             ),
-            const Text(
-              'Need assistance?',
-              style: TextStyle(
-                color: Color(0xFF030303),
-                fontSize: 36,
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.w400,
-              ),
-            ),
             const SizedBox(height: 14),
             const Text(
-              'Tap below to',
+              'Need Assistance?\n'
+              'Contact our Support\n'
+              'Team Below.\n',
               style: TextStyle(
                 color: Color(0xFF030303),
                 fontSize: 36,
                 fontFamily: 'Montserrat',
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w700,
               ),
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              'connect with our',
-              style: TextStyle(
-                color: Color(0xFF030303),
-                fontSize: 36,
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            const SizedBox(height: 14),
-            const Text(
-              'support team.',
-              style: TextStyle(
-                color: Color(0xFF030303),
-                fontSize: 36,
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.w400,
-              ),
+              textAlign: TextAlign.center,
             ),
             const SizedBox(height: 14),
             SizedBox(
@@ -116,7 +99,6 @@ class CaregiverSupportScreen1 extends StatelessWidget {
                     fontSize: 20,
                     fontFamily: 'Montserrat',
                     fontWeight: FontWeight.w700,
-                    height: 0,
                   ),
                 ),
               ),

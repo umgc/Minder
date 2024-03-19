@@ -35,14 +35,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
           "Reminders",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.delete),
-            onPressed: () {
-              showDeleteConfirmationDialog(context);
-            },
-          ),
-        ],
+        
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
@@ -90,18 +83,19 @@ class _RemindersScreenState extends State<RemindersScreen> {
     return Container(); // Return an empty container if there are no reminders
   }
 
-  return Column(
+ return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: reminders.map((reminder) {
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: GestureDetector(
           onTap: () {
-            // Navigate to update reminder page
+            print("Navigating with reminder ID: ${reminder.id}"); // Debug statement
             Navigator.push(
-  context,
-  MaterialPageRoute(
-    builder: (context) => UpdateReminderFormScreen(reminder: reminder), // Pass reminder correctly
+              context,
+              MaterialPageRoute(
+                builder: (context) => UpdateReminderFormScreen(reminder: reminder),
+            
   ),
 );
 
@@ -185,30 +179,5 @@ class _RemindersScreenState extends State<RemindersScreen> {
     return date.isAfter(startOfWeek) && date.isBefore(endOfWeek);
   }
 
-  Future<void> showDeleteConfirmationDialog(BuildContext context) async {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Delete Confirmation"),
-          content: Text("Are you sure you want to delete this reminder?"),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text("Cancel"),
-            ),
-            TextButton(
-              onPressed: () {
-                // Delete reminder logic here
-                Navigator.of(context).pop();
-              },
-              child: Text("Delete"),
-            ),
-          ],
-        );
-      },
-    );
-  }
+  
 }
