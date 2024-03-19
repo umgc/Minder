@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:minder/Models/Patient_Conversations/patient_conversation_list.dart';
+import 'package:minder/Models/User_Conversations/user_conversation_list.dart';
 
 void main() {
   runApp(const ReminderApp());
