@@ -7,6 +7,7 @@ import 'package:minder/main.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:minder/Services/sqflite_database.dart';
+import 'package:minder/Views/Caregiver_Screens/care_giver_setting.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,22 +29,21 @@ class ReminderFormScreen extends StatefulWidget {
   _ReminderFormScreenState createState() => _ReminderFormScreenState();
 }
 class Reminder {
+  final int? id; // Make id nullable
   final String eventType;  
   final String description;
   final String date;
   final String time;
 
   Reminder({
-    required this.eventType,   
+    this.id, // Include id in the constructor
+    required this.eventType,
     required this.description,
     required this.date,
-    required this.time, required id
+    required this.time,
   });
-
-  get id => null;
-
-  get reminderId => null;
 }
+
 
 class _ReminderFormScreenState extends State<ReminderFormScreen> {
    List<Reminder> reminders = [];
@@ -327,7 +327,10 @@ class _ReminderFormScreenState extends State<ReminderFormScreen> {
                  addReminder();
 
               // Navigate back to the previous screen
-                  Navigator.pop(context);
+                  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => Settings()),
+  );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color.fromRGBO(47, 102, 127, 1),

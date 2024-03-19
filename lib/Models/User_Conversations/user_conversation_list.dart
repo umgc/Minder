@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:minder/Models/Patient_Conversations/patient_conversation_details.dart';
+import 'package:minder/Models/User_Conversations/user_conversation_details.dart';
 
 import '../Video_Recording/start_pause_and_stop_recording.dart';
 

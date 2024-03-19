@@ -19,118 +19,120 @@ class Settings extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Settings'),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // Profile Information Box
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      spreadRadius: 2,
-                      blurRadius: 6,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
-                ),
-                child: Container(
+        body: SingleChildScrollView( // Wrap the body in a SingleChildScrollView
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // Profile Information Box
+                Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    color: Colors.white,
-                  ),
-                  padding: const EdgeInsets.all(16.0),
-                  child: Row(
-                    children: [
-                      // Image
-                      Image.asset(
-                        'asset/images/minderlogo2.png', // Provide the path to your image asset
-                        width: 120, // Set the desired width
-                        height: 120, // Set the desired height
-                      ),
-                      const SizedBox(width: 16), // Add spacing between image and text
-                      // Profile Information Text and Edit Icon
-                      const Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Hey Caregiver',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(height: 8),
-                            Text(
-                              'Minder made helping your User easy!',
-                              style: TextStyle(
-                                color: Color.fromARGB(255, 119, 119, 119),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const Align(
-                        alignment: Alignment.topRight,
-                        child: Icon(Icons.navigate_next, size: 36),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        spreadRadius: 2,
+                        blurRadius: 6,
+                        offset: const Offset(0, 3),
                       ),
                     ],
                   ),
-                ),
-              ),
-              const SizedBox(height: 25),
-              // Reminders, Guided Tour, Support Center Boxes
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      spreadRadius: 2,
-                      blurRadius: 6,
-                      offset: const Offset(0, 3),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.white,
                     ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    buildListItem('Reminders', Icons.notifications, context),
-                    buildListItem('Guided Tour', Icons.explore, context),
-                    buildListItem('Support Center', Icons.live_help, context),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 16),
-              // Sign Out Button
-              Spacer(),
-              ElevatedButton(
-                onPressed: () async {
-                  try {
-                    await Amplify.Auth.signOut();
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => SplashScreen()),
-                    );
-                  } catch (e) {
-                    print("Error signing out: $e");
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromRGBO(47, 102, 127, 1),
-                ),
-                child: const Text(
-                  'Sign Out',
-                  style: TextStyle(
-                    color: Color.fromRGBO(247, 245, 245, 1),
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
+                      children: [
+                        // Image
+                        Image.asset(
+                          'asset/images/minderlogo2.png',
+                          width: 120,
+                          height: 120,
+                        ),
+                        const SizedBox(width: 16),
+                        // Profile Information Text and Edit Icon
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              Text(
+                                'Hey Caregiver',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Text(
+                                'Minder made helping your User easy!',
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 119, 119, 119),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Align(
+                          alignment: Alignment.topRight,
+                          child: Icon(Icons.navigate_next, size: 36),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+                const SizedBox(height: 25),
+                // Reminders, Guided Tour, Support Center Boxes
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        spreadRadius: 2,
+                        blurRadius: 6,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      buildListItem('Reminders', Icons.notifications, context),
+                      buildListItem('Guided Tour', Icons.explore, context),
+                      buildListItem('Support Center', Icons.live_help, context),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 16),
+                // The Spacer is not effective in SingleChildScrollView and is removed.
+                // Sign Out Button
+                ElevatedButton(
+                  onPressed: () async {
+                    try {
+                      await Amplify.Auth.signOut();
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => SplashScreen()),
+                      );
+                    } catch (e) {
+                      print("Error signing out: $e");
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromRGBO(47, 102, 127, 1),
+                  ),
+                  child: const Text(
+                    'Sign Out',
+                    style: TextStyle(
+                      color: Color.fromRGBO(247, 245, 245, 1),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -153,22 +155,21 @@ class Settings extends StatelessWidget {
           case 'Guided Tour':
             Navigator.push(
               context,
-              MaterialPageRoute(builder:
-(context) => const ConversationListTourScreen()),
-);
-break;
-case 'Support Center':
-Navigator.push(
-context,
-MaterialPageRoute(builder: (context) => const CaregiverSupport()),
-);
-break;
-default:
-// Optionally, handle unexpected cases
-break;
-}
-print('$title tapped');
-},
-);
-}
+              MaterialPageRoute(builder: (context) => const ConversationListTourScreen()),
+            );
+            break;
+          case 'Support Center':
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const CaregiverSupport()),
+            );
+            break;
+          default:
+            // Optionally, handle unexpected cases
+            break;
+        }
+        print('$title tapped');
+      },
+    );
+  }
 }
