@@ -5,6 +5,7 @@ import 'package:minder/Reminder/caregiver_reminder_creation.dart';
 import 'package:minder/manage_recording.dart';
 import 'package:minder/patient_signup.dart';
 import 'package:minder/voice_recognition_setup.dart';
+import 'package:minder/voice_recorder.dart';
 
 import 'Caregiver_Conversation/patient_conversation_details.dart';
 import 'Caregiver_Login/caregiver_login.dart';
@@ -12,7 +13,7 @@ import 'Caregiver_Login/caregiver_signup.dart';
 
 import 'Welcome_screen/welcome.dart';
 import 'end_user_license_agreement.dart';
-import 'reminder_creation_screen.dart.dart';
+// import 'reminder_creation_screen.dart.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
 
-      home:  VoiceRecognitionScreen(),
+      home:  AudioRecorderScreen(),
       //home: tour
       routes: {
         //  '/Settings' : (context) => FigmaToCodeApp(),
@@ -39,8 +40,8 @@ class MyApp extends StatelessWidget {
         //  '/conversationListScreen': (context) => tour_one(),
           '/conversationListScreen': (context) => ConversationListScreen(),
           '/caregiversignup': (context) => caregiversignup(),
-          '/ReminderFormScreen': (context) =>  ReminderFormScreen(),
-          '/reminder_creation_screen' : (context) => CaregiverReminderCreationScreen(),
+       //   '/ReminderFormScreen': (context) =>  ReminderFormScreen(),
+          // '/reminder_creation_screen' : (context) => CaregiverReminderCreationScreen(),
           '/caregiver_signup' : (context) =>  SignUpScreen(),
           '/eula' : (context) =>  CaregiverEulaScreen(),
           '/faceidsignup' : (context) =>  patient_signup(),

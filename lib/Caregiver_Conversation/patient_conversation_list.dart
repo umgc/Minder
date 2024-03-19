@@ -1,8 +1,12 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:minder/Caregiver_Conversation/patient_conversation_details.dart';
-
-import '../start_pause_and_stop_recording.dart';
-
+import 'package:minder/manage_recording.dart';
+import 'package:minder/voice_recorder.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
+import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:uuid/uuid.dart';
 void main() {
   runApp(MyApp());
 }
@@ -16,301 +20,480 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class ConversationListScreen extends StatelessWidget {
+class ConversationListScreen extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(
-          'Minder',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-        ),
-        centerTitle: true,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {
-            showDeleteConfirmationDialog(context);
-            
-          },
-        ),
-        actions: [],
-      ),
-      body: Column(
-        children: [
-          SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: TextFormField(
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.all(12),
-                filled: true,
-                fillColor: Color.fromARGB(255, 255, 255, 255),
-                hintText: 'Search conversation',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color.fromARGB(106, 245, 245, 245)),
-                  borderRadius: BorderRadius.circular(25),
-                ),
-              ),
-            ),
-          ),
-          
-          SizedBox(height: 20),
-          buildNewSection('Conversation draft'),
-          SizedBox(height: 20),
-          
-          buildSectionDraft('Conversations', 'View All'),
-          SizedBox(height: 20),
-          buildConversationBox('Doctor Appointment', Colors.black, 'Aug 28', const Color.fromARGB(255, 168, 216, 255),context),
-          buildConversationBox('Salon Appointment', Colors.black, 'Aug 28', const Color.fromARGB(255, 168, 216, 255),context),
-          buildConversationBox('Breakfast with John', Colors.black, 'Aug 28', const Color.fromARGB(255, 168, 216, 255),context),
-          Spacer(),
-          ElevatedButton(
-            onPressed: () {
-               Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => MobileFrame(child: RecordingScreen()),
-              ));
-            },
-            style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.all(25),
-              backgroundColor: Color.fromRGBO(47, 102, 127, 1),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.videocam, color: Colors.white),
-                SizedBox(width: 8),
-                Text(
-                  'Record',
-                  style: TextStyle(fontSize: 18, color: Colors.white),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 20),
-        ],
-      ),
-    );
+  _ConversationListScreenState createState() => _ConversationListScreenState();
+}
+
+class _ConversationListScreenState extends State<ConversationListScreen> {
+  List<Conversation> conversations = [];
+  List<Conversation> filteredConversations = []; // Add a list to hold filtered conversations
+  TextEditingController searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    loadConversations();
+  }
+  Future<void> loadConversations() async {
+    try {
+      final directory = await path_provider.getApplicationDocumentsDirectory();
+      final file = File('${directory.path}/recordings.json');
+      if (file.existsSync()) {
+        final jsonString = await file.readAsString();
+        final jsonList = jsonDecode(jsonString) as List<dynamic>;
+        setState(() {
+          conversations = jsonList.map((e) => Conversation.fromJson(e)).toList();
+          filteredConversations = List.from(conversations); // Initialize filteredConversations with all conversations
+        });
+      }
+    } catch (e) {
+      print('Error loading conversations: $e');
+    }
   }
 
-  Widget buildSectionDraft(String title, String viewAllText) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              // Handle View All button press
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              shadowColor: Colors.transparent,
-            ),
-            child: Text(
-              viewAllText,
-              style: TextStyle(fontSize: 12, color: Color.fromARGB(255, 141, 141, 141)),
-            ),
-          ),
-        ],
-      ),
-    );
+Future<void> saveConversationsToJSON() async {
+  final directory = await path_provider.getApplicationDocumentsDirectory();
+  final filePath = '${directory.path}/recordings.json';
+
+  final jsonList = conversations.map((conversation) => conversation.toJson()).toList();
+  await File(filePath).writeAsString(jsonEncode(jsonList)); // Update JSON file
+}
+
+void filterConversations(String query) {
+  setState(() {
+    filteredConversations = conversations
+        .where((conversation) =>
+            conversation.convName.toLowerCase().contains(query.toLowerCase()) && conversation.saved == 1)
+        .toList();
+  });
+}
+
+void deleteConversation(String id) async {
+  final conversationIndex = conversations.indexWhere((conversation) => conversation.id == id);
+  final filteredConversationIndex = filteredConversations.indexWhere((conversation) => conversation.id == id);
+
+  if (conversationIndex == -1 || filteredConversationIndex == -1) {
+    print('Conversation not found with ID: $id');
+    return;
   }
 
-  Widget buildNewSection(String title) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 20),
-          buildNewBox(),
-        ],
-      ),
-    );
+  final directory = await path_provider.getApplicationDocumentsDirectory();
+  final filePath = '${directory.path}/recordings.json';
+  final deletedRecording = conversations[conversationIndex];
+  final file = File(deletedRecording.fileLocation);
+
+  if (!file.existsSync()) {
+    print('File does not exist: ${file.path}');
+    return;
   }
 
-  Widget buildNewBox() {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      padding: EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(30),
-        boxShadow: [
-          BoxShadow(
-            color: const Color.fromARGB(255, 212, 212, 212).withOpacity(0.5),
-            spreadRadius: 5,
-            blurRadius: 7,
-            offset: Offset(0, 3),
-          ),
-        ],
-      ),
-      child: Row(
-  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  children: [
-    IconButton(
-      icon: Icon(Icons.videocam, color: const Color.fromARGB(255, 0, 0, 0)),
-      onPressed: () {
-        // Handle close button press
-      },
-    ),
-    SizedBox(width: 10), // Adjust the width as needed
-    Text(
-      "Buying grocery",
-      style: TextStyle(fontSize: 18),
-    ),
-    SizedBox(width: 10), // Adjust the width as needed
-    Row(
-      children: [
-        IconButton(
-          icon: Icon(Icons.close, color: const Color.fromARGB(255, 0, 0, 0)),
-          onPressed: () {
-            // Handle close button press
-          },
-        ),
-        IconButton(
-          icon: Icon(Icons.check, color: Colors.green),
-          onPressed: () {
-            // Handle check button press
-          },
-        ),
-      ],
-    ),
-  ],
-),
-    );
-  }
+  try {
+    if (deletedRecording.saved != 1) { // Check if saved is not equal to 1
+      await file.delete(); // Delete audio file
+    }
 
-  Widget buildConversationBox(String conversationName, Color videoIconColor, String date, Color buttonColor, BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(30),
-        boxShadow: [
-          BoxShadow(
-            color: Color.fromARGB(255, 204, 204, 204).withOpacity(0.5),
-            spreadRadius: 5,
-            blurRadius: 7,
-            offset: Offset(0, 3),
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Icon(Icons.videocam, color: videoIconColor),
-          Text(
-            conversationName,
-            style: TextStyle(fontSize: 18),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) =>  conversationDetailsScreen()));
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: buttonColor,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(5),
-              child: Text(
-                date,
-                style: TextStyle(fontSize: 16, color: Colors.black),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+    conversations.removeAt(conversationIndex);
+    filteredConversations.removeAt(filteredConversationIndex);
+    saveConversationsToJSON(); // Update JSON file
+    setState(() {}); // Trigger state update
+  } catch (e) {
+    print('Error deleting conversation: $e');
   }
 }
- Future<void> showDeleteConfirmationDialog(BuildContext context) async {
-  return showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        backgroundColor: Colors.black,
-        content: SingleChildScrollView(
-          child: Column(
-            children: [
-              Row(
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      backgroundColor: Colors.white,
+      title: Text(
+        'Minder',
+        style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          color: Colors.black,
+        ),
+      ),
+      centerTitle: true,
+      actions: [],
+    ),
+    body: Column(
+      children: [
+        SizedBox(height: 20),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: TextFormField(
+            controller: searchController,
+            onChanged: filterConversations,
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.all(12),
+              filled: true,
+              fillColor: Color.fromARGB(255, 255, 255, 255),
+              hintText: 'Search conversation',
+              prefixIcon: Icon(Icons.search),
+              border: OutlineInputBorder(
+                borderSide: BorderSide(color: Color.fromARGB(106, 245, 245, 245)),
+                borderRadius: BorderRadius.circular(25),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(height: 20),
+        buildNewSection('Conversation draft'),
+        buildSectionDraft('Conversations', 'View All'),
+        SizedBox(height: 20),
+       Expanded(
+  child: filteredConversations.isEmpty
+    ? Center(child: Text('No conversations found'))
+    : ListView.builder(
+        itemCount: filteredConversations.length,
+        itemBuilder: (context, index) {
+          final conversation = filteredConversations[index];
+          if (conversation.saved == 1) {
+            return buildConversationBox(
+              conversation.convName,
+              Colors.black,
+              conversation.date,
+              const Color.fromARGB(255, 168, 216, 255),
+            );
+          } else {
+            return SizedBox(); // Skip rendering if saved != 1
+          }
+        },
+      ),
+),
+        Row(
+          children: [
+            Expanded(
+              child:
+            ElevatedButton(
+              onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MobileFrame(child: RecordingScreen()),
+                     ),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.all(16),
+                backgroundColor: Color.fromRGBO(47, 102, 127, 1),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color.fromRGBO(151, 228, 241, 1),
-                    ),
-                    child: Center(
-                      child: Text(
-                        '?',
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 16),
-                  Flexible(
-                    child: Text(
-                      'You will be signed out',
-                      style: TextStyle(color: Colors.white, fontSize: 14),
-                    ),
+                  Icon(Icons.videocam, color: Colors.white),
+                  SizedBox(width: 8),
+                  Text(
+                    'Video Record',
+                    style: TextStyle(fontSize: 18, color: Colors.white),
                   ),
                 ],
               ),
-            ],
+            ),
+            ),
+            Expanded(child: 
+            ElevatedButton(
+              onPressed: () {
+                 Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AudioRecorderScreen(),
+                     ),
+                );
+               
+              },
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.all(16),
+                backgroundColor: Color.fromRGBO(47, 102, 127, 1),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.mic, color: Colors.white),
+                  SizedBox(width: 8),
+                  Text(
+                    'Voice Record',
+                    style: TextStyle(fontSize: 18, color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+  Widget buildSectionDraft(String title, String viewAllText) {
+  return SizedBox(); // Hide the "Conversation" section
+}
+
+Widget buildNewSection(String title) {
+  final hasDraft = conversations.any((conversation) => conversation.saved == 0);
+  if (!hasDraft) {
+    return SizedBox(); // Hide the "Conversation draft" section
+  }
+
+  final draftConversations = filteredConversations.where((conversation) => conversation.saved == 0).toList();
+
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 20),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 20),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: List.generate(
+            draftConversations.length,
+            (index) => buildNewBox(draftConversations[index], index),
           ),
         ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              
-              Navigator.of(context).pop();
-              
-              Navigator.pop(context);
-            },
-            style: TextButton.styleFrom(
-              backgroundColor: Colors.white,
-            ),
-            child: Text(
-              'OK',
-              style: TextStyle(color: Colors.black),
-            ),
+      ],
+    ),
+  );
+}
+Widget buildNewBox(Conversation conversation, int index) {
+  String editedName = conversation.convName;
+
+  return Container(
+    margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+    padding: const EdgeInsets.all(10),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(30),
+      boxShadow: [
+        BoxShadow(
+          color: const Color.fromARGB(255, 212, 212, 212).withOpacity(0.5),
+          spreadRadius: 5,
+          blurRadius: 7,
+          offset: const Offset(0, 3),
+        ),
+      ],
+    ),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        IconButton(
+          icon: const Icon(Icons.videocam, color: Color.fromARGB(255, 0, 0, 0)),
+          onPressed: () {
+            
+          },
+        ),
+        const SizedBox(width: 10), 
+        Expanded(
+          child: Text(
+            editedName,
+            style: TextStyle(fontSize: 18),
+            overflow: TextOverflow.ellipsis,
           ),
-          TextButton(
-            onPressed: () {
-              
-              Navigator.of(context).pop();
-            },
-            style: TextButton.styleFrom(
-              backgroundColor: Colors.white,
+        ),
+        IconButton(
+          icon: Icon(Icons.edit, color: Colors.blue),
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text("Edit Conversation Name"),
+                  content: TextField(
+                    onChanged: (value) {
+                      setState(() {
+                        editedName = value; // Update the edited name as the user types
+                      });
+                    },
+                    decoration: InputDecoration(hintText: "Enter new name"),
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context); // Close the dialog without saving
+                      },
+                      child: Text("Cancel"),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                    setState(() {
+                      // Create a new Conversation object with the edited name
+                      Conversation updatedConversation = Conversation(
+                        id: conversation.id,
+                        convName: editedName,
+                        summary: conversation.summary,
+                        fileLocation: conversation.fileLocation,
+                        type: conversation.type,
+                        date: conversation.date,
+                        notes: conversation.notes,
+                        rem: conversation.rem,
+                        saved: conversation.saved,
+                      );
+
+                      // Finding the index of the existing conversation
+                      int conversationIndex = conversations.indexOf(conversation);
+
+                      // replacing the existing conversation with the updated one
+                      conversations[conversationIndex] = updatedConversation;
+
+                      // Save the updated conversation list to JSON file
+                      saveConversationsToJSON();
+                    });
+                    Navigator.pop(context); 
+                  },
+                      child: Text("Save"),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+        ),
+        const SizedBox(width: 10), 
+        Row(
+          children: [
+            IconButton(
+              icon: const Icon(Icons.close, color: Color.fromARGB(255, 0, 0, 0)),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text("Delete Conversation"),
+                      content: Text("Are you sure you want to delete this conversation?"),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text("Cancel"),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            deleteConversation(conversation.id); // Call deleteConversation function with conversation ID
+                            Navigator.pop(context);
+                          },
+                          child: Text("Delete"),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
             ),
-            child: Text(
-              'Cancel',
-              style: TextStyle(color: Colors.black),
+            IconButton(
+              icon: const Icon(Icons.check, color: Colors.green),
+              onPressed: () {
+                setState(() {
+                  conversation.saved = 1; 
+                });
+                saveConversationsToJSON(); 
+              },
             ),
-          ),
-        ],
-      );
-    },
+          ],
+        ),
+      ],
+    ),
   );
 }
 
+ Widget buildConversationBox(String conversationName, Color videoIconColor, String date, Color buttonColor) {
+  final formattedDate = DateFormat('MMM d').format(DateTime.parse(date));
+
+  return Container(
+    margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+    padding: const EdgeInsets.all(10),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(30),
+      boxShadow: [
+        BoxShadow(
+          color: const Color.fromARGB(255, 204, 204, 204).withOpacity(0.5),
+          spreadRadius: 5,
+          blurRadius: 7,
+          offset: const Offset(0, 3),
+        ),
+      ],
+    ),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Icon(Icons.videocam, color: videoIconColor),
+        Text(
+          conversationName,
+          style: const TextStyle(fontSize: 18),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: buttonColor,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Text(
+              formattedDate,
+              style: const TextStyle(fontSize: 16, color: Colors.black),
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+}
+
+class Conversation {
+  final String id;
+  final String convName; 
+  final String summary;
+  final String fileLocation;
+  final String type;
+  final String date;
+  final String notes;
+  final String rem;
+  int saved;
+  Conversation({
+    String? id,
+    required this.convName,
+    required this.summary,
+    required this.fileLocation,
+    required this.type,
+    required this.notes,
+    required this.date,
+    required this.rem,
+    this.saved = 0,
+  }) : id = id ?? Uuid().v4();
+
+  factory Conversation.fromJson(Map<String, dynamic> json) {
+    return Conversation(
+      id: json['id'].toString(), // Convert int to string using toString()
+      convName: json['convName'] as String? ?? '', // Provide a default empty string if convName is null
+      date: json['date'] as String? ?? '', // Provide a default empty string if date is null
+      fileLocation: json['fileLocation'] as String? ?? '', 
+      summary: json['summary'] as String? ?? '', 
+      type: json['type'] as String? ?? '', 
+      notes: json['notes'] as String? ?? '', 
+      rem: json['rem'] as String? ?? '',
+      saved: json['saved'] as int? ?? 0,
+    );
+  }
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'convName': convName,
+      'summary': summary,
+      'fileLocation': fileLocation,
+      'type': type,
+      'date': date,
+      'notes': notes,
+      'rem': rem,
+      'saved': saved,
+    };
+  }
+}
