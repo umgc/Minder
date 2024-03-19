@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:minder/manage_recording.dart';
 import 'package:minder/voice_recorder.dart';
+
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:intl/intl.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 void main() {
   runApp(MyApp());
@@ -26,10 +26,11 @@ class ConversationListScreen extends StatefulWidget {
 }
 
 class _ConversationListScreenState extends State<ConversationListScreen> {
+  
   List<Conversation> conversations = [];
   List<Conversation> filteredConversations = []; // Add a list to hold filtered conversations
   TextEditingController searchController = TextEditingController();
-
+  String convEditName = '';
   @override
   void initState() {
     super.initState();
@@ -168,7 +169,8 @@ Widget build(BuildContext context) {
               child:
             ElevatedButton(
               onPressed: () {
-              Navigator.push(
+                // Handle record button press
+               Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => MobileFrame(child: RecordingScreen()),
@@ -226,10 +228,59 @@ Widget build(BuildContext context) {
     ),
   );
 }
-  Widget buildSectionDraft(String title, String viewAllText) {
-  return SizedBox(); // Hide the "Conversation" section
+Widget buildSectionDraft(String title, String filter) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 20),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        DropdownButton<String>(
+          value: filter,
+          onChanged: (String? newValue) {
+            // Handle filter change
+            if (newValue == 'Sort (Ascending)') {
+              // Sort conversations in ascending order based on conversation.convName
+              setState(() {
+                filteredConversations.sort((a, b) => a.convName.compareTo(b.convName));
+              });
+            } else if (newValue == 'Sort (Descending)') {
+              // Sort conversations in descending order based on conversation.convName
+              setState(() {
+                filteredConversations.sort((a, b) => b.convName.compareTo(a.convName));
+              });
+            } else if (newValue == 'Date (Newer First)') {
+              // Sort conversations in descending order based on conversation.date
+              setState(() {
+                filteredConversations.sort((a, b) => b.date.compareTo(a.date));
+              });
+            } else if (newValue == 'Date (Older First)') {
+              // Sort conversations in ascending order based on conversation.date
+              setState(() {
+                filteredConversations.sort((a, b) => a.date.compareTo(b.date));
+              });
+            }
+          },
+          items: <String>[
+            'View All',
+            'Sort (Ascending)',
+            'Sort (Descending)',
+            'Date (Newer First)',
+            'Date (Older First)',
+          ].map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+        ),
+      ],
+    ),
+  );
 }
-
 Widget buildNewSection(String title) {
   final hasDraft = conversations.any((conversation) => conversation.saved == 0);
   if (!hasDraft) {
@@ -259,8 +310,9 @@ Widget buildNewSection(String title) {
     ),
   );
 }
+
 Widget buildNewBox(Conversation conversation, int index) {
-  String editedName = conversation.convName;
+  String editedName = conversation.convName.toString();
 
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -283,10 +335,10 @@ Widget buildNewBox(Conversation conversation, int index) {
         IconButton(
           icon: const Icon(Icons.videocam, color: Color.fromARGB(255, 0, 0, 0)),
           onPressed: () {
-            
+            // Handle close button press
           },
         ),
-        const SizedBox(width: 10), 
+        const SizedBox(width: 10), // Adjust the width as needed
         Expanded(
           child: Text(
             editedName,
@@ -296,61 +348,70 @@ Widget buildNewBox(Conversation conversation, int index) {
         ),
         IconButton(
           icon: Icon(Icons.edit, color: Colors.blue),
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: Text("Edit Conversation Name"),
-                  content: TextField(
-                    onChanged: (value) {
-                      setState(() {
-                        editedName = value; // Update the edited name as the user types
-                      });
-                    },
-                    decoration: InputDecoration(hintText: "Enter new name"),
-                  ),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context); // Close the dialog without saving
-                      },
-                      child: Text("Cancel"),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                    setState(() {
-                      // Create a new Conversation object with the edited name
-                      Conversation updatedConversation = Conversation(
-                        id: conversation.id,
-                        convName: editedName,
-                        summary: conversation.summary,
-                        fileLocation: conversation.fileLocation,
-                        type: conversation.type,
-                        date: conversation.date,
-                        notes: conversation.notes,
-                        rem: conversation.rem,
-                        saved: conversation.saved,
-                      );
+onPressed: () {
+  editedName = conversation.convName;
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text("Edit Conversation Name"),
+        content: TextField(
+          controller: TextEditingController(text: editedName),  // Initialize the text field with the current conversation name
+          onChanged: (value) {
+            print(value);
+              if (value.isEmpty) {
+                return; // Don't update state if the value is empty
+              }
+              setState(() {
+                editedName = value;
+              });
 
-                      // Finding the index of the existing conversation
-                      int conversationIndex = conversations.indexOf(conversation);
-
-                      // replacing the existing conversation with the updated one
-                      conversations[conversationIndex] = updatedConversation;
-
-                      // Save the updated conversation list to JSON file
-                      saveConversationsToJSON();
-                    });
-                    Navigator.pop(context); 
-                  },
-                      child: Text("Save"),
-                    ),
-                  ],
-                );
-              },
-            );
           },
+          decoration: InputDecoration(hintText: "Enter new name"),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context); // Close the dialog without saving
+            },
+            child: Text("Cancel"),
+          ),
+          TextButton(
+            onPressed: () {
+              setState(() {
+                // Create a new Conversation object with the edited name
+                Conversation updatedConversation = Conversation(
+                  id: conversation.id,
+                  convName: editedName,
+                  summary: conversation.summary,
+                  fileLocation: conversation.fileLocation,
+                  type: conversation.type,
+                  date: conversation.date,
+                  notes: conversation.notes,
+                  rem: conversation.rem,
+                  saved: conversation.saved,
+                );
+
+                // Finding the index of the existing conversation
+                int conversationIndex = conversations.indexOf(conversation);
+
+                // replacing the existing conversation with the updated one
+                conversations[conversationIndex] = updatedConversation;
+
+                // Save the updated conversation list to JSON file
+                saveConversationsToJSON();
+              });
+              Navigator.pop(context); 
+              loadConversations();
+            },
+            child: Text("Save"),
+          ),
+        ],
+      );
+    },
+  );
+},
+
         ),
         const SizedBox(width: 10), 
         Row(
@@ -388,9 +449,9 @@ Widget buildNewBox(Conversation conversation, int index) {
               icon: const Icon(Icons.check, color: Colors.green),
               onPressed: () {
                 setState(() {
-                  conversation.saved = 1; 
+                  conversation.saved = 1; // Change saved value to 1
                 });
-                saveConversationsToJSON(); 
+                saveConversationsToJSON(); // Save the updated conversation list to JSON file
               },
             ),
           ],
