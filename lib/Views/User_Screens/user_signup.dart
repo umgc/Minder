@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
-import 'patient_signupcompleted.dart'; // Ensure this is correctly imported based on your project structure
+import 'user_signupcompleted.dart'; // Ensure this is correctly imported based on your project structure
 
 void main() => runApp(const ReminderApp());
 

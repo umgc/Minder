@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:minder/Views/patient_Screens/patient_login.dart';
+import 'package:minder/Views/User_Screens/user_login.dart';
 import '../Caregiver_Screens/caregiver_login.dart';
-import 'package:minder/Views/patient_Screens/patient_signup.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,7 +33,7 @@ class SplashScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // Memory Support Text
-              Text(
+              const Text(
                 'Minder',
                 style: TextStyle(
                   fontSize: 40.0,
@@ -46,7 +45,7 @@ class SplashScreen extends StatelessWidget {
               ),
 
               // Subtitle
-              Text(
+              const Text(
                 'A place to record and organize conversations with doctors and reminders',
                 style: TextStyle(
                   fontSize: 15.0,
@@ -57,7 +56,7 @@ class SplashScreen extends StatelessWidget {
               ),
 
               // Space
-              SizedBox(height: 15.0),
+              const SizedBox(height: 15.0),
 
       // Caregiver Sign-In Button
 ElevatedButton(
@@ -68,36 +67,40 @@ ElevatedButton(
     );
   },
   style: ElevatedButton.styleFrom(
-    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10), // Adjusted padding for a larger button
-    textStyle: TextStyle(
+    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10), // Adjusted padding for a larger button
+    textStyle: const TextStyle(
       fontSize: 18.0, // Increased font size for better readability
       fontWeight: FontWeight.bold,
+       
     ),
-    backgroundColor: Color.fromRGBO(157, 220, 250, 1), // Custom background color
+    backgroundColor: const Color.fromRGBO(157, 220, 250, 1), // Custom background color
+    disabledBackgroundColor: Color.fromRGBO(245, 246, 247, 1),
   ),
-  child: Text('Caregiver'),
+  child: const Text('Caregiver'),
 ),
 
 // Space
-SizedBox(height: 15.0), // Adjust spacing as needed
+const SizedBox(height: 15.0), // Adjust spacing as needed
 
 // Patient Sign-In Button
 ElevatedButton(
   onPressed: () {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => patient_login()), // This remains unchanged
+      MaterialPageRoute(builder: (context) => const patient_login()), // This remains unchanged
     );
   },
   style: ElevatedButton.styleFrom(
-    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10), // Adjusted padding for a larger button
-    textStyle: TextStyle(
+    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10), // Adjusted padding for a larger button
+    textStyle: const TextStyle(
       fontSize: 18.0, // Increased font size for better readability
       fontWeight: FontWeight.bold,
+     
     ),
-    backgroundColor: Color.fromRGBO(157, 220, 250, 1), // Custom background color
+    backgroundColor: const Color.fromRGBO(157, 220, 250, 1), // Custom background color
+    disabledBackgroundColor: Color.fromRGBO(245, 246, 247, 1),
   ),
-  child: Text('User'),
+  child: const Text('User'),
 ),
 
             ],
