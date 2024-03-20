@@ -74,11 +74,7 @@ class _AudioRecorderScreenState extends State<VoiceRecognitionSetupScreen> {
   @override
 Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            title: IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () => Navigator.pop(context),
-            ),
+        appBar: AppBar(            
         ),
         body: Center(
             child: Column(
