@@ -28,7 +28,7 @@ class _ConversationDetailsScreenState extends State<conversationDetailsScreen> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-           Navigator.pop(context);
+            // Handle back button press
           },
         ),
         title: const Text('Doctor Appointment'),

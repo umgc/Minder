@@ -315,7 +315,7 @@ class _ReminderFormScreenState extends State<ReminderFormScreen> {
               maxLines: 3,
             ),
             // Create Reminder Button
-            SizedBox(height: 24),
+            SizedBox(height: 18),
             ElevatedButton(
               onPressed: () {
               
