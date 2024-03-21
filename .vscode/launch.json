@@ -1,10 +1,10 @@
 {
     "configurations": [
         {
-            "name": "Flutter (lib\\reminder_creation_screen.dart.dart)",
+            "name": "Flutter (lib\\main.dart)",
             "type": "dart",
             "request": "launch",
-            "program": "lib\\reminder_creation_screen.dart.dart"
+            "program": "lib\\main.dart"
         },
         {
             "name": "Flutter (lib\\manage_recording.dart)",
