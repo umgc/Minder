@@ -39,28 +39,36 @@ class _SetupFaceIDScreenState extends State<SetupFaceIDScreen> {
   }
 
   void _showEnableBiometricsDialog() {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Enable Biometrics"),
-          content: Text(
-            "Your device's biometric authentication is not set up. Please set it up in your device's settings for enhanced security."
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text("Enable Biometrics"),
+        content: Text(
+          "Your device's biometric authentication is not set up. Please set it up in your device's settings for enhanced security."
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: const Text("Done"),
+            onPressed: () async {
+              Navigator.of(context).pop(); // Close the dialog
+              await _checkBiometrics(); // Re-check biometrics setup
+            },
           ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text("Done"),
-              onPressed: () async {
-                Navigator.of(context).pop(); // Close the dialog
-                await _checkBiometrics(); // Re-check biometrics setup
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+          TextButton(
+            child: const Text("Retry"),
+            onPressed: () async {
+              Navigator.of(context).pop(); // Close the dialog and retry immediately
+              _promptBiometricSetup(); // Attempt to prompt biometric setup again
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
 
   void _showCongratulationsDialog() {
     if (_isBiometricSetUp) {
