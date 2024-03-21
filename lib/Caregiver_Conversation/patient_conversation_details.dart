@@ -82,19 +82,7 @@ var request = http.MultipartRequest('POST', Uri.parse(API_URL));
       setState(() {
         _isLoadingF = false; // Update loading state even in case of error
       });
-      // showDialog(
-      //   context: context,
-      //   builder: (context) => AlertDialog(
-      //     title: Text('Success'),
-      //     content: Text('Transcription received:'),
-      //     actions: [
-      //       TextButton(
-      //         onPressed: () => Navigator.pop(context),
-      //         child: Text('OK'),
-      //       ),
-      //     ],
-      //   ),
-      // );
+  
     } else {
       print('Error: ${response.reasonPhrase}');
       ScaffoldMessenger.of(context).showSnackBar(
