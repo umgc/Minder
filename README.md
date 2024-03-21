@@ -53,5 +53,16 @@ Follow these steps to set up and run the app:
 
    flutter run
 
- 
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+- [@username1](https://github.com/username1) 🎨 🐛
+- [@username2](https://github.com/username2) 💻 📖
+- [@username3](https://github.com/username3) 🚇 🚧
+- [@username4](https://github.com/username4) 🤔 💬
+
+Special thanks to [@username5](https://github.com/username5) for extraordinary contributions to the project's core features.
+
+We are always looking for new contributors! See [CONTRIBUTING.md](./CONTRIBUTING.md) for how to get started.
 

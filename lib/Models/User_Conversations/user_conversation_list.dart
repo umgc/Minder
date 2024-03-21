@@ -3,9 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:minder/Models/User_Conversations/camera.dart';
 import 'package:minder/Models/User_Conversations/user_conversation_details.dart';
-//import 'package:minder/Models/User_Conversations/manage_recording.dart';
 import 'package:minder/Models/User_Conversations/voice_recorder.dart';
-
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';

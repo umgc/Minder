@@ -3,7 +3,7 @@ import 'dart:async';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:minder/Models/User_Conversations/video_page.dart';
+import 'package:minder/Models/Video_Recording/video_page.dart';
 
 void main() {
   runApp(MyApp());

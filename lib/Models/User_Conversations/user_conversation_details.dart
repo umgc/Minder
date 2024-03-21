@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -38,7 +37,7 @@ List<Conversation> conversationList = [];
   bool _isLoadingR = false;
   bool _isLoadingS = false;
  String API_URL = "https://api.openai.com/v1/audio/transcriptions";
-  String _apiKey =' '; //replace the key
+  String _apiKey =''; //replace the key
  List<Map<String, String>> _messages = [
     {
       "role": "system",
@@ -216,6 +215,12 @@ Future<void> deleteConversationEntry(String id) async {
 
       // Write the updated JSON data back to the file
       await File(filePath).writeAsString(json.encode(jsonData));
+      Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ConversationListScreen(),
+              ),
+            );
       print('Conversation with ID $id deleted successfully.');
     } else {
       print('Conversation with ID $id not found in JSON data.');
