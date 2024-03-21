@@ -6,7 +6,8 @@ import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:minder/Caregiver_Conversation/patient_conversation_list.dart';
 
-void main() {
+void main() async{
+
   runApp(MyApp());
 }
 
@@ -37,7 +38,7 @@ List<Conversation> conversationList = [];
   bool _isLoadingR = false;
   bool _isLoadingS = false;
  String API_URL = "https://api.openai.com/v1/audio/transcriptions";
-  String _apiKey = ' '; //replace the key
+  String _apiKey =''; //replace the key
  List<Map<String, String>> _messages = [
     {
       "role": "system",
@@ -82,19 +83,7 @@ var request = http.MultipartRequest('POST', Uri.parse(API_URL));
       setState(() {
         _isLoadingF = false; // Update loading state even in case of error
       });
-      // showDialog(
-      //   context: context,
-      //   builder: (context) => AlertDialog(
-      //     title: Text('Success'),
-      //     content: Text('Transcription received:'),
-      //     actions: [
-      //       TextButton(
-      //         onPressed: () => Navigator.pop(context),
-      //         child: Text('OK'),
-      //       ),
-      //     ],
-      //   ),
-      // );
+  
     } else {
       print('Error: ${response.reasonPhrase}');
       ScaffoldMessenger.of(context).showSnackBar(
@@ -315,13 +304,7 @@ Future<void> deleteConversationEntry(String id) async {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  // Handle play button press
-                //   Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => MediaPlayer(filePath: widget.conversation.fileLocation),
-                //   ),
-                // );
+                  
                 },
                 style: ElevatedButton.styleFrom(
                   elevation: 8,
@@ -405,7 +388,11 @@ Future<void> deleteConversationEntry(String id) async {
           color: Colors.grey[200],
           padding: const EdgeInsets.all(16),
           child: _isLoadingS
-        ? CircularProgressIndicator()
+        ? LinearProgressIndicator(
+        minHeight: 10, // Adjust the height of the indicator as needed
+        backgroundColor: Colors.grey[300], // Background color of the progress bar
+        valueColor: AlwaysStoppedAnimation<Color>(Color.fromRGBO(47, 102, 127, 1)), // Color of the progress bar
+      )
         : Text(_summary),
         );
       case 'Reminder             ':

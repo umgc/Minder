@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:minder/Camera.dart';
 import 'package:minder/Caregiver_Conversation/patient_conversation_details.dart';
 import 'package:minder/manage_recording.dart';
 import 'package:minder/voice_recorder.dart';
@@ -185,7 +186,7 @@ Widget build(BuildContext context) {
                Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MobileFrame(child: RecordingScreen()),
+                    builder: (context) => CameraPage(),
                      ),
                 );
               },

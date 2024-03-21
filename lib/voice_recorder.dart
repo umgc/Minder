@@ -17,6 +17,7 @@ class RecordingData {
   final String date;
   final String notes;
   final String rem;
+  String dura;
     int saved; 
 
   RecordingData({
@@ -28,6 +29,7 @@ class RecordingData {
     required this.notes,
     required this.date,
     required this.rem,
+    required this.dura,
     this.saved = 0,
    
   }): id = id ?? Uuid().v4();
@@ -42,6 +44,7 @@ class RecordingData {
       'notes': notes,
       'date': date,
       'rem': rem,
+      'dura':dura,
       'saved': saved,
       
     };
@@ -165,6 +168,7 @@ class _AudioRecorderScreenState extends State<AudioRecorderScreen> {
       type: '',
       notes: '',
       date: DateTime.now().toString(),
+      dura: '',
       rem: '',
       saved: 0, 
     );
