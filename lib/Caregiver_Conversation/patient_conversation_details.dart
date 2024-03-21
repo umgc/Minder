@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:minder/MediaPlayer.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:minder/Caregiver_Conversation/patient_conversation_list.dart';
 
@@ -216,6 +217,12 @@ Future<void> deleteConversationEntry(String id) async {
 
       // Write the updated JSON data back to the file
       await File(filePath).writeAsString(json.encode(jsonData));
+      Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ConversationListScreen(),
+              ),
+            );
       print('Conversation with ID $id deleted successfully.');
     } else {
       print('Conversation with ID $id not found in JSON data.');
@@ -304,7 +311,12 @@ Future<void> deleteConversationEntry(String id) async {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MediaPlayer(filePath: widget.conversation.fileLocation),
+                  ),
+                );
                 },
                 style: ElevatedButton.styleFrom(
                   elevation: 8,

@@ -82,14 +82,7 @@ class Settings extends StatelessWidget {
         ),
         const Align(
           alignment: Alignment.topRight,
-          child: Text(
-                '>',
-                style: TextStyle(
-                  fontFamily: 'SansSerifFont',
-                  fontSize: 36,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+          
         ),
       ],
     ),

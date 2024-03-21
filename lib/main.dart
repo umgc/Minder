@@ -3,6 +3,7 @@ import 'package:flutter_config/flutter_config.dart';
 import 'package:minder/Caregiver_Conversation/patient_conversation_list.dart';
 import 'package:minder/Caregiver_Login/caregiver_patient_account_creation.dart';
 import 'package:minder/Reminder/caregiver_reminder_creation.dart';
+import 'package:minder/care_giver_setting.dart';
 import 'package:minder/manage_recording.dart';
 import 'package:minder/patient_signup.dart';
 import 'package:minder/voice_recognition_setup.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
 
-      home:  ConversationListScreen(),
+      home:  Settings(),
       //home: tour
       routes: {
         //  '/Settings' : (context) => FigmaToCodeApp(),

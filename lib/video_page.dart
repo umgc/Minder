@@ -13,7 +13,7 @@ import 'package:video_player/video_player.dart';
 class VideoPage extends StatefulWidget {
   final String filePath;
 
-  const VideoPage({Key? key, required this.filePath}) : super(key: key);
+  const VideoPage({super.key, required this.filePath});
 
   @override
   _VideoPageState createState() => _VideoPageState();
@@ -115,7 +115,7 @@ Future<void> saveRecordingData(String filePath) async {
             icon: const Icon(Icons.check),
             onPressed: () { 
             _videoPlayerController.pause();
-            //  _videoPlayerController.dispose(); 
+            _videoPlayerController.dispose(); 
             _saveVideo();
             },
           )
