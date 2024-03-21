@@ -8,7 +8,6 @@ import 'package:minder/Caregiver_Conversation/patient_conversation_list.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:uuid/uuid.dart';
-
 class RecordingData {
   final String id;
   final String convName; 
@@ -97,7 +96,7 @@ class _AudioRecorderScreenState extends State<AudioRecorderScreen> {
     }
 
     final directory = await getApplicationDocumentsDirectory();
-    _path = '${directory.path}/recording_${DateTime.now().millisecondsSinceEpoch}.aac';
+    _path = '${directory.path}/recording_${DateTime.now().millisecondsSinceEpoch}.wav';
     await recorder.openRecorder();
 
     setState(() {
@@ -106,20 +105,42 @@ class _AudioRecorderScreenState extends State<AudioRecorderScreen> {
     });
   }
 
-  Future<void> record() async {
-    if (!isRecorderReady) return;
+  // Future<void> record() async {
+  //   if (!isRecorderReady) return;
 
-    await recorder.startRecorder(toFile: _path);
+  //   await recorder.startRecorder(toFile: _path);
 
-    setState(() {
-      isRecording = true;
-      _timer = Timer.periodic(Duration(seconds: 1), (Timer timer) {
-        setState(() {
-          _duration = Duration(seconds: _duration.inSeconds + 1);
-        });
+  //   setState(() {
+  //     isRecording = true;
+  //     _timer = Timer.periodic(Duration(seconds: 1), (Timer timer) {
+  //       setState(() {
+  //         _duration = Duration(seconds: _duration.inSeconds + 1);
+  //       });
+  //     });
+  //   });
+  // }
+
+ Future<void> record() async {
+  if (!isRecorderReady) return;
+
+  // Define the file path with .wav extension
+  //String filePath = '${(await getTemporaryDirectory()).path}/recording_${DateTime.now().millisecondsSinceEpoch}.wav';
+
+  // Start the recorder with WAV format
+  await recorder.startRecorder(
+    toFile: _path,
+    codec: Codec.pcm16WAV, // Use PCM 16-bit WAV codec
+  );
+
+  setState(() {
+    isRecording = true;
+    _timer = Timer.periodic(Duration(seconds: 1), (Timer timer) {
+      setState(() {
+        _duration = Duration(seconds: _duration.inSeconds + 1);
       });
     });
-  }
+  });
+}
 
     Future<void> stop() async {
     await recorder.stopRecorder();
