@@ -1,8 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:minder/Models/User_Conversations/manage_recording.dart';
+import 'package:minder/Models/User_Conversations/camera.dart';
+import 'package:minder/Models/User_Conversations/user_conversation_details.dart';
+//import 'package:minder/Models/User_Conversations/manage_recording.dart';
 import 'package:minder/Models/User_Conversations/voice_recorder.dart';
+
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
@@ -142,7 +145,7 @@ Widget build(BuildContext context) {
         buildNewSection('Conversation draft'),
         buildSectionDraft('Conversations', 'View All'),
         SizedBox(height: 20),
-     Expanded(
+       Expanded(
   child: filteredConversations.isEmpty
     ? Center(child: Text('No conversations found'))
     : ListView.builder(
@@ -150,84 +153,90 @@ Widget build(BuildContext context) {
         itemBuilder: (context, index) {
           final conversation = filteredConversations[index];
           if (conversation.saved == 1) {
-            return buildConversationBox(
-              conversation.convName,
-              Colors.black, // Icon color for video; consider adjusting based on your design
-              conversation.date,
-              const Color.fromARGB(255, 168, 216, 255), // Button color
-              conversation.type, // Pass the type of the conversation here
-            );
-          } else {
-            return SizedBox(); // Skip rendering if saved != 1
-          }
+      return GestureDetector(
+        onTap: () {
+          // Navigate to conversationDetailsScreen when tapped
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => conversationDetailsScreen(conversation: conversation),
+            ),
+          );
+        },
+        child: buildConversationBox(
+          conversation.convName,
+          Colors.black,
+          conversation.date,
+          const Color.fromARGB(255, 168, 216, 255),
+        ),
+      );
+    } else {
+      return SizedBox(); // Skip rendering if saved != 1
+    }
         },
       ),
 ),
-
-        Padding(
-  padding: const EdgeInsets.symmetric(horizontal: 20), // Adds horizontal padding
-  child: Row(
-    children: [
-      Expanded(
-        child: ElevatedButton(
-          onPressed: () {
-            // Navigate to VideoRecordingScreen when the Video button is pressed
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => VideoRecordingScreen()),
-            );
-          },
-          style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.all(12),
-            backgroundColor: Color.fromRGBO(47, 102, 127, 1),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.videocam, color: Colors.white),
-              SizedBox(width: 6), // Space between the icon and text
-              Text(
-                'Video',
-                style: TextStyle(fontSize: 18, color: Colors.white),
+        Row(
+          children: [
+            Expanded(
+              child:
+            ElevatedButton(
+              onPressed: () {
+                // Handle record button press
+               Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CameraPage(),
+                     ),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.all(16),
+                backgroundColor: Color.fromRGBO(47, 102, 127, 1),
               ),
-            ],
-          ),
-        ),
-      ),
-      SizedBox(width: 20), // Space between the Video and Voice buttons
-      Expanded(
-        child: ElevatedButton(
-          onPressed: () {
-            // Navigate to AudioRecorderScreen when the Voice button is pressed
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => AudioRecorderScreen()),
-            );
-          },
-          style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.all(12),
-            backgroundColor: Color.fromRGBO(47, 102, 127, 1),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.mic, color: Colors.white),
-              SizedBox(width: 6), // Space between the icon and text
-              Text(
-                'Voice',
-                style: TextStyle(fontSize: 18, color: Colors.white),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.videocam, color: Colors.white),
+                  SizedBox(width: 8),
+                  Text(
+                    'Video Record',
+                    style: TextStyle(fontSize: 18, color: Colors.white),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+            ),
+            Expanded(child: 
+            ElevatedButton(
+              onPressed: () {
+                 Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AudioRecorderScreen(),
+                     ),
+                );
+               
+              },
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.all(16),
+                backgroundColor: Color.fromRGBO(47, 102, 127, 1),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.mic, color: Colors.white),
+                  SizedBox(width: 8),
+                  Text(
+                    'Voice Record',
+                    style: TextStyle(fontSize: 18, color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
+            ),
+          ],
         ),
-      ),
-    ],
-  ),
-)
-
-
-
-
       ],
     ),
   );
@@ -464,12 +473,9 @@ onPressed: () {
     ),
   );
 }
-Widget buildConversationBox(String conversationName, Color videoIconColor, String date, Color buttonColor, String contentType) {
-  final formattedDate = DateFormat('MMM d').format(DateTime.parse(date));
 
-  // Determine the icon based on the content type ('audio' or 'video')
-  IconData contentIcon = contentType == 'video' ? Icons.videocam : Icons.mic;
-  Color iconColor = contentType == 'video' ? videoIconColor : Colors.blue; // Assuming blue for audio, adjust as needed
+ Widget buildConversationBox(String conversationName, Color videoIconColor, String date, Color buttonColor) {
+  final formattedDate = DateFormat('MMM d').format(DateTime.parse(date));
 
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -489,19 +495,14 @@ Widget buildConversationBox(String conversationName, Color videoIconColor, Strin
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Icon(contentIcon, color: iconColor), // Icon determined by the content type
-        SizedBox(width: 8), // Spacing between icon and text
-        Expanded(
-          child: Text(
-            conversationName,
-            style: const TextStyle(fontSize: 18),
-            overflow: TextOverflow.ellipsis, // Handles overflow with ellipsis
-          ),
+        Icon(Icons.videocam, color: videoIconColor),
+        Text(
+          conversationName,
+          style: const TextStyle(fontSize: 18),
         ),
-        SizedBox(width: 8), // Spacing between text and button
         ElevatedButton(
           onPressed: () {
-            // Action for button press
+            
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: buttonColor,
@@ -519,8 +520,6 @@ Widget buildConversationBox(String conversationName, Color videoIconColor, Strin
     ),
   );
 }
-
-
 }
 
 class Conversation {
@@ -530,7 +529,7 @@ class Conversation {
   final String fileLocation;
   final String type;
   final String date;
-  final String notes;
+   String notes;
   final String rem;
   int saved;
   Conversation({

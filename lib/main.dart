@@ -6,6 +6,7 @@ import 'package:minder/Config/amplifyconfigutation.dart';
 import 'package:minder/Services/voice_assistance_service.dart'; 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest.dart' as tz;
+import 'package:flutter_config/flutter_config.dart';
 
 
 // Global instance of FlutterLocalNotificationsPlugin
