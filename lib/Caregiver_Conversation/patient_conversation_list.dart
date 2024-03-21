@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:minder/Caregiver_Conversation/patient_conversation_details.dart';
 import 'package:minder/manage_recording.dart';
 import 'package:minder/voice_recorder.dart';
 
@@ -151,15 +152,26 @@ Widget build(BuildContext context) {
         itemBuilder: (context, index) {
           final conversation = filteredConversations[index];
           if (conversation.saved == 1) {
-            return buildConversationBox(
-              conversation.convName,
-              Colors.black,
-              conversation.date,
-              const Color.fromARGB(255, 168, 216, 255),
-            );
-          } else {
-            return SizedBox(); // Skip rendering if saved != 1
-          }
+      return GestureDetector(
+        onTap: () {
+          // Navigate to conversationDetailsScreen when tapped
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => conversationDetailsScreen(conversation: conversation),
+            ),
+          );
+        },
+        child: buildConversationBox(
+          conversation.convName,
+          Colors.black,
+          conversation.date,
+          const Color.fromARGB(255, 168, 216, 255),
+        ),
+      );
+    } else {
+      return SizedBox(); // Skip rendering if saved != 1
+    }
         },
       ),
 ),
@@ -516,7 +528,7 @@ class Conversation {
   final String fileLocation;
   final String type;
   final String date;
-  final String notes;
+   String notes;
   final String rem;
   int saved;
   Conversation({
