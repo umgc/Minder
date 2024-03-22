@@ -1,3 +1,9 @@
+// Contributors:  
+  // Developed by: Lensa Gemeda
+  // Auth from cognito added by: John Nguyen 
+  // Forgot password and security code confirmation: Elsa Bushen
+  
+
 import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
@@ -5,6 +11,8 @@ import 'package:minder/Views/Caregiver_Screens/care_giver_setting.dart';
 import 'package:minder/Views/Caregiver_Screens/password_reset.dart';
 import 'package:minder/Views/User_Screens/end_user_license_agreement_patient.dart';
 
+/// The LoginPage class is a StatefulWidget that facilitates user login,
+/// providing fields for username and password input, and options for remembering the user, or password reset.
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -22,7 +30,8 @@ class _LoginPageState extends State<LoginPage> {
     _checkSignedInStatus();
   }
 
-  void _checkSignedInStatus() async {
+/// Checks the signed-in status of the user and redirects to the Settings page if already signed in.
+   void _checkSignedInStatus() async {
     try {
       AuthSession session = await Amplify.Auth.fetchAuthSession();
       if (session.isSignedIn) {
@@ -33,6 +42,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+/// Attempts to log in the user with the provided username and password.
   void _login() async {
     String username = _usernameController.text.trim();
     String password = _passwordController.text.trim();
@@ -46,6 +56,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+/// Handles exceptions that may occur during login and sets appropriate error messages.
   void _handleLoginException(AuthException e) {
     String errorMessage = "Incorrect username or password. Please try again";
     if (e is UserNotConfirmedException) {
@@ -58,6 +69,7 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
+/// Navigates to the PasswordResetPage for password recovery.
   void _forgotPassword() {
     Navigator.push(context, MaterialPageRoute(builder: (context) => PasswordResetPage()));
   }
@@ -157,6 +169,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+/// Helper method to style text field containers.
   Widget _textFieldContainer({required Widget child}) {
     return Container(
       decoration: BoxDecoration(

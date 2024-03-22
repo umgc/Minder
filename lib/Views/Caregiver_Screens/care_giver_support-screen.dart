@@ -1,3 +1,7 @@
+// COntributors:  
+  // Developed by: Elsa Bushen, Gabriel Moreno 
+  // Code Cleanup: Lensa Gemeda
+  
 import 'package:flutter/material.dart';
 import 'package:minder/Views/Caregiver_Screens/care_giver_setting.dart';
 
@@ -5,6 +9,8 @@ void main() {
   runApp(const CaregiverSupport());
 }
 
+/// The CaregiverSupport widget displays the main screen for caregiver support,
+/// offering navigation back to settings and access to further support options.
 class CaregiverSupport extends StatelessWidget {
   const CaregiverSupport({super.key});
 
@@ -40,6 +46,8 @@ class CaregiverSupport extends StatelessWidget {
   }
 }
 
+/// CaregiverSupportScreen1 displays the initial support options to the user.
+/// It includes a button for accessing further settings and a prompt for contacting support.
 class CaregiverSupportScreen1 extends StatelessWidget {
   const CaregiverSupportScreen1({super.key});
 
@@ -62,7 +70,7 @@ class CaregiverSupportScreen1 extends StatelessWidget {
                 );
               },
               child: Image.asset(
-                'asset/images/x.jpg', // Adjust the path to your image asset
+                'asset/images/x.jpg',
                 width: 20,
                 height: 20,
               ),

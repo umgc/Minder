@@ -1,3 +1,4 @@
+
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -46,13 +47,10 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen> {
 
     try {
       await _writeDataToFile(dataToWrite);
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Patient record created successfully.')));
-      // Navigate to the other screen after successful record creation
-      Navigator.pushReplacement(
+        Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const SetupFaceIDScreen()), // Replace NextScreen with the actual screen you want to navigate to
+        MaterialPageRoute(builder: (context) => const SetupFaceIDScreen()),
       );
-      // Optionally, navigate to another page or reset form
       _firstNameController.clear();
       _lastNameController.clear();
     } catch (e) {
