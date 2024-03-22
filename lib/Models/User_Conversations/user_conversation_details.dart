@@ -1,7 +1,9 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:minder/Models/Video_Recording/media_player.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:minder/Models/User_Conversations/user_conversation_list.dart';
 
@@ -309,7 +311,12 @@ Future<void> deleteConversationEntry(String id) async {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MediaPlayer(filePath: widget.conversation.fileLocation),
+                  ),
+                );
                 },
                 style: ElevatedButton.styleFrom(
                   elevation: 8,

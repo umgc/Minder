@@ -1,3 +1,5 @@
+  // Contributors: 
+    // Developed by: Elsa Bushen 
 
 import 'dart:async';
 import 'package:minder/Models/Reminder/caregiver_reminder_creation.dart';
@@ -5,10 +7,14 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 
+
+/// A helper class to manage database operations for reminders.
 class DatabaseHelper {
+  // Database configuration
   static final _databaseName = "RemindersDatabase.db";
   static final _databaseVersion = 2;
 
+  // Table and column names
   static final table = 'reminders';
   static final columnId = 'id';
   static final columnEventType = 'eventType';
@@ -16,11 +22,14 @@ class DatabaseHelper {
   static final columnDate = 'date';
   static final columnTime = 'time';
 
-  static String? _databasePath; // Member variable to store the database path
-
+  // Stores the path to the database file
+  static String? _databasePath; 
+  
+  //Private constructor for the singleton pattern
   DatabaseHelper._privateConstructor();
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
 
+  // The single database instance
   static Database? _database;
   Future<Database> get database async {
     if (_database == null) {
@@ -29,6 +38,7 @@ class DatabaseHelper {
     return _database!;
   }
 
+///  Defines the schema of the database on its creation.
   Future<Database> _initDatabase() async {
     final documentsDirectory = await getApplicationDocumentsDirectory();
     final path = join(documentsDirectory.path, _databaseName);
@@ -40,6 +50,7 @@ class DatabaseHelper {
         onUpgrade: _onUpgrade);
   }
 
+/// Initializes the database schema when the database is first created.
   Future _onCreate(Database db, int version) async {
     await db.execute('''
       CREATE TABLE $table (
@@ -52,10 +63,12 @@ class DatabaseHelper {
     ''');
   }
 
+/// Handles database upgrades when the version changes.
   Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
-    // Database upgrade logic here
+    // Database upgrade logic will be added in future releases. 
   }
 
+/// Inserts a new reminder into the database.
   Future<int> insertReminder(Map<String, dynamic> row) async {
   Database db = await database;
   try {
@@ -68,17 +81,19 @@ class DatabaseHelper {
   }
 }
 
-
+/// Queries all reminders from the database.
    Future<List<Map<String, dynamic>>> queryAllReminders() async {
     Database db = await database;
     return await db.query(table);
   }
 
+/// Queries reminders by their event type.
   Future<List<Map<String, dynamic>>> queryRemindersByEventType(String eventType) async {
     Database db = await database;
     return await db.query(table, where: '$columnEventType = ?', whereArgs: [eventType]);
   }
 
+/// Updates a specific reminder by id.
    Future<int> updateReminder(Map<String, dynamic> updatedReminderMap) async {
   Database db = await database;
   
@@ -87,8 +102,8 @@ class DatabaseHelper {
     print("Error: Attempting to update a reminder without a valid ID.");
     return -1; // Indicates an error due to invalid ID.
   }
-  
-  // Extract the 'id' and log it for debugging purposes.
+
+  // Extract the 'id' and log it for debugging purpose.
   int id = updatedReminderMap['id'];
   print("Updating reminder with ID: $id"); // Log the 'id' being used for the update.
   
@@ -111,7 +126,7 @@ class DatabaseHelper {
 
 
 
-
+/// Deletes a specific reminder by id.
   Future<int> deleteReminder(int id) async {
     Database db = await database;
     return await db.delete(table, where: '$columnId = ?', whereArgs: [id]);
@@ -131,6 +146,7 @@ class DatabaseHelper {
 
   
 }
+/// Retrieves a reminder from the database by its unique identifier (ID).
 Future<Reminder?> getReminderById(int id) async {
   Database db = await instance.database;
   List<Map<String, dynamic>> reminders = await db.query(table,
@@ -145,7 +161,7 @@ Future<Reminder?> getReminderById(int id) async {
       time: reminders.first[columnTime],
     );
   } else {
-    return null; // Return null if no reminder is found with the specified ID
+    return null; 
   }
 }
 
