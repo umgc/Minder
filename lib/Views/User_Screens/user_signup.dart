@@ -1,109 +1,132 @@
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
-import 'user_signupcompleted.dart'; // Ensure this is correctly imported based on your project structure
+import 'user_signupcompleted.dart'; // Ensure this path is correct
 
-void main() => runApp(const ReminderApp());
-
-class ReminderApp extends StatelessWidget {
-  const ReminderApp({Key? key}) : super(key: key);
+class SetupFaceIDScreen extends StatefulWidget {
+  const SetupFaceIDScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: const Color.fromARGB(255, 18, 32, 47),
-      ),
-      home: const patient_signup(),
-    );
-  }
+  _SetupFaceIDScreenState createState() => _SetupFaceIDScreenState();
 }
 
-class patient_signup extends StatelessWidget {
-  const patient_signup({Key? key}) : super(key: key);
+class _SetupFaceIDScreenState extends State<SetupFaceIDScreen> {
+  final LocalAuthentication auth = LocalAuthentication();
+  bool _isBiometricSetUp = false;
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        children: [
-          // Your previous widgets here
-          // "Set up your Face ID" button with modified onTap
-          Positioned(
-            left: 24,
-            bottom: 24,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 16),
-              child: GestureDetector(
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const FaceIDSetupPage())),
-                child: Container(
-                  width: 338,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFaad3ff),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      'Set up your Face ID',
-                      style: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontSize: 14,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+  void initState() {
+    super.initState();
+    _promptBiometricSetup();
+  }
+
+  Future<void> _promptBiometricSetup() async {
+    await _checkBiometrics();
+    if (!_isBiometricSetUp) {
+      // Show the dialog only if biometrics are not set up
+      _showEnableBiometricsDialog();
+    }
+  }
+
+  Future<void> _checkBiometrics() async {
+    bool canCheckBiometrics = await auth.canCheckBiometrics;
+    List<BiometricType> availableBiometrics = await auth.getAvailableBiometrics();
+    if (canCheckBiometrics && availableBiometrics.isNotEmpty) {
+      setState(() {
+        _isBiometricSetUp = true;
+      });
+      _showCongratulationsDialog();
+    }
+  }
+
+  void _showEnableBiometricsDialog() {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text("Enable Biometrics"),
+        content: Text(
+          "Your device's biometric authentication is not set up. Please set it up in your device's settings for enhanced security."
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: const Text("Done"),
+            onPressed: () async {
+              Navigator.of(context).pop(); // Close the dialog
+              await _checkBiometrics(); // Re-check biometrics setup
+            },
+          ),
+          TextButton(
+            child: const Text("Retry"),
+            onPressed: () async {
+              Navigator.of(context).pop(); // Close the dialog and retry immediately
+              _promptBiometricSetup(); // Attempt to prompt biometric setup again
+            },
           ),
         ],
-      ),
-    );
-  }
-}
-
-class FaceIDSetupPage extends StatefulWidget {
-  const FaceIDSetupPage({Key? key}) : super(key: key);
-
-  @override
-  State<FaceIDSetupPage> createState() => _FaceIDSetupPageState();
-}
-
-class _FaceIDSetupPageState extends State<FaceIDSetupPage> {
-  final LocalAuthentication auth = LocalAuthentication();
-
-  Future<void> _authenticateWithBiometrics() async {
-    bool authenticated = false;
-    try {
-      authenticated = await auth.authenticate(
-        localizedReason: 'Scan your face to authenticate',
-        options: const AuthenticationOptions(
-          useErrorDialogs: true,
-          stickyAuth: true,
-        ),
       );
-    } catch (e) {
-      print(e.toString());
-    }
+    },
+  );
+}
 
-    if (!mounted) return;
 
-    if (authenticated) {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const PatientSignupCompleted()));
+  void _showCongratulationsDialog() {
+    if (_isBiometricSetUp) {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Biometrics Set Up"),
+            content: Text(
+              "Congratulations! Your device's biometric authentication is set up. You can now use it for faster and more secure access."
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text("Continue"),
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the dialog
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const UserSignupCompleted()));
+                },
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    // Build method remains largely the same, focusing on layout and design
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Face ID Setup'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: const Text('Setup Biometrics', style: TextStyle(color: Colors.white)),
+        centerTitle: true,
       ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: _authenticateWithBiometrics,
-          child: const Text('Authenticate'),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Spacer(),
+            Flexible(
+              flex: 3,
+              child: Image.network(
+                'https://assets.api.uizard.io/api/cdn/stream/a855b4aa-8e5c-4ff0-8966-a696cb7818d5.png',
+                fit: BoxFit.cover,
+              ),
+            ),
+            const SizedBox(height: 24),
+            Text(
+              'Secure your account by enabling biometric authentication.',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white70, fontSize: 16),
+            ),
+            Spacer(),
+          ],
         ),
       ),
     );

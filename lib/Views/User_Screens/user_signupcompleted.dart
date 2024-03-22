@@ -18,7 +18,7 @@ class ReminderApp extends StatelessWidget {
       home: Scaffold(
         body: ListView(
           children: const [
-            PatientSignupCompleted(),
+            UserSignupCompleted(),
           ],
         ),
       ),
@@ -26,8 +26,8 @@ class ReminderApp extends StatelessWidget {
   }
 }
 
-class PatientSignupCompleted extends StatelessWidget {
-  const PatientSignupCompleted({super.key});
+class UserSignupCompleted extends StatelessWidget {
+  const UserSignupCompleted({super.key});
 
   @override
   Widget build(BuildContext context) {
