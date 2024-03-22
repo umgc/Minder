@@ -9,6 +9,8 @@ import 'package:minder/Services/voice_assistance_service.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
+import 'Models/User_Conversations/user_conversation_list.dart';
+
 
 // Global instance of FlutterLocalNotificationsPlugin
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -63,7 +65,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SplashScreen(),     
+      home: ConversationListScreen(),     
     );
   }
 }

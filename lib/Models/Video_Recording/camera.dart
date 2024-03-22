@@ -96,7 +96,7 @@ class _CameraPageState extends State<CameraPage> {
     } else {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Video Recorder - Timer: $_timerSeconds seconds'),
+          title: Text('Timer: $_timerSeconds seconds'),
         ),
         body: Center(
           child: Stack(

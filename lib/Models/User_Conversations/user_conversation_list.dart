@@ -251,7 +251,7 @@ class _ConversationListScreenState extends State<ConversationListScreen> {
                         padding: EdgeInsets.all(10),
                         backgroundColor: Color.fromRGBO(47, 102, 127, 1),
                       ),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(Icons.mic, color: Colors.white),
@@ -556,9 +556,11 @@ onPressed: () {
           size: 24, // Adjust icon size as needed
         ),
         Text(
-          conversationName,
+          conversationName.length > 25 ? '${conversationName.substring(0, 25)}...' : conversationName,
           style: const TextStyle(fontSize: 18),
+          overflow: TextOverflow.ellipsis,
         ),
+
         ElevatedButton(
           onPressed: () {
             // Add functionality here

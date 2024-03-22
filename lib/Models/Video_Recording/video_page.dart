@@ -69,6 +69,7 @@ Future<void> _saveVideo() async {
 }
 
 Future<void> saveRecordingData(String filePath) async {
+  try{
   final Directory appDirectory = await getApplicationDocumentsDirectory();
   final String recordingsFilePath = '${appDirectory.path}/recordings.json';
 
@@ -87,6 +88,10 @@ Future<void> saveRecordingData(String filePath) async {
   List<dynamic> jsonRecordings = await readJsonFile(recordingsFilePath);
   jsonRecordings.add(recordingData);
   await writeJsonFile(recordingsFilePath, jsonRecordings);
+  }
+  catch (e) {
+    print("error");
+  }
 }
 
   Future<List<dynamic>> readJsonFile(String filePath) async {

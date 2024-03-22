@@ -34,7 +34,8 @@ List<Conversation> conversationList = [];
   String _fullconv = '';
   String _summary = '';
   String _reminder = '';
-  String _notes ='';
+  String _notes = '';
+  String _duration ='00.00';
   bool _isLoadingF = false;
   bool _isLoadingR = false;
   bool _isLoadingS = false;
@@ -75,7 +76,9 @@ var request = http.MultipartRequest('POST', Uri.parse(API_URL));
     if (response.statusCode == 200) {
       String responseBody = await response.stream.transform(utf8.decoder).join();
       // Process successful response (e.g., display results)
-      print(responseBody);
+      // print(responseBody);
+      // print( jsonDecode(responseBody)['duration'].toStringAsFixed(2));
+      _duration = jsonDecode(responseBody)['duration'].toStringAsFixed(2);
       _fullconv = jsonDecode(responseBody)['text'];
       if(_fullconv!=null){
         sendMessage(_fullconv);
@@ -274,7 +277,7 @@ Future<void> deleteConversationEntry(String id) async {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(widget.conversation.date, style: TextStyle(fontSize: 10)),
-                  Text('Duration: 00:35', style: TextStyle(fontSize: 10)),
+                  Text('Duration: ${_duration}', style: TextStyle(fontSize: 10)), //duration
                 ],
               ),
             ),
@@ -326,7 +329,7 @@ Future<void> deleteConversationEntry(String id) async {
                   padding: const EdgeInsets.all(16),
                   backgroundColor: const Color.fromRGBO(47, 102, 127, 1),
                 ),
-                child: Row(
+                child:const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Icon(Icons.play_arrow, color: Colors.white),
@@ -393,8 +396,15 @@ Future<void> deleteConversationEntry(String id) async {
         backgroundColor: Colors.grey[300], // Background color of the progress bar
         valueColor: AlwaysStoppedAnimation<Color>(Color.fromRGBO(47, 102, 127, 1)), // Color of the progress bar
       )
-        : Text(_fullconv),
-        );
+        : Container( height: MediaQuery.of(context).size.height * 0.61,child: ListView(
+        scrollDirection: Axis.vertical, // Use Axis.horizontal for horizontal scrolling
+        children: [
+              
+            Text(_fullconv),
+        
+        ]),),
+        
+          );
       case 'Summary              ':
         return Container(
           color: Colors.grey[200],
@@ -405,7 +415,12 @@ Future<void> deleteConversationEntry(String id) async {
         backgroundColor: Colors.grey[300], // Background color of the progress bar
         valueColor: AlwaysStoppedAnimation<Color>(Color.fromRGBO(47, 102, 127, 1)), // Color of the progress bar
       )
-        : Text(_summary),
+        : 
+        Container( height: MediaQuery.of(context).size.height * 0.61,child: ListView(
+        scrollDirection: Axis.vertical, // Use Axis.horizontal for horizontal scrolling
+        children: [
+        Text(_summary)
+        ],),),
         );
       case 'Reminder             ':
         return Container(
@@ -439,8 +454,10 @@ Future<void> deleteConversationEntry(String id) async {
       Container(
         color: Colors.grey[200],
         padding: const EdgeInsets.all(16),
-        child: Text( widget.conversation.notes.isNotEmpty ? widget.conversation.notes : 'No notes available',
-      ),
+        child: Container( height: MediaQuery.of(context).size.height * 0.52,child: ListView(
+        scrollDirection: Axis.vertical, // Use Axis.horizontal for horizontal scrolling
+        children: [Text( widget.conversation.notes.isNotEmpty ? widget.conversation.notes : 'No notes available',
+      ),]),),
       ),
     ],
   );
