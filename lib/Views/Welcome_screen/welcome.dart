@@ -46,7 +46,7 @@ class SplashScreen extends StatelessWidget {
 
               // Subtitle
               const Text(
-                'A place to record and organize conversations with doctors and reminders',
+                'Your Companion for unforgettable moments!',
                 style: TextStyle(
                   fontSize: 15.0,
                   fontWeight: FontWeight.bold,
@@ -58,50 +58,56 @@ class SplashScreen extends StatelessWidget {
               // Space
               const SizedBox(height: 15.0),
 
-      // Caregiver Sign-In Button
-ElevatedButton(
-  onPressed: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => LoginPage()), // This remains unchanged
-    );
-  },
-  style: ElevatedButton.styleFrom(
-    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10), // Adjusted padding for a larger button
-    textStyle: const TextStyle(
-      fontSize: 18.0, // Increased font size for better readability
-      fontWeight: FontWeight.bold,
-       
-    ),
-    backgroundColor: const Color.fromRGBO(157, 220, 250, 1), // Custom background color
-    disabledBackgroundColor: Color.fromRGBO(245, 246, 247, 1),
-  ),
-  child: const Text('Caregiver'),
-),
+              // Caregiver Sign-In Button
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()), // This remains unchanged
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10), // Adjusted padding for a larger button
+                  textStyle: const TextStyle(
+                    fontSize: 18.0, // Increased font size for better readability
+                    fontWeight: FontWeight.bold,
+                     
+                  ),
+                  backgroundColor: const Color.fromRGBO(157, 220, 250, 1), // Custom background color
+                  disabledBackgroundColor: Color.fromRGBO(245, 246, 247, 1),
+                ),
+                child: Text(
+                  'Caregiver',
+                  style: TextStyle(color: Colors.white), // Set text color to white
+                ),
+              ),
 
-// Space
-const SizedBox(height: 15.0), // Adjust spacing as needed
+              // Space
+              const SizedBox(height: 15.0), // Adjust spacing as needed
 
-// Patient Sign-In Button
-ElevatedButton(
-  onPressed: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const user_signin()), // This remains unchanged
-    );
-  },
-  style: ElevatedButton.styleFrom(
-    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10), // Adjusted padding for a larger button
-    textStyle: const TextStyle(
-      fontSize: 18.0, // Increased font size for better readability
-      fontWeight: FontWeight.bold,
-     
-    ),
-    backgroundColor: const Color.fromRGBO(157, 220, 250, 1), // Custom background color
-    disabledBackgroundColor: Color.fromRGBO(245, 246, 247, 1),
-  ),
-  child: const Text('User'),
-),
+              // Patient Sign-In Button
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const user_signin()), // This remains unchanged
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10), // Adjusted padding for a larger button
+                  textStyle: const TextStyle(
+                    fontSize: 18.0, // Increased font size for better readability
+                    fontWeight: FontWeight.bold,
+                   
+                  ),
+                  backgroundColor: const Color.fromRGBO(157, 220, 250, 1), // Custom background color
+                  disabledBackgroundColor: Color.fromRGBO(245, 246, 247, 1),
+                ),
+                child: Text(
+                  'User',
+                  style: TextStyle(color: Colors.white), // Set text color to white
+                ),
+              ),
 
             ],
           ),

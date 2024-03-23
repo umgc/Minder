@@ -41,7 +41,7 @@ String _id = Uuid().v4();
     await _videoPlayerController.play();
   }
 
-Future<void> _saveVideo() async {
+ Future<void> _saveVideo() async {
   final Directory appDirectory = await getApplicationDocumentsDirectory();
   final String appPath = appDirectory.path;
   final String fileName = 'vrecording_${DateTime.now().millisecondsSinceEpoch}.mp4'; // You can customize the file name
@@ -54,21 +54,18 @@ Future<void> _saveVideo() async {
   // Save the video file path to recordings.json
   saveRecordingData(destinationPath); // Pass the destination path
 
-  // Show a message indicating that the video has been saved
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text('Video saved successfully!'),
+  // Navigate back to the conversation list screen
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => ConversationListScreen(),
     ),
   );
-    Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ConversationListScreen(),
-              ),
-            );
 }
 
+
 Future<void> saveRecordingData(String filePath) async {
+  try{
   final Directory appDirectory = await getApplicationDocumentsDirectory();
   final String recordingsFilePath = '${appDirectory.path}/recordings.json';
 
@@ -87,6 +84,10 @@ Future<void> saveRecordingData(String filePath) async {
   List<dynamic> jsonRecordings = await readJsonFile(recordingsFilePath);
   jsonRecordings.add(recordingData);
   await writeJsonFile(recordingsFilePath, jsonRecordings);
+  }
+  catch (e) {
+    print("error");
+  }
 }
 
   Future<List<dynamic>> readJsonFile(String filePath) async {
