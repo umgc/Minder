@@ -34,7 +34,8 @@ List<Conversation> conversationList = [];
   String _fullconv = '';
   String _summary = '';
   String _reminder = '';
-  String _notes ='';
+  String _notes = '';
+  String _duration ='00.00';
   bool _isLoadingF = false;
   bool _isLoadingR = false;
   bool _isLoadingS = false;
@@ -75,7 +76,9 @@ var request = http.MultipartRequest('POST', Uri.parse(API_URL));
     if (response.statusCode == 200) {
       String responseBody = await response.stream.transform(utf8.decoder).join();
       // Process successful response (e.g., display results)
-      print(responseBody);
+      // print(responseBody);
+      // print( jsonDecode(responseBody)['duration'].toStringAsFixed(2));
+      _duration = jsonDecode(responseBody)['duration'].toStringAsFixed(2);
       _fullconv = jsonDecode(responseBody)['text'];
       if(_fullconv!=null){
         sendMessage(_fullconv);
@@ -274,7 +277,7 @@ Future<void> deleteConversationEntry(String id) async {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(widget.conversation.date, style: TextStyle(fontSize: 10)),
-                  Text('Duration: 00:35', style: TextStyle(fontSize: 10)),
+                  Text('Duration: ${_duration}', style: TextStyle(fontSize: 10)), //duration
                 ],
               ),
             ),
@@ -326,7 +329,7 @@ Future<void> deleteConversationEntry(String id) async {
                   padding: const EdgeInsets.all(16),
                   backgroundColor: const Color.fromRGBO(47, 102, 127, 1),
                 ),
-                child: Row(
+                child:const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Icon(Icons.play_arrow, color: Colors.white),
@@ -389,12 +392,19 @@ Future<void> deleteConversationEntry(String id) async {
           padding: const EdgeInsets.all(16),
           child: _isLoadingF
         ?  LinearProgressIndicator(
-        minHeight: 10, // Adjust the height of the indicator as needed
+        minHeight: 5, // Adjust the height of the indicator as needed
         backgroundColor: Colors.grey[300], // Background color of the progress bar
         valueColor: AlwaysStoppedAnimation<Color>(Color.fromRGBO(47, 102, 127, 1)), // Color of the progress bar
       )
-        : Text(_fullconv),
-        );
+        : Container( height: MediaQuery.of(context).size.height * 0.3,child: ListView(
+        scrollDirection: Axis.vertical, // Use Axis.horizontal for horizontal scrolling
+        children: [
+              
+            Text(_fullconv),
+        
+        ]),),
+        
+          );
       case 'Summary              ':
         return Container(
           color: Colors.grey[200],
@@ -405,7 +415,12 @@ Future<void> deleteConversationEntry(String id) async {
         backgroundColor: Colors.grey[300], // Background color of the progress bar
         valueColor: AlwaysStoppedAnimation<Color>(Color.fromRGBO(47, 102, 127, 1)), // Color of the progress bar
       )
-        : Text(_summary),
+        : 
+        Container( height: MediaQuery.of(context).size.height * 0.3,child: ListView(
+        scrollDirection: Axis.vertical, // Use Axis.horizontal for horizontal scrolling
+        children: [
+        Text(_summary)
+        ],),),
         );
       case 'Reminder             ':
         return Container(
@@ -439,8 +454,10 @@ Future<void> deleteConversationEntry(String id) async {
       Container(
         color: Colors.grey[200],
         padding: const EdgeInsets.all(16),
-        child: Text( widget.conversation.notes.isNotEmpty ? widget.conversation.notes : 'No notes available',
-      ),
+        child: Container( height: MediaQuery.of(context).size.height * 0.03,child: ListView(
+        scrollDirection: Axis.vertical, // Use Axis.horizontal for horizontal scrolling
+        children: [Text( widget.conversation.notes.isNotEmpty ? widget.conversation.notes : 'No notes available',
+      ),]),),
       ),
     ],
   );
@@ -459,47 +476,80 @@ Future<void> deleteConversationEntry(String id) async {
   }
 
 Future<void> _showAddNoteDialog() async {
-  String newNote = ''; // Variable to hold the new note
+  TextEditingController noteController = TextEditingController(text: widget.conversation.notes); // Controller for the note text field, prepopulated with existing note
 
   await showDialog(
     context: context,
     builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text('Add Note'),
-        content: TextField(
-          onChanged: (value) {
-            newNote = value; // Update newNote variable as the user types
-          },
-          decoration: InputDecoration(
-            hintText: 'Enter your note here',
+      return Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+        elevation: 0.0,
+        backgroundColor: Colors.transparent,
+        child: Container(
+          padding: EdgeInsets.all(20.0),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                'Add/Edit Note',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 20.0),
+              TextField(
+                controller: noteController, // Assign the controller to the text field
+                maxLines: 5,
+                decoration: InputDecoration(
+                  hintText: 'Enter your note here...',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 20.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(); // Close the dialog
+                    },
+                    child: Text('Cancel'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      String newNote = noteController.text; // Get the text from the controller
+                      setState(() {
+                        // Update the notes and trigger a rebuild
+                        widget.conversation.notes = newNote;
+                        print('New notes: ${widget.conversation.notes}'); // Add this line for debugging
+
+                        // Update the notes in the JSON data source as well
+                        updateJsonData();
+                      });
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('Save'),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop(); // Close the dialog
-            },
-            child: Text('Cancel'),
-          ),
-          TextButton(
-            onPressed: () {
-              setState(() {
-                // Update the notes and trigger a rebuild
-                widget.conversation.notes += '\n$newNote';
-                print('New notes: ${widget.conversation.notes}'); // Add this line for debugging
-
-                // Update the notes in the JSON data source as well
-                updateJsonData();
-              });
-              Navigator.of(context).pop(); 
-            },
-            child: Text('Add'),
-          ),
-        ],
       );
     },
   );
 }
+
+
 
  
 
@@ -508,7 +558,7 @@ Future<void> _showAddNoteDialog() async {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.white,
           content: SingleChildScrollView(
             child: Column(
               children: [
@@ -519,7 +569,7 @@ Future<void> _showAddNoteDialog() async {
                       height: 40,
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Color.fromRGBO(151, 228, 241, 1),
+                        color: Color.fromRGBO(111, 186, 221, 1),
                       ),
                       child: const Center(
                         child: Text(
@@ -532,7 +582,7 @@ Future<void> _showAddNoteDialog() async {
                     const Flexible(
                       child: Text(
                         'Are you sure you want to remove this conversation permanently?',
-                        style: TextStyle(color: Colors.white, fontSize: 14),
+                        style: TextStyle(color: Color.fromARGB(255, 10, 10, 10), fontSize: 14),
                       ),
                     ),
                   ],
@@ -550,11 +600,11 @@ Future<void> _showAddNoteDialog() async {
                 Navigator.of(context).pop();
               },
               style: TextButton.styleFrom(
-                backgroundColor: Colors.white,
+                
               ),
               child: const Text(
                 'OK',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Color.fromARGB(255, 130, 84, 136)),
               ),
             ),
             TextButton(
@@ -563,11 +613,11 @@ Future<void> _showAddNoteDialog() async {
                 Navigator.of(context).pop();
               },
               style: TextButton.styleFrom(
-                backgroundColor: Colors.white,
+                
               ),
               child: const Text(
                 'Cancel',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Color.fromARGB(255, 130, 84, 136)),
               ),
             ),
           ],

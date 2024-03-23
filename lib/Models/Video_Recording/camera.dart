@@ -85,36 +85,84 @@ class _CameraPageState extends State<CameraPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    if (_isLoading) {
-      return Container(
-        color: Colors.white,
-        child: const Center(
-          child: CircularProgressIndicator(),
-        ),
-      );
-    } else {
-      return Scaffold(
-        appBar: AppBar(
-          title: Text('Video Recorder - Timer: $_timerSeconds seconds'),
-        ),
-        body: Center(
-          child: Stack(
+Widget build(BuildContext context) {
+  if (_isLoading) {
+    return Container(
+      color: Colors.white,
+      child: const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+  } else {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Timer: $_timerSeconds seconds'),
+      ),
+      body: Stack(
+        children: [
+          CameraPreview(_cameraController),
+          Align(
             alignment: Alignment.bottomCenter,
-            children: [
-              CameraPreview(_cameraController),
-              Padding(
-                padding: const EdgeInsets.all(25),
-                child: FloatingActionButton(
-                  backgroundColor: Colors.red,
-                  child: Icon(_isRecording ? Icons.stop : Icons.circle),
-                  onPressed: () => _recordVideo(),
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: GestureDetector(
+                onTap: _recordVideo,
+                child: Container(
+                  width: 72,
+                  height: 72,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(color: _isRecording ? Colors.transparent :  const Color.fromRGBO(47, 102, 127, 1), width: 4),
+                  ),
+                  child: Material( // Wrap with Material widget
+                    elevation: _isRecording ? 0 : 4, // Set elevation based on recording state
+                    shape: CircleBorder(),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Container(
+                          width: 40,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.white,
+                          ),
+                        ),
+                        _isRecording
+                            ? Container()
+                            : Icon(
+                                Icons.circle,
+                                size: 25,
+                                color:  const Color.fromRGBO(47, 102, 127, 1),
+                              ),
+                        _isRecording
+                            ? Container(
+                                width: 70,
+                                height: 70,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(color: Colors.redAccent, width: 4),
+                                ),
+                                child: Icon(
+                                  Icons.stop,
+                                  size: 40,
+                                  color: Colors.redAccent,
+                                ),
+                              )
+                            : Container(),
+                      ],
+                    ),
+                  ),
                 ),
               ),
-            ],
+            ),
           ),
-        ),
-      );
-    }
+        ],
+      ),
+    );
   }
 }
+
+}
+
+  

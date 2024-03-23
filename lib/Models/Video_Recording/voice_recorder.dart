@@ -198,57 +198,69 @@ class _AudioRecorderScreenState extends State<AudioRecorderScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-         Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ConversationListScreen(),
-                    ),);
-          },
-        ),
-        title: Text('Conversation Recorder Voice'),
-        
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      leading: IconButton(
+        icon: Icon(Icons.arrow_back),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ConversationListScreen(),
+            ),
+          );
+        },
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Tap on mic icon to start recording',
-              style: TextStyle(fontSize: 25),
+      title: Text('Conversation Recorder Voice'),
+    ),
+    body: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'asset/images/white-background_sound.jpg',
+                  width: 300,
+                  height: 200,
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  'Tap on mic and start recording',
+                  style: TextStyle(fontSize: 15),
+                ),
+              ],
             ),
-            const SizedBox(height: 20),
-            Text(
-              '${_duration.inMinutes.remainder(60).toString().padLeft(2, '0')}:${_duration.inSeconds.remainder(60).toString().padLeft(2, '0')}',
-              style: const TextStyle(fontSize: 25),
-            ),
-            const SizedBox(height: 20),
-            Container(
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.blue,
-              ),
-              child: IconButton(
-                icon: Icon(isRecording ? Icons.stop : Icons.mic),
-                onPressed: () async {
-                  if (recorder.isRecording) {
-                    await stop();
-                  } else {
-                    await record();
-                  }
-                },
-                iconSize: 100.0,
-                color: Colors.white,
-              ),
-            ),
-          ],
+          ),
         ),
-      ),
-    );
-  }
+        SizedBox(height: 20),
+        Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: isRecording ? Colors.red : Color.fromRGBO(47, 102, 127, 1),
+          ),
+          child: IconButton(
+            icon: Icon(isRecording ? Icons.stop : Icons.mic),
+            onPressed: () async {
+              if (recorder.isRecording) {
+                await stop();
+              } else {
+                await record();
+              }
+            },
+            iconSize: 50.0,
+            color: Colors.white,
+          ),
+        ),
+        const SizedBox(height: 20),
+      ],
+    ),
+  );
+}
+
+
+
 }
