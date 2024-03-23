@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:minder/Views/Welcome_screen/welcome.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
@@ -142,7 +143,7 @@ class _ConversationListScreenState extends State<ConversationListScreen> {
           onPressed: () {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => CameraPage()),
+              MaterialPageRoute(builder: (context) => SplashScreen()),
             );
           },
         ),
