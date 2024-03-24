@@ -73,7 +73,7 @@ class Settings extends StatelessWidget {
                               ),
                               SizedBox(height: 8),
                               Text(
-                                'Tap into Minders settings to enrich and streamline your caregiving journey!',
+                                'Tap into Minders settings to streamline your caregiving journey!',
                                 style: TextStyle(
                                   color: Color.fromARGB(255, 119, 119, 119),
                                 ),

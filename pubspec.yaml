@@ -103,6 +103,9 @@ flutter:
     - asset/images/profile.jpg
     - asset/sound/piano-logo-108963.mp3
     - asset/images/minderlogo2.png
+    - asset/images/sound-blue-effect.png
+    - asset/images/white-background_sound.jpg
+    - asset/images/signupcomplete.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

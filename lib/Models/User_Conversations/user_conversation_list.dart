@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:minder/Views/Welcome_screen/welcome.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
@@ -131,12 +132,21 @@ class _ConversationListScreenState extends State<ConversationListScreen> {
         title: Text(
           'Minder',
           style: TextStyle(
-            fontSize: 24,
+            fontSize: 30,
             fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
         ),
         centerTitle: true,
+         leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => SplashScreen()),
+            );
+          },
+        ),
         actions: [],
       ),
       body: Column(
@@ -251,7 +261,7 @@ class _ConversationListScreenState extends State<ConversationListScreen> {
                         padding: EdgeInsets.all(10),
                         backgroundColor: Color.fromRGBO(47, 102, 127, 1),
                       ),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(Icons.mic, color: Colors.white),
@@ -332,7 +342,7 @@ Widget buildSectionDraft(String title, String filter) {
 Widget buildNewSection(String title) {
   final hasDraft = conversations.any((conversation) => conversation.saved == 0);
   if (!hasDraft) {
-    return SizedBox(); // Hide the "Conversation draft" section
+    return SizedBox();  
   }
 
   final draftConversations = filteredConversations.where((conversation) => conversation.saved == 0).toList();
@@ -386,7 +396,7 @@ Widget buildNewBox(Conversation conversation, int index) {
             // Handle close button press
           },
         ),
-        const SizedBox(width: 10), // Adjust the width as needed
+        const SizedBox(width: 7), // Adjust the width as needed
         Expanded(
           child: Text(
             editedName,
@@ -461,7 +471,7 @@ onPressed: () {
 },
 
         ),
-        const SizedBox(width: 10), 
+        const SizedBox(width: 7), 
        Padding(
   padding: const EdgeInsets.symmetric(horizontal: 20), // Adds horizontal padding to the whole row
   child: Row(
@@ -496,7 +506,7 @@ onPressed: () {
           );
         },
       ),
-      SizedBox(width: 20), // Maintains consistent spacing with the provided layout
+      SizedBox(width: 7), // Maintains consistent spacing with the provided layout
       IconButton(
         icon: const Icon(Icons.check, color: Colors.green),
         onPressed: () {
@@ -556,9 +566,11 @@ onPressed: () {
           size: 24, // Adjust icon size as needed
         ),
         Text(
-          conversationName,
+          conversationName.length > 13 ? '${conversationName.substring(0, 13)}...' : conversationName,
           style: const TextStyle(fontSize: 18),
+          overflow: TextOverflow.ellipsis,
         ),
+
         ElevatedButton(
           onPressed: () {
             // Add functionality here
