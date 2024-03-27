@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
-import 'user_signupcompleted.dart'; // Ensure this path is correct
+import 'package:minder/Views/Caregiver_Screens/care_giver_setting.dart'; 
 
 class SetupFaceIDScreen extends StatefulWidget {
   const SetupFaceIDScreen({Key? key}) : super(key: key);
@@ -86,7 +86,7 @@ class _SetupFaceIDScreenState extends State<SetupFaceIDScreen> {
                 child: const Text("Continue"),
                 onPressed: () {
                   Navigator.of(context).pop(); // Close the dialog
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const UserSignupCompleted()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Settings()));
                 },
               ),
             ],

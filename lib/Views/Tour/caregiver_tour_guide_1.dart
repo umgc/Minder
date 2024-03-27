@@ -1,5 +1,7 @@
+//Contributors 
+  // UI Developed by Lensa Gemeda
+  // Development contribution by Gabriel Moreno
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:minder/Views/Tour/caregiver_tour_guide_2.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';

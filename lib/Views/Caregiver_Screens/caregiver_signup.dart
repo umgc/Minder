@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-// Import the required screen
 import 'package:minder/Views/Caregiver_Screens/caregiver_user_account_creation.dart';
 
 class SignUpScreen extends StatefulWidget {

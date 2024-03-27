@@ -1,6 +1,7 @@
+//Contributors 
+  // Functionality and UI Development Input Lensa Gemeda
+  // Functionality and UI Development Input - Elsa Bushen
 import 'dart:async';
-//import 'dart:io';
-
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:minder/Models/Video_Recording/video_page.dart';

@@ -1,5 +1,10 @@
-import 'dart:io';
+//Contributors 
+  // Functionality and UI Developed by Lensa Gemeda
+  // Whisper Integration - Lensa Gemeda
+  // Chat Gpt Integration - Lensa Gemeda
+  // Code cleanup - Elsa Bushen
 
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;

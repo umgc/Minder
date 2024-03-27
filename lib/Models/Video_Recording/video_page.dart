@@ -1,6 +1,8 @@
+//Contributors 
+  // Functionality and UI Development Input Lensa Gemeda
+  // Functionality and UI Development Input - Elsa Bushen
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:minder/Models/User_Conversations/user_conversation_list.dart';
 import 'package:path_provider/path_provider.dart';
