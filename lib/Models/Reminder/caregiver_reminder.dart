@@ -1,3 +1,6 @@
+//Contributors 
+  // Functionality and UI Developed by Elsa Bushen
+
 import 'package:flutter/material.dart';
 import 'package:minder/Models/Reminder/caregiver_reminder_creation.dart';
 import 'package:minder/Models/Reminder/update_reminder.dart';

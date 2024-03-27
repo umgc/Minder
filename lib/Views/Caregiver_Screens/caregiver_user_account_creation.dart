@@ -1,3 +1,6 @@
+//Contributors 
+  // UI and Functionality Developed by Elsa Bushen
+  
 
 import 'dart:async';
 import 'dart:io';
@@ -14,11 +17,11 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen> {
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
 
-  bool _isLoading = false; // To control loading state UI
+  bool _isLoading = false; 
 
   Future<File> get _localFile async {
     final directory = await getApplicationDocumentsDirectory();
-    return File('${directory.path}/patient_data.txt');
+    return File('${directory.path}/user_data.txt');
   }
 
   Future<void> _writeDataToFile(String data) async {
@@ -54,8 +57,8 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen> {
       _firstNameController.clear();
       _lastNameController.clear();
     } catch (e) {
-      print("Failed to create patient record: $e");
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to create patient record.')));
+      print("Failed to create user record: $e");
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to create user record.')));
     } finally {
       setState(() {
         _isLoading = false; // Reset loading state
@@ -75,7 +78,7 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Register a Patient'),
+        title: Text('Register the User'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -84,17 +87,17 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen> {
           children: [
             TextField(
               controller: _firstNameController,
-              decoration: InputDecoration(labelText: "Patient's First Name"),
+              decoration: InputDecoration(labelText: "User's First Name"),
             ),
             SizedBox(height: 8),
             TextField(
               controller: _lastNameController,
-              decoration: InputDecoration(labelText: "Patient's Last Name"),
+              decoration: InputDecoration(labelText: "User's Last Name"),
             ),
             SizedBox(height: 16),
             ElevatedButton(
               onPressed: _isLoading ? null : _registerPatient,
-              child: _isLoading ? CircularProgressIndicator(color: Colors.white) : Text('Register Patient'),
+              child: _isLoading ? CircularProgressIndicator(color: Colors.white) : Text('Register User'),
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
                 backgroundColor: const Color.fromRGBO(47, 102, 127, 1),

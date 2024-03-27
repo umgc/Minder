@@ -24,7 +24,7 @@ class SplashScreen extends StatelessWidget {
         children: [
           // Background Image
           Image.network(
-            'https://greaterpublic.org/app/uploads/2024/01/iStock-1801206399.jpg', // Replace with your image URL
+            'https://greaterpublic.org/app/uploads/2024/01/iStock-1801206399.jpg', 
             fit: BoxFit.cover,
           ),
 

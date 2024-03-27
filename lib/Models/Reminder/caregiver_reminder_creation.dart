@@ -1,5 +1,12 @@
-import 'dart:core';
+//Contributors 
+  // Functionality and UI Developed by Elsa Bushen
+  // developement input Gabriel Moreno,
+  // AWS related development input John Nguyen, 
+  // Front End development Lensa Gemeda  
 
+
+
+import 'dart:core';
 import 'package:flutter/material.dart'; 
 import 'package:intl/intl.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
