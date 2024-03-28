@@ -8,12 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:minder/Views/User_Screens/user_signup.dart';
 
-class PatientRegistrationScreen extends StatefulWidget {
+class UserRegistrationScreen extends StatefulWidget {
   @override
-  _PatientRegistrationScreenState createState() => _PatientRegistrationScreenState();
+  _UserRegistrationScreenState createState() => _UserRegistrationScreenState();
 }
 
-class _PatientRegistrationScreenState extends State<PatientRegistrationScreen> {
+class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
 
@@ -40,7 +40,7 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen> {
     }
   }
 
-  Future<void> _createPatientRecord() async {
+  Future<void> _createUserRecord() async {
     final patientData = {
       'firstName': _firstNameController.text.trim(),
       'lastName': _lastNameController.text.trim(),
@@ -66,12 +66,12 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen> {
     }
   }
 
-  void _registerPatient() async {
+  void _registerUser() async {
     setState(() {
       _isLoading = true; // Set loading state
     });
 
-    await _createPatientRecord();
+    await _createUserRecord();
   }
 
   @override
@@ -96,7 +96,7 @@ class _PatientRegistrationScreenState extends State<PatientRegistrationScreen> {
             ),
             SizedBox(height: 16),
             ElevatedButton(
-              onPressed: _isLoading ? null : _registerPatient,
+              onPressed: _isLoading ? null : _registerUser,
               child: _isLoading ? CircularProgressIndicator(color: Colors.white) : Text('Register User'),
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
