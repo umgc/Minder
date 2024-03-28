@@ -72,7 +72,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       // Navigate to the next screen
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => PatientRegistrationScreen()), // Adjust this as needed
+        MaterialPageRoute(builder: (context) => UserRegistrationScreen()), // Adjust this as needed
       );
     } on CodeMismatchException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Incorrect confirmation code.")));
