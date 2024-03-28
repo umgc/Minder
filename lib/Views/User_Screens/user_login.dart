@@ -1,3 +1,6 @@
+//Contributors 
+  // Developed by Elsa Bushen
+
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:minder/Models/User_Conversations/user_conversation_list.dart';

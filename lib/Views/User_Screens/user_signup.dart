@@ -1,3 +1,7 @@
+//Contributors 
+  // Developed by Elsa Bushen
+  
+
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:minder/Views/Caregiver_Screens/care_giver_setting.dart'; 
