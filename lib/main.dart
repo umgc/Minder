@@ -1,7 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_flutter/amplify_flutter.dart'; 
+import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:minder/Views/Tour/caregiver_tour_guide_1.dart'; 
 import 'package:minder/Views/Welcome_screen/welcome.dart'; 
 import 'package:minder/Config/amplifyconfigutation.dart';
 import 'package:minder/Services/voice_assistance_service.dart'; 
