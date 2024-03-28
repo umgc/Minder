@@ -5,6 +5,18 @@
             "type": "dart",
             "request": "launch",
             "program": "lib\\reminder_creation_screen.dart.dart"
+        },
+        {
+            "name": "Flutter (lib\\manage_recording.dart)",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib\\manage_recording.dart"
+        },
+        {
+            "name": "Flutter (lib\\UserServices\\Video_Recording\\voice_recorder.dart)",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib\\UserServices\\Video_Recording\\voice_recorder.dart"
         }
     ]
 }
