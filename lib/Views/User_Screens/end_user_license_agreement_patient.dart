@@ -1,3 +1,7 @@
+//Contributors 
+  // UI Developed by Elsa Bushen
+  // page cleanup and User agreeemnt wrritten by Gabriel Moreno
+
 import 'package:flutter/material.dart';
 import 'package:minder/Views/Caregiver_Screens/caregiver_signup.dart';
 import 'package:minder/Views/Welcome_screen/welcome.dart';

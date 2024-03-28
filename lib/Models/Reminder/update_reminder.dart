@@ -1,3 +1,6 @@
+//Contributors 
+  // Functionality and UI Developed by Elsa Bushen
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:minder/Services/sqflite_database.dart';
@@ -61,31 +64,35 @@ class _UpdateReminderFormScreenState extends State<UpdateReminderFormScreen> {
   }
 
   void showDeleteConfirmationDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Delete Confirmation"),
-          content: Text("Are you sure you want to delete this reminder?"),
-          actions: <Widget>[
-            TextButton(
-              child: Text("Cancel"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: Text("Delete"),
-              onPressed: () async {
-                await deleteReminder();
-                Navigator.of(context).pop(); // Close the dialog
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text("Delete Confirmation"),
+        content: Text("Are you sure you want to delete this reminder?"),
+        actions: <Widget>[
+          TextButton(
+            child: Text("Cancel"),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          TextButton(
+            child: Text("Delete"),
+            onPressed: () async {
+              await deleteReminder();
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Settings()), // Assuming Settings() is your destination Widget
+              );
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
 
   @override
   Widget build(BuildContext context) {

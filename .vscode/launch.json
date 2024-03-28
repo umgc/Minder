@@ -11,6 +11,12 @@
             "type": "dart",
             "request": "launch",
             "program": "lib\\manage_recording.dart"
+        },
+        {
+            "name": "Flutter (lib\\UserServices\\Video_Recording\\voice_recorder.dart)",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib\\UserServices\\Video_Recording\\voice_recorder.dart"
         }
     ]
 }

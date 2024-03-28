@@ -1,193 +1,147 @@
+//Contributors 
+  // Developed by Elsa Bushen
+
 import 'package:flutter/material.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:minder/Models/User_Conversations/user_conversation_list.dart';
 
-void main() {
-  runApp(const ReminderApp());
-}
+void main() => runApp(const ReminderApp());
 
 class ReminderApp extends StatelessWidget {
-  const ReminderApp({super.key});
+  const ReminderApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor:
-            Colors.white, // Changed background color to white
-      ),
-      home: Scaffold(
-        body: ListView(
-          children: const [
-            patient_login(),
-          ],
+      theme: ThemeData(
+        useMaterial3: true, // Enable Material 3 features
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        primaryColor: const Color(0xFFaad3ff),
+        textTheme: TextTheme(
+          headlineMedium: const TextStyle(
+            fontFamily: 'Source Sans Pro',
+            fontSize: 24,
+            color: Color(0xFF030303),
+            fontWeight: FontWeight.w600,
+          ),
+          bodyMedium: const TextStyle(
+            fontFamily: 'Montserrat',
+            fontSize: 16,
+            color: Color(0xFF030303),
+          ),
+        ),
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          secondary: const Color(0xFFaad3ff),
         ),
       ),
+      home: const user_signin(),
     );
   }
 }
 
-class patient_login extends StatelessWidget {
-  const patient_login({super.key});
+class user_signin extends StatefulWidget {
+  const user_signin({Key? key}) : super(key: key);
+
+  @override
+  State<user_signin> createState() => _user_signinState();
+}
+
+class _user_signinState extends State<user_signin> {
+  final LocalAuthentication auth = LocalAuthentication();
+
+  Future<void> _authenticateWithBiometrics() async {
+    bool authenticated = false;
+    try {
+      authenticated = await auth.authenticate(
+        localizedReason: 'Scan your face to authenticate',
+        options: const AuthenticationOptions(
+          useErrorDialogs: true,
+          stickyAuth: true,
+        ),
+      );
+    } catch (e) {
+      print(e.toString());
+    }
+
+    if (!mounted) return;
+
+    if (authenticated) {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  ConversationListScreen()));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(''),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
       ),
       body: Center(
         child: SizedBox(
-          width: 375,
-          height: 667,
+          width: MediaQuery.of(context).size.width,
           child: Stack(
+            alignment: Alignment.center,
             children: [
-              Positioned.fill(
-                child: Container(
-                  color: Colors.white,
-                ),
-              ),
               Positioned(
                 top: 0,
-                left: 0,
-                child: Container(
-                  width: 387,
-                  height: 180,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage(
-                          'https://assets.api.uizard.io/api/cdn/stream/40264403-5d53-44bd-8dcf-5ad147ce1b6e.png'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                child: Image.network(
+                  'https://assets.api.uizard.io/api/cdn/stream/40264403-5d53-44bd-8dcf-5ad147ce1b6e.png',
+                  width: MediaQuery.of(context).size.width,
+                  fit: BoxFit.cover,
+                  height: 140,
                 ),
               ),
-              Positioned(
-                left: 22,
-                bottom: 83,
-                child: GestureDetector(
-  onTap: () {
-    Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ConversationListScreen()),
-              );
-  },
-                child: Container(
-                  width: 338,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFaad3ff),
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        spreadRadius: 2,
-                        blurRadius: 6,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: const Center(
-                    child: Text(
-                      'Log in',
-                      style: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontSize: 14,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              ),
-              const Positioned(
-                left: 90,
-                top: 200,
-                child: Text(
-                  'Welcome back!',
-                  style: TextStyle(
-                    fontFamily: 'Source Sans Pro',
-                    fontSize: 24,
-                    color: Color(0xFF030303),
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-              const Positioned(
-                left: 70,
-                top: 230,
-                child: Text(
-                  'We\'re glad to see you again',
-                  style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    fontSize: 16,
-                    color: Color(0xFF030303),
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 24,
-                top: 512,
-                child: Container(
-                  width: 105,
-                  height: 1,
-                  color: const Color(0xFFd3d3d3),
-                ),
-              ),
-              Positioned(
-                left: 258,
-                top: 512,
-                child: Container(
-                  width: 105,
-                  height: 1,
-                  color: const Color(0xFFd3d3d3),
-                ),
-              ),
-              Positioned(
-                left: 49,
-                top: 286,
-                child: Container(
-                  width: 277,
-                  height: 241,
-                  decoration: BoxDecoration(
-                    image: const DecorationImage(
-                      image: NetworkImage(
-                          'https://assets.api.uizard.io/api/cdn/stream/73b2653b-6556-474d-a368-12e16d8d2546.png'),
-                      fit: BoxFit.cover,
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        spreadRadius: 2,
-                        blurRadius: 6,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 279,
-                top: 482,
-                child: Container(
-                  width: 42,
-                  height: 39,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF14dc34),
-                    borderRadius: BorderRadius.circular(19.5),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        spreadRadius: 2,
-                        blurRadius: 6,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              
+Column(
+  mainAxisAlignment: MainAxisAlignment.center,
+  children: [
+    const SizedBox(height: 16),
+    Text(
+      'Welcome Back!',
+      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            fontSize: 28, // Increased font size for a more impactful appearance
+            fontWeight: FontWeight.bold, // Make text bold for emphasis
+            color: Color(0xFF030303), // Custom color, can adjust as needed
+          ),
+    ),
+    const SizedBox(height: 8), // Adjusted spacing between the texts
+    Text(
+      'Authenticate to continue',
+      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            fontSize: 20, // Slightly smaller than the welcome text for hierarchy
+            fontWeight: FontWeight.bold, // Also make this text bold for emphasis
+            color: Color(0xFF030303), // Consistent color for clear readability
+          ),
+    ),
+    const SizedBox(height: 40), // Space before the button
+    ElevatedButton(
+      onPressed: _authenticateWithBiometrics,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color(0xFF2F667F),
+        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15), // Button padding
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20), // Rounded corners for the button
+        ),
+      ),
+      child: const Text(
+        'Authenticate',
+        style: TextStyle(
+          fontFamily: 'Montserrat', // Font family for consistency
+          fontSize: 14, // Font size for the button text
+          color: Color.fromARGB(255, 243, 242, 242), // Color for the button text
+          fontWeight: FontWeight.bold, // Bold button text for emphasis
+        ),
+      ),
+    ),
+  ],
+)
+
+
+
             ],
           ),
         ),

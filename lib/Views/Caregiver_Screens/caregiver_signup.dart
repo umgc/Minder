@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:minder/Views/Caregiver_Screens/caregiver_patient_account_creation.dart';
+import 'package:minder/Views/Caregiver_Screens/caregiver_user_account_creation.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -29,11 +29,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       );
 
+      // If signUp succeeds, show the confirmation code dialog
       if (result.isSignUpComplete) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Sign up successful! Please check your email for the confirmation code.')));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Sign up successful. Please check your email for the confirmation code.')));
         _showConfirmationCodeDialog();
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Sign up successful! No confirmation needed.')));
       }
     } on AuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message)));
@@ -54,7 +53,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           TextButton(
             child: Text('Confirm'),
             onPressed: () async {
-              Navigator.of(context).pop(); // Close the dialog
+              Navigator.of(context).pop(); 
               await confirmSignUp(_confirmationCodeController.text.trim());
             },
           ),
@@ -73,7 +72,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       // Navigate to the next screen
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => PatientRegistrationScreen()), // Adjust this as needed
+        MaterialPageRoute(builder: (context) => UserRegistrationScreen()), // Adjust this as needed
       );
     } on CodeMismatchException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Incorrect confirmation code.")));

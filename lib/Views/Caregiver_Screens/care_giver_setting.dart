@@ -1,3 +1,7 @@
+// COntributors:  
+  // Developed by: Lensa Gemeda
+  // Code Cleanup: Elsa Bushen
+
 import 'package:flutter/material.dart';
 import 'package:minder/Views/Tour/caregiver_tour_guide_1.dart';
 import 'package:minder/Views/Welcome_screen/welcome.dart';
@@ -9,6 +13,8 @@ void main() {
   runApp(const Settings());
 }
 
+/// A StatelessWidget that represents the Settings screen of the application.
+/// This screen provides navigation to various features like Reminders, Guided Tour, and Support Center.
 class Settings extends StatelessWidget {
   const Settings({Key? key}) : super(key: key); // Updated for null safety
 
@@ -19,7 +25,7 @@ class Settings extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Settings'),
         ),
-        body: SingleChildScrollView( // Wrap the body in a SingleChildScrollView
+        body: SingleChildScrollView( 
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -46,7 +52,7 @@ class Settings extends StatelessWidget {
                     padding: const EdgeInsets.all(16.0),
                     child: Row(
                       children: [
-                        // Image
+                        
                         Image.asset(
                           'asset/images/minderlogo2.png',
                           width: 120,
@@ -54,10 +60,10 @@ class Settings extends StatelessWidget {
                         ),
                         const SizedBox(width: 16),
                         // Profile Information Text and Edit Icon
-                        Expanded(
+                        const Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
+                            children: [
                               Text(
                                 'Hey Caregiver',
                                 style: TextStyle(
@@ -67,7 +73,7 @@ class Settings extends StatelessWidget {
                               ),
                               SizedBox(height: 8),
                               Text(
-                                'Minder made helping your User easy!',
+                                'Tap into Minders settings to streamline your caregiving journey!',
                                 style: TextStyle(
                                   color: Color.fromARGB(255, 119, 119, 119),
                                 ),
@@ -77,14 +83,16 @@ class Settings extends StatelessWidget {
                         ),
                         const Align(
                           alignment: Alignment.topRight,
-                          child: Icon(Icons.navigate_next, size: 36),
+                          
+                          
                         ),
                       ],
                     ),
                   ),
                 ),
                 const SizedBox(height: 25),
-                // Reminders, Guided Tour, Support Center Boxes
+                
+                // Container holding list items for navigation: Reminders, Guided Tour, and Support Center.
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
@@ -107,8 +115,8 @@ class Settings extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
-                // The Spacer is not effective in SingleChildScrollView and is removed.
-                // Sign Out Button
+               
+                // Sign Out button that performs user sign-out using Amplify.Auth.
                 ElevatedButton(
                   onPressed: () async {
                     try {
@@ -139,6 +147,7 @@ class Settings extends StatelessWidget {
     );
   }
 
+  /// Each ListTile represents an actionable item leading to a different part of the app.
   Widget buildListItem(String title, IconData icon, BuildContext context) {
     return ListTile(
       leading: Icon(icon),
@@ -165,7 +174,6 @@ class Settings extends StatelessWidget {
             );
             break;
           default:
-            // Optionally, handle unexpected cases
             break;
         }
         print('$title tapped');

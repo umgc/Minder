@@ -49,8 +49,7 @@ dependencies:
   timezone: ^0.8.0 
   flutter_sound: ^9.2.13  
   flutter_ffmpeg: ^0.4.1  
-  video_player: ^2.2.13
-
+  video_player: ^2.8.3
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
@@ -61,6 +60,11 @@ dependencies:
   intl: ^0.17.0 # For date formatting
   sqflite: ^2.0.0+3
   sqlite_viewer: ^1.0.5
+  uuid: ^3.0.7
+  flutter_config: ^2.0.2
+  http: ^1.2.1
+  mockito: ^5.0.15
+  
 
 dev_dependencies:
   flutter_test:
@@ -100,6 +104,9 @@ flutter:
     - asset/images/profile.jpg
     - asset/sound/piano-logo-108963.mp3
     - asset/images/minderlogo2.png
+    - asset/images/sound-blue-effect.png
+    - asset/images/white-background_sound.jpg
+    - asset/images/signupcomplete.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

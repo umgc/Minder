@@ -1,3 +1,6 @@
+//work on progress 
+  //Drafted by: Elsa Bushen
+
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_sound/flutter_sound.dart';
@@ -74,11 +77,7 @@ class _AudioRecorderScreenState extends State<VoiceRecognitionSetupScreen> {
   @override
 Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            title: IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () => Navigator.pop(context),
-            ),
+        appBar: AppBar(            
         ),
         body: Center(
             child: Column(

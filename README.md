@@ -39,6 +39,49 @@ List any software or tools that users need to install before using your app. Inc
    - For cloud-based storage, we use AWS (Amazon Web Services). You'll need an AWS account to set up and configure cloud storage functionalities.
      - [AWS Documentation](https://aws.amazon.com/getting-started/)
 
+5. ** AWS Amplify:**
+## AWS Amplify Configuration
+
+To enhance Minder with cloud functionalities, we use AWS Amplify. Follow these steps to configure AWS Amplify for the app:
+
+### Setting Up AWS Amplify
+
+      - **Install the Amplify CLI:**
+         - Ensure you have Node.js installed on your machine. Then, install the AWS Amplify CLI globally using npm:
+         ```bash
+         npm install -g @aws-amplify/cli
+         ```
+
+      - **Configure Amplify:**
+         - Run the following command and follow the prompts to configure the CLI with your AWS account:
+         ```bash
+         amplify configure
+         ```
+         - Sign into the AWS Management Console when prompted and complete the configuration steps.
+
+      - **Initialize Amplify in your project:**
+         - Navigate to your project directory and initialize Amplify:
+         ```bash
+         amplify init
+         ```
+         - Answer the questions to specify the name of your environment, your preferred text editor, and other configuration options.
+
+      - **Add Amplify Categories:**
+         - Add any required categories (e.g., auth, api, storage) to your project. For example, to add authentication, you can use:
+         ```bash
+         amplify add auth
+         ```
+         - Follow the prompts to configure each category according to your needs.
+
+      - **Push Changes to the Cloud:**
+         - Apply your changes and deploy your backend to the cloud with:
+         ```bash
+         amplify push
+         ```
+
+Please refer to the [AWS Amplify Documentation](https://docs.amplify.aws/) for more detailed instructions and advanced configurations.
+
+
 ## Installation
 
 Follow these steps to set up and run the app:
@@ -53,5 +96,17 @@ Follow these steps to set up and run the app:
 
    flutter run
 
- 
+
+   
+
+## Team Members ✨
+- [@ElsaBushen](https://github.com/ElsaBushen) 
+- [@LensaGemeda](https://github.com/LensaC) 
+- [@JohnnGuyen](https://github.com/Johnnguyen616) 
+- [@GabrielMoreno](https://github.com/MrGESM) 
+- [@SayedShahMahbobi](https://github.com/Mahbobi) 
+- [@KathleenHampton](https://github.com/kbrig573) 
+- [@VinroyJones ](https://github.com/geajonesv) 
+- [@HellenOjwang](https://github.com/Hellenoj) 
+
 
