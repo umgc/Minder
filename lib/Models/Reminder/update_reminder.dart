@@ -1,3 +1,6 @@
+//Contributors 
+  // Functionality and UI Developed by Elsa Bushen
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:minder/Services/sqflite_database.dart';

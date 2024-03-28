@@ -1,3 +1,6 @@
+//Contributors 
+  // Developed by Lensa Gemeda
+
 import 'package:flutter/material.dart';
 import 'package:minder/Views/User_Screens/user_login.dart';
 import '../Caregiver_Screens/caregiver_login.dart';
@@ -24,7 +27,7 @@ class SplashScreen extends StatelessWidget {
         children: [
           // Background Image
           Image.network(
-            'https://greaterpublic.org/app/uploads/2024/01/iStock-1801206399.jpg', // Replace with your image URL
+            'https://greaterpublic.org/app/uploads/2024/01/iStock-1801206399.jpg', 
             fit: BoxFit.cover,
           ),
 

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-// Import the required screen
 import 'package:minder/Views/Caregiver_Screens/caregiver_user_account_creation.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -73,7 +72,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       // Navigate to the next screen
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => PatientRegistrationScreen()), // Adjust this as needed
+        MaterialPageRoute(builder: (context) => UserRegistrationScreen()), // Adjust this as needed
       );
     } on CodeMismatchException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Incorrect confirmation code.")));

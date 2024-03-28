@@ -63,6 +63,7 @@ dependencies:
   uuid: ^3.0.7
   flutter_config: ^2.0.2
   http: ^1.2.1
+  mockito: ^5.0.15
   
 
 dev_dependencies:

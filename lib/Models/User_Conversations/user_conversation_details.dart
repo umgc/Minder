@@ -1,5 +1,10 @@
-import 'dart:io';
+//Contributors 
+  // Functionality and UI Developed by Lensa Gemeda
+  // Whisper Integration - Lensa Gemeda
+  // Chat Gpt Integration - Lensa Gemeda
+  // Code cleanup - Elsa Bushen
 
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -288,22 +293,22 @@ Future<void> deleteConversationEntry(String id) async {
                 buildTileButton(
                   'Full Conversation',
                   Icons.message,
-                  fontSize: 10,
+                  fontSize: 8,
                 ),
                 buildTileButton(
-                  'Summary              ',
+                  'Summary',
                   Icons.notifications,
-                  fontSize: 10,
+                  fontSize: 8,
                 ),
                 buildTileButton(
-                  'Reminder             ',
+                  'Reminder',
                   Icons.notifications,
-                  fontSize: 10,
+                  fontSize: 8,
                 ),
                 buildTileButton(
-                  'Note                         ',
+                  'Note',
                   Icons.note,
-                  fontSize: 10,
+                  fontSize: 8,
                 ),
               ],
             ),
@@ -405,7 +410,7 @@ Future<void> deleteConversationEntry(String id) async {
         ]),),
         
           );
-      case 'Summary              ':
+      case 'Summary':
         return Container(
           color: Colors.grey[200],
           padding: const EdgeInsets.all(16),
@@ -422,7 +427,7 @@ Future<void> deleteConversationEntry(String id) async {
         Text(_summary)
         ],),),
         );
-      case 'Reminder             ':
+      case 'Reminder':
         return Container(
           color: const Color.fromARGB(0, 238, 238, 238),
           padding: const EdgeInsets.all(16),
@@ -435,7 +440,7 @@ Future<void> deleteConversationEntry(String id) async {
         : Text(_reminder),
           
         );
-    case 'Note                         ':
+    case 'Note':
   return Column(
     children: [
       ElevatedButton.icon(

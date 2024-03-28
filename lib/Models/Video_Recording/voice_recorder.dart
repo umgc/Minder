@@ -1,7 +1,10 @@
+//Contributors 
+  // Functionality and UI Development Input Lensa Gemeda
+  // Code and UI Cleanup - Elsa Bushen
+
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:minder/Models/User_Conversations/user_conversation_list.dart';

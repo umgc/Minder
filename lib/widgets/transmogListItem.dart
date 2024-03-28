@@ -1,3 +1,6 @@
+//Contributors 
+  // Developed by Lensa Gemeda
+  
 import 'package:flutter/material.dart';
 
 class TransmogListItem extends StatelessWidget {

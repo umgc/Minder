@@ -1,7 +1,11 @@
+//Contributors 
+  // UI Developed by Lensa Gemeda
+  // Development contribution by Gabriel Moreno
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:minder/Views/Tour/caregiver_tour_guide_2.dart';
+
+
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 void main() {
@@ -80,30 +84,92 @@ class ConversationListScreenState extends State<ConversationListTourScreen> {
           SizedBox(height: 20),
           buildConversationBox('Doctor Appointment', Colors.black, 'Aug 28', const Color.fromARGB(255, 168, 216, 255), true, keyButton ),
           buildConversationBox('Salon Appointment', Colors.black, 'Aug 28', const Color.fromARGB(255, 168, 216, 255), false, keyButton),
-          buildConversationBox('Breakfast with John', Colors.black, 'Aug 28', const Color.fromARGB(255, 168, 216, 255), false, keyButton),
+          buildConversationBox('Breakfast with John', const Color.fromARGB(255, 10, 10, 10), 'Aug 28', const Color.fromARGB(255, 168, 216, 255), false, keyButton),
           Spacer(),
-          ElevatedButton(
+          // ElevatedButton(
             
-            onPressed: () {
-              // Handle record button press
-            },
-            style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.all(16),
-              backgroundColor: Color.fromRGBO(47, 102, 127, 1),
+          //   onPressed: () {
+          //     // Handle record button press
+          //   },
+          //   style: ElevatedButton.styleFrom(
+          //     padding: EdgeInsets.all(16),
+          //     backgroundColor: Color.fromRGBO(47, 102, 127, 1),
+          //   ),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: [
+          //       Icon(Icons.videocam, color: Colors.white),
+          //       SizedBox(width: 8),
+          //       Text(
+          //         'Record',
+          //         key: keyButton1,
+          //         style: TextStyle(fontSize: 18, color: Colors.white),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          Row(
+            key: keyButton1,
+          children: [
+            Expanded(
+              child:
+            ElevatedButton(
+              onPressed: () {
+                // Handle record button press
+              //  Navigator.push(
+              //     context,
+              //     MaterialPageRoute(
+              //       builder: (context) => CameraPage(),
+              //        ),
+              //   );
+              },
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.all(16),
+                backgroundColor: Color.fromRGBO(47, 102, 127, 1),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.videocam, color: Colors.white),
+                  SizedBox(width: 8),
+                  Text(
+                    'Video Record',
+                    style: TextStyle(fontSize: 18, color: Colors.white),
+                  ),
+                ],
+              ),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.videocam, color: Colors.white),
-                SizedBox(width: 8),
-                Text(
-                  'Record',
-                  key: keyButton1,
-                  style: TextStyle(fontSize: 18, color: Colors.white),
-                ),
-              ],
             ),
-          ),
+            Expanded(child: 
+            ElevatedButton(
+              onPressed: () {
+                //  Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => AudioRecorderScreen(),
+                //      ),
+                // );
+               
+              },
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.all(16),
+                backgroundColor: Color.fromRGBO(47, 102, 127, 1),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.mic, color: Colors.white),
+                  SizedBox(width: 8),
+                  Text(
+                    'Voice Record',
+                    style: TextStyle(fontSize: 18, color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
+            ),
+          ],
+        ),
         ],
       ),
     );
@@ -226,9 +292,12 @@ class ConversationListScreenState extends State<ConversationListTourScreen> {
       "Buying grocery",
       style: TextStyle(fontSize: 18),
     ),
+    IconButton(
+          icon: Icon(Icons.edit, color: Colors.blue), onPressed: () {  },),
     SizedBox(width: 10), // Adjust the width as needed
     Row(
       children: [
+        
         IconButton(
           icon: Icon(Icons.close, color: const Color.fromARGB(255, 0, 0, 0)),
           onPressed: () {

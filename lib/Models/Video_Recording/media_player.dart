@@ -1,3 +1,7 @@
+//Contributors 
+  // Functionality and UI Development Input Lensa Gemeda
+  // Functionality and UI Development Input - Elsa Bushen
+  
 import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
