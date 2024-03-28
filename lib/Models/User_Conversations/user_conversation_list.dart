@@ -9,7 +9,7 @@ import 'package:minder/Views/Welcome_screen/welcome.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
-
+import 'package:http/http.dart' as http;
 import 'package:minder/Models/User_Conversations/user_conversation_details.dart';
 import 'package:minder/Models/Video_Recording/camera.dart';
 import 'package:minder/Models/Video_Recording/voice_recorder.dart';
@@ -35,6 +35,20 @@ class ConversationListScreen extends StatefulWidget {
 }
 
 class _ConversationListScreenState extends State<ConversationListScreen> {
+ List<Map<String, String>> _messages = [
+    {
+      "role": "system",
+      "content": "You are a helpful assistant designed to output JSON."
+    }
+  ];
+
+
+  String _fullconv = '';
+  bool _loading = false;
+  String _sname ='';
+  String API_URL = "https://api.openai.com/v1/audio/transcriptions";
+  String _apiKey =''; //replace the key
+  
   Map<String, IconData> conversationTypeIcons = {
     'video': Icons.videocam,
     'audio': Icons.mic,
@@ -48,7 +62,34 @@ class _ConversationListScreenState extends State<ConversationListScreen> {
   void initState() {
     super.initState();
     loadConversations();
+    printNewSectionChildren(context, buildNewSection('Conversation draft'));
   }
+
+void printNewSectionChildren(BuildContext context, Widget widget) {
+  print(widget); // Print the current widget
+  print("here");
+
+  // Check if the widget has multiple children
+  if (widget is MultiChildRenderObjectWidget) {
+    final List<Widget> children = widget.children.toList();
+
+    // Recursively print children
+    for (final child in children) {
+      printNewSectionChildren(context, child);
+    }
+  }
+  // Check if the widget has a single child
+  else if (widget is SingleChildRenderObjectWidget) {
+    final Widget? child = widget.child;
+
+    // Recursively print child
+    if (child != null) {
+      printNewSectionChildren(context, child);
+    }
+  }
+}
+
+
 
   Future<void> loadConversations() async {
     try {
@@ -69,15 +110,16 @@ class _ConversationListScreenState extends State<ConversationListScreen> {
     }
   }
 
-  Future<void> saveConversationsToJSON() async {
-    final directory =
-        await path_provider.getApplicationDocumentsDirectory();
-    final filePath = '${directory.path}/recordings.json';
+ Future<void> saveConversationsToJSON() async {
+  final directory = await path_provider.getApplicationDocumentsDirectory();
+  final filePath = '${directory.path}/recordings.json';
 
-    final jsonList =
-        conversations.map((conversation) => conversation.toJson()).toList();
-    await File(filePath).writeAsString(jsonEncode(jsonList));
-  }
+  final jsonList = conversations.map((conversation) => conversation.toJson()).toList();
+  await File(filePath).writeAsString(jsonEncode(jsonList));
+}
+
+
+
 
   void filterConversations(String query) {
     setState(() {
@@ -126,6 +168,86 @@ class _ConversationListScreenState extends State<ConversationListScreen> {
       print('Error deleting conversation: $e');
     }
   }
+// logic for generating name
+Future<void> convertSpeechToText(Conversation conversation, int index) async {
+  setState(() {
+    _loading = true;
+  });
+  var request = http.MultipartRequest('POST', Uri.parse(API_URL));
+  request.headers['Authorization'] = 'Bearer $_apiKey';
+  request.headers['Content-Type'] = 'multipart/form-data';
+
+  var audioFile = await http.MultipartFile.fromPath('file', conversation.fileLocation);
+  request.files.add(audioFile);
+
+  request.fields['timestamp_granularities[]'] = 'word';
+  request.fields['model'] = 'whisper-1';
+  request.fields['response_format'] = 'verbose_json';
+
+  http.StreamedResponse response = await request.send();
+  if (response.statusCode == 200) {
+    String responseBody = await response.stream.transform(utf8.decoder).join();
+    _fullconv = jsonDecode(responseBody)['text'];
+    if (_fullconv != null) {
+      String sname = await getName(conversation,_fullconv, index); 
+      
+      setState(() {
+        conversation.sname = sname;
+      });
+    }
+    print(_fullconv);
+  } else {
+    print('Error: ${response.reasonPhrase}');
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Error sending request')),
+    );
+  }
+}
+
+Future<String> getName(Conversation conversation,String message, int index) async {
+  setState(() {
+    _messages.add({"role": "user", "content": '"$message" Please provide the following :    name: (analyze the conversation and suggest the appropriate name)'});
+    print(_messages);
+  });
+
+  final response = await http.post(
+    Uri.parse('https://api.openai.com/v1/chat/completions'),
+    headers: <String, String>{
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $_apiKey',
+    },
+    body: jsonEncode(<String, dynamic>{
+      "model": "gpt-3.5-turbo-0125",
+      "response_format": {"type": "json_object"},
+      "messages": _messages,
+    }),
+  );
+
+  if (response.statusCode == 200) {
+    _loading = false;
+    Map<String, dynamic> data = jsonDecode(response.body);
+    try {
+      print(jsonDecode(data['choices'][0]['message']['content'])['name']);
+      String sname = jsonDecode(data['choices'][0]['message']['content'])['name'];
+
+      // Update the conversation's sname property
+      setState(() {
+        conversation.sname = sname;
+      });
+
+      // Save the updated conversation list to JSON
+      saveConversationsToJSON();
+
+      // Return the name
+      return sname;
+    } catch (e) {
+      print(e);
+    }
+  } else {
+    print('Failed to send message: ${response.statusCode} - ${response.body}');
+  }
+  return ''; // Return empty string if no name is found
+}
 
   @override
   Widget build(BuildContext context) {
@@ -345,7 +467,7 @@ Widget buildSectionDraft(String title, String filter) {
 Widget buildNewSection(String title) {
   final hasDraft = conversations.any((conversation) => conversation.saved == 0);
   if (!hasDraft) {
-    return SizedBox();  
+    return SizedBox();
   }
 
   final draftConversations = filteredConversations.where((conversation) => conversation.saved == 0).toList();
@@ -372,8 +494,15 @@ Widget buildNewSection(String title) {
   );
 }
 
+
 Widget buildNewBox(Conversation conversation, int index) {
   String editedName = conversation.convName.toString();
+  if (conversation.sname.isEmpty && !_loading) {
+    _loading = true;
+    print("need to call chatGPT");
+    //need to call chatGPT
+    convertSpeechToText(conversation, index);
+  }
 
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -401,128 +530,132 @@ Widget buildNewBox(Conversation conversation, int index) {
         ),
         const SizedBox(width: 7), // Adjust the width as needed
         Expanded(
-          child: Text(
-            editedName,
-            style: TextStyle(fontSize: 18),
-            overflow: TextOverflow.ellipsis,
-          ),
+          child: _loading
+              ? Center(child: CircularProgressIndicator()) // Show loading indicator
+              : Flexible(
+                  child: Text(
+                    conversation.sname.isNotEmpty ? conversation.sname : _sname,
+                    style: TextStyle(fontSize: 18),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
         ),
         IconButton(
           icon: Icon(Icons.edit, color: Colors.blue),
-onPressed: () {
-  editedName = conversation.convName;
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text("Edit Conversation Name"),
-        content: TextField(
-          controller: TextEditingController(text: editedName),  // Initialize the text field with the current conversation name
-          onChanged: (value) {
-            print(value);
-              if (value.isEmpty) {
-                return; // Don't update state if the value is empty
-              }
-              setState(() {
-                editedName = value;
-              });
+          onPressed: () {
+            editedName = conversation.sname;
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text("Edit Conversation Name"),
+                  content: TextField(
+                    controller: TextEditingController(text: editedName),  // Initialize the text field with the current conversation name
+                    onChanged: (value) {
+                      print(value);
+                      if (value.isEmpty) {
+                        return; // Don't update state if the value is empty
+                      }
+                      setState(() {
+                        editedName = value;
+                      });
+                    },
+                    decoration: InputDecoration(hintText: "Enter new name"),
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context); // Close the dialog without saving
+                      },
+                      child: Text("Cancel"),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        conversation.sname = editedName; 
+                        setState(() {
+                          // Create a new Conversation object with the edited name
+                          Conversation updatedConversation = Conversation(
+                            id: conversation.id,
+                            convName: editedName,
+                            summary: conversation.summary,
+                            fileLocation: conversation.fileLocation,
+                            type: conversation.type,
+                            date: conversation.date,
+                            notes: conversation.notes,
+                            rem: conversation.rem,
+                            sname: conversation.sname.isNotEmpty ? conversation.sname : _sname, // Update sname based on _sname if empty
+                            saved: conversation.saved,
+                          );
 
-          },
-          decoration: InputDecoration(hintText: "Enter new name"),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context); // Close the dialog without saving
-            },
-            child: Text("Cancel"),
-          ),
-          TextButton(
-            onPressed: () {
-              setState(() {
-                // Create a new Conversation object with the edited name
-                Conversation updatedConversation = Conversation(
-                  id: conversation.id,
-                  convName: editedName,
-                  summary: conversation.summary,
-                  fileLocation: conversation.fileLocation,
-                  type: conversation.type,
-                  date: conversation.date,
-                  notes: conversation.notes,
-                  rem: conversation.rem,
-                  saved: conversation.saved,
+                          // Finding the index of the existing conversation
+                          int conversationIndex = conversations.indexOf(conversation);
+
+                          // replacing the existing conversation with the updated one
+                          conversations[conversationIndex] = updatedConversation;
+
+                          // Save the updated conversation list to JSON file
+                          saveConversationsToJSON();
+                        });
+                        Navigator.pop(context);
+                        loadConversations();
+                      },
+                      child: Text("Save"),
+                    ),
+                  ],
                 );
-
-                // Finding the index of the existing conversation
-                int conversationIndex = conversations.indexOf(conversation);
-
-                // replacing the existing conversation with the updated one
-                conversations[conversationIndex] = updatedConversation;
-
-                // Save the updated conversation list to JSON file
-                saveConversationsToJSON();
-              });
-              Navigator.pop(context); 
-              loadConversations();
-            },
-            child: Text("Save"),
-          ),
-        ],
-      );
-    },
-  );
-},
-
+              },
+            );
+          },
         ),
         const SizedBox(width: 7), 
-       Padding(
-  padding: const EdgeInsets.symmetric(horizontal: 20), // Adds horizontal padding to the whole row
-  child: Row(
-    mainAxisAlignment: MainAxisAlignment.spaceEvenly, // Distributes space evenly between and around the children
-    children: [
-      IconButton(
-        icon: const Icon(Icons.close, color: Color.fromARGB(255, 0, 0, 0)),
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: Text("Delete Conversation"),
-                content: Text("Are you sure you want to delete this conversation?"),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20), // Adds horizontal padding to the whole row
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly, // Distributes space evenly between and around the children
+            children: [
+              IconButton(
+                icon: const Icon(Icons.close, color: Color.fromARGB(255, 0, 0, 0)),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text("Delete Conversation"),
+                        content: Text("Are you sure you want to delete this conversation?"),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text("Cancel"),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              deleteConversation(conversation.id); // Call deleteConversation function with conversation ID
+                              Navigator.pop(context);
+                            },
+                            child: Text("Delete"),
+                          ),
+                        ],
+                      );
                     },
-                    child: Text("Cancel"),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      deleteConversation(conversation.id); // Call deleteConversation function with conversation ID
-                      Navigator.pop(context);
-                    },
-                    child: Text("Delete"),
-                  ),
-                ],
-              );
-            },
-          );
-        },
-      ),
-      SizedBox(width: 7), // Maintains consistent spacing with the provided layout
-      IconButton(
-        icon: const Icon(Icons.check, color: Colors.green),
-        onPressed: () {
-          setState(() {
-            conversation.saved = 1; // Change saved value to 1
-          });
-          saveConversationsToJSON(); // Save the updated conversation list to JSON file
-        },
-      ),
-    ],
-  ),
-)
-
+                  );
+                },
+              ),
+              SizedBox(width: 7), // Maintains consistent spacing with the provided layout
+              IconButton(
+                icon: const Icon(Icons.check, color: Colors.green),
+                onPressed: () {
+                  setState(() {
+                    conversation.convName = conversation.sname;
+                    conversation.saved = 1; // Change saved value to 1
+                  });
+                  saveConversationsToJSON(); // Save the updated conversation list to JSON file
+                },
+              ),
+            ],
+          ),
+        )
       ],
     ),
   );
@@ -597,13 +730,14 @@ onPressed: () {
 }
 class Conversation {
   final String id;
-  final String convName; 
+   String convName; 
   final String summary;
   final String fileLocation;
   final String type;
   final String date;
    String notes;
   final String rem;
+   String sname;
   int saved;
   Conversation({
     String? id,
@@ -614,6 +748,7 @@ class Conversation {
     required this.notes,
     required this.date,
     required this.rem,
+    this.sname = '',
     this.saved = 0,
   }) : id = id ?? Uuid().v4();
 
@@ -621,6 +756,7 @@ class Conversation {
     return Conversation(
       id: json['id'].toString(), // Convert int to string using toString()
       convName: json['convName'] as String? ?? '', // Provide a default empty string if convName is null
+      sname: json['sname'] as String? ?? '',
       date: json['date'] as String? ?? '', // Provide a default empty string if date is null
       fileLocation: json['fileLocation'] as String? ?? '', 
       summary: json['summary'] as String? ?? '', 
@@ -634,6 +770,7 @@ class Conversation {
     return {
       'id': id,
       'convName': convName,
+      'sname':sname,
       'summary': summary,
       'fileLocation': fileLocation,
       'type': type,

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:minder/Models/User_Conversations/user_conversation_list.dart';
 import 'package:minder/Views/Tour/caregiver_tour_guide_1.dart'; 
 import 'package:minder/Views/Welcome_screen/welcome.dart'; 
 import 'package:minder/Config/amplifyconfigutation.dart';
@@ -63,7 +64,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SplashScreen(),     
+      home: ConversationListScreen(),     
     );
   }
 }
