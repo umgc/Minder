@@ -64,6 +64,16 @@ dependencies:
   flutter_config: ^2.0.2
   http: ^1.2.1
   mockito: ^5.0.15
+  dev_dependencies:
+  flutter_launcher_icons: "^0.9.2"
+
+  flutter_icons:
+    android: true 
+    ios: true
+    image_path: "asset\images\minderlogo2.png"  # Path to your main icon image
+    adaptive_icon_background: "#FFFFFF"  # A solid color for the background
+    adaptive_icon_foreground: "asset\images\minderlogo2.png"  # The same icon for the foreground
+
   
 
 dev_dependencies:
