@@ -64,6 +64,7 @@ dependencies:
   flutter_config: ^2.0.2
   http: ^1.2.1
   mockito: ^5.0.15
+  dotenv: ^4.1.2
   
 
 dev_dependencies:
