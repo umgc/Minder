@@ -45,7 +45,7 @@ List<Conversation> conversationList = [];
   bool _isLoadingR = false;
   bool _isLoadingS = false;
  String API_URL = "https://api.openai.com/v1/audio/transcriptions";
- String _apiKey = Platform.environment['OPENAI_API_KEY']!; 
+ String _apiKey = const String.fromEnvironment('OPENAI_API_KEY');
  List<Map<String, String>> _messages = [
     {
       "role": "system",
