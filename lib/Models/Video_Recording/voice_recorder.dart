@@ -13,7 +13,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:uuid/uuid.dart';
 class RecordingData {
   final String id;
-  final String convName; 
+   String convName; 
+  String sname;
   final String summary;
   final String fileLocation;
   final String type;
@@ -26,6 +27,7 @@ class RecordingData {
   RecordingData({
     String? id,
     required this.convName,
+    this.sname ='',
     required this.summary,
     required this.fileLocation,
     required this.type,
@@ -41,6 +43,7 @@ class RecordingData {
     return {
       'id': id,
       'convName': convName,
+      'sname': sname,
       'summary': summary,
       'fileLocation': fileLocation,
       'type': type,
@@ -166,6 +169,7 @@ class _AudioRecorderScreenState extends State<AudioRecorderScreen> {
     final recordingData = RecordingData(
       id: _id,
       convName: 'Conversation', 
+      sname: '',
       summary: '',
       fileLocation: _path,
       type: '',
