@@ -47,7 +47,7 @@ class _ConversationListScreenState extends State<ConversationListScreen> {
   bool _loading = false;
   String _sname ='';
   String API_URL = "https://api.openai.com/v1/audio/transcriptions";
-  String _apiKey =''; //replace the key
+  String _apiKey = const String.fromEnvironment('OPENAI_API_KEY');
   
   Map<String, IconData> conversationTypeIcons = {
     'video': Icons.videocam,
