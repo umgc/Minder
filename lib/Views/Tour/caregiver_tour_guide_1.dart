@@ -133,7 +133,7 @@ class ConversationListScreenState extends State<ConversationListTourScreen> {
                   Icon(Icons.videocam, color: Colors.white),
                   SizedBox(width: 8),
                   Text(
-                    'Video Record',
+                    'Video',
                     style: TextStyle(fontSize: 18, color: Colors.white),
                   ),
                 ],
@@ -161,7 +161,7 @@ class ConversationListScreenState extends State<ConversationListTourScreen> {
                   Icon(Icons.mic, color: Colors.white),
                   SizedBox(width: 8),
                   Text(
-                    'Voice Record',
+                    'Voice',
                     style: TextStyle(fontSize: 18, color: Colors.white),
                   ),
                 ],
@@ -289,8 +289,9 @@ class ConversationListScreenState extends State<ConversationListTourScreen> {
     ),
     SizedBox(width: 10), // Adjust the width as needed
     Text(
-      "Buying grocery",
+      "Grocery",
       style: TextStyle(fontSize: 18),
+      overflow: TextOverflow.ellipsis, 
     ),
     IconButton(
           icon: Icon(Icons.edit, color: Colors.blue), onPressed: () {  },),
