@@ -82,9 +82,9 @@ class ConversationListScreenState extends State<ConversationListTourScreen> {
           
           buildSectionDraft('Conversations', 'View All'),
           SizedBox(height: 20),
-          buildConversationBox('Doctor Appointment', Colors.black, 'Aug 28', const Color.fromARGB(255, 168, 216, 255), true, keyButton ),
-          buildConversationBox('Salon Appointment', Colors.black, 'Aug 28', const Color.fromARGB(255, 168, 216, 255), false, keyButton),
-          buildConversationBox('Breakfast with John', const Color.fromARGB(255, 10, 10, 10), 'Aug 28', const Color.fromARGB(255, 168, 216, 255), false, keyButton),
+          buildConversationBox('Doctor call', Colors.black, 'Aug 28', const Color.fromARGB(255, 168, 216, 255), true, keyButton ),
+          buildConversationBox('Spa day.', Colors.black, 'Aug 28', const Color.fromARGB(255, 168, 216, 255), false, keyButton),
+          buildConversationBox('With John', const Color.fromARGB(255, 10, 10, 10), 'Aug 28', const Color.fromARGB(255, 168, 216, 255), false, keyButton),
           Spacer(),
           // ElevatedButton(
             
@@ -289,7 +289,7 @@ class ConversationListScreenState extends State<ConversationListTourScreen> {
     ),
     SizedBox(width: 10), // Adjust the width as needed
     Text(
-      "Grocery",
+      "Shop",
       style: TextStyle(fontSize: 18),
       overflow: TextOverflow.ellipsis, 
     ),
